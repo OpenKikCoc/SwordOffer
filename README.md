@@ -1,11 +1,83 @@
 ### SwordOffer
 SwordOffer Solutions
 
-[toc]
+- [SwordOffer](#swordoffer)
+  - [03.数组中重复的数字 [EASY]](#03%e6%95%b0%e7%bb%84%e4%b8%ad%e9%87%8d%e5%a4%8d%e7%9a%84%e6%95%b0%e5%ad%97-easy)
+  - [04.二维数组中的查找 [EASY]](#04%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e6%9f%a5%e6%89%be-easy)
+  - [05.替换空格 [EASY]](#05%e6%9b%bf%e6%8d%a2%e7%a9%ba%e6%a0%bc-easy)
+  - [06.从尾到头打印链表 [EASY]](#06%e4%bb%8e%e5%b0%be%e5%88%b0%e5%a4%b4%e6%89%93%e5%8d%b0%e9%93%be%e8%a1%a8-easy)
+  - [07. 重建二叉树 [MID]](#07-%e9%87%8d%e5%bb%ba%e4%ba%8c%e5%8f%89%e6%a0%91-mid)
+  - [09. 用两个栈实现队列 [EASY]](#09-%e7%94%a8%e4%b8%a4%e4%b8%aa%e6%a0%88%e5%ae%9e%e7%8e%b0%e9%98%9f%e5%88%97-easy)
+  - [10- I. 斐波那契数列 [EASY]](#10--i-%e6%96%90%e6%b3%a2%e9%82%a3%e5%a5%91%e6%95%b0%e5%88%97-easy)
+  - [10- II. 青蛙跳台阶问题 [EASY]](#10--ii-%e9%9d%92%e8%9b%99%e8%b7%b3%e5%8f%b0%e9%98%b6%e9%97%ae%e9%a2%98-easy)
+  - [11. 旋转数组的最小数字 [EASY]](#11-%e6%97%8b%e8%bd%ac%e6%95%b0%e7%bb%84%e7%9a%84%e6%9c%80%e5%b0%8f%e6%95%b0%e5%ad%97-easy)
+  - [12. 矩阵中的路径 [MID]](#12-%e7%9f%a9%e9%98%b5%e4%b8%ad%e7%9a%84%e8%b7%af%e5%be%84-mid)
+  - [13. 机器人的运动范围 [MID]](#13-%e6%9c%ba%e5%99%a8%e4%ba%ba%e7%9a%84%e8%bf%90%e5%8a%a8%e8%8c%83%e5%9b%b4-mid)
+  - [14- I. 剪绳子 [MID]](#14--i-%e5%89%aa%e7%bb%b3%e5%ad%90-mid)
+  - [14- II. 剪绳子 II [MID]](#14--ii-%e5%89%aa%e7%bb%b3%e5%ad%90-ii-mid)
+  - [15. 二进制中1的个数 [EASY]](#15-%e4%ba%8c%e8%bf%9b%e5%88%b6%e4%b8%ad1%e7%9a%84%e4%b8%aa%e6%95%b0-easy)
+  - [16. 数值的整数次方 [MID]](#16-%e6%95%b0%e5%80%bc%e7%9a%84%e6%95%b4%e6%95%b0%e6%ac%a1%e6%96%b9-mid)
+  - [17. 打印从1到最大的n位数 [EASY]](#17-%e6%89%93%e5%8d%b0%e4%bb%8e1%e5%88%b0%e6%9c%80%e5%a4%a7%e7%9a%84n%e4%bd%8d%e6%95%b0-easy)
+  - [18. 删除链表的节点 [EASY]](#18-%e5%88%a0%e9%99%a4%e9%93%be%e8%a1%a8%e7%9a%84%e8%8a%82%e7%82%b9-easy)
+  - [19. 正则表达式匹配 [HARD]](#19-%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e5%8c%b9%e9%85%8d-hard)
+  - [20. 表示数值的字符串 [MID]](#20-%e8%a1%a8%e7%a4%ba%e6%95%b0%e5%80%bc%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
+  - [21. 调整数组顺序使奇数位于偶数前面 [EASY]](#21-%e8%b0%83%e6%95%b4%e6%95%b0%e7%bb%84%e9%a1%ba%e5%ba%8f%e4%bd%bf%e5%a5%87%e6%95%b0%e4%bd%8d%e4%ba%8e%e5%81%b6%e6%95%b0%e5%89%8d%e9%9d%a2-easy)
+  - [22. 链表中倒数第k个节点 [EASY]](#22-%e9%93%be%e8%a1%a8%e4%b8%ad%e5%80%92%e6%95%b0%e7%ac%ack%e4%b8%aa%e8%8a%82%e7%82%b9-easy)
+  - [24. 反转链表 [EASY]](#24-%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8-easy)
+  - [25. 合并两个排序的链表 [EASY]](#25-%e5%90%88%e5%b9%b6%e4%b8%a4%e4%b8%aa%e6%8e%92%e5%ba%8f%e7%9a%84%e9%93%be%e8%a1%a8-easy)
+  - [26. 树的子结构 [MID]](#26-%e6%a0%91%e7%9a%84%e5%ad%90%e7%bb%93%e6%9e%84-mid)
+  - [27. 二叉树的镜像 [EASY]](#27-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e9%95%9c%e5%83%8f-easy)
+  - [28. 对称的二叉树 [EASY]](#28-%e5%af%b9%e7%a7%b0%e7%9a%84%e4%ba%8c%e5%8f%89%e6%a0%91-easy)
+  - [29. 顺时针打印矩阵 [EASY]](#29-%e9%a1%ba%e6%97%b6%e9%92%88%e6%89%93%e5%8d%b0%e7%9f%a9%e9%98%b5-easy)
+  - [30. 包含min函数的栈 [EASY]](#30-%e5%8c%85%e5%90%abmin%e5%87%bd%e6%95%b0%e7%9a%84%e6%a0%88-easy)
+  - [31. 栈的压入、弹出序列 [MID]](#31-%e6%a0%88%e7%9a%84%e5%8e%8b%e5%85%a5%e5%bc%b9%e5%87%ba%e5%ba%8f%e5%88%97-mid)
+  - [32 - I. 从上到下打印二叉树 [MID]](#32---i-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-mid)
+  - [32 - II. 从上到下打印二叉树 II [EASY]](#32---ii-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-ii-easy)
+  - [32 - III. 从上到下打印二叉树 III [MID]](#32---iii-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-iii-mid)
+  - [33. 二叉搜索树的后序遍历序列 [MID]](#33-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e5%90%8e%e5%ba%8f%e9%81%8d%e5%8e%86%e5%ba%8f%e5%88%97-mid)
+  - [34. 二叉树中和为某一值的路径 [MID]](#34-%e4%ba%8c%e5%8f%89%e6%a0%91%e4%b8%ad%e5%92%8c%e4%b8%ba%e6%9f%90%e4%b8%80%e5%80%bc%e7%9a%84%e8%b7%af%e5%be%84-mid)
+  - [35. 复杂链表的复制 [MID]](#35-%e5%a4%8d%e6%9d%82%e9%93%be%e8%a1%a8%e7%9a%84%e5%a4%8d%e5%88%b6-mid)
+  - [36. 二叉搜索树与双向链表 [MID]](#36-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e4%b8%8e%e5%8f%8c%e5%90%91%e9%93%be%e8%a1%a8-mid)
+  - [37. 序列化二叉树 [HARD]](#37-%e5%ba%8f%e5%88%97%e5%8c%96%e4%ba%8c%e5%8f%89%e6%a0%91-hard)
+  - [38. 字符串的排列 [MID]](#38-%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e6%8e%92%e5%88%97-mid)
+  - [39. 数组中出现次数超过一半的数字 [EASY]](#39-%e6%95%b0%e7%bb%84%e4%b8%ad%e5%87%ba%e7%8e%b0%e6%ac%a1%e6%95%b0%e8%b6%85%e8%bf%87%e4%b8%80%e5%8d%8a%e7%9a%84%e6%95%b0%e5%ad%97-easy)
+  - [40. 最小的k个数 [EASY]](#40-%e6%9c%80%e5%b0%8f%e7%9a%84k%e4%b8%aa%e6%95%b0-easy)
+  - [41. 数据流中的中位数 [HARD]](#41-%e6%95%b0%e6%8d%ae%e6%b5%81%e4%b8%ad%e7%9a%84%e4%b8%ad%e4%bd%8d%e6%95%b0-hard)
+  - [42. 连续子数组的最大和 [EASY]](#42-%e8%bf%9e%e7%bb%ad%e5%ad%90%e6%95%b0%e7%bb%84%e7%9a%84%e6%9c%80%e5%a4%a7%e5%92%8c-easy)
+  - [43. 1～n整数中1出现的次数 [MID]](#43-1n%e6%95%b4%e6%95%b0%e4%b8%ad1%e5%87%ba%e7%8e%b0%e7%9a%84%e6%ac%a1%e6%95%b0-mid)
+  - [44. 数字序列中某一位的数字 [MID]](#44-%e6%95%b0%e5%ad%97%e5%ba%8f%e5%88%97%e4%b8%ad%e6%9f%90%e4%b8%80%e4%bd%8d%e7%9a%84%e6%95%b0%e5%ad%97-mid)
+  - [45. 把数组排成最小的数 [MID]](#45-%e6%8a%8a%e6%95%b0%e7%bb%84%e6%8e%92%e6%88%90%e6%9c%80%e5%b0%8f%e7%9a%84%e6%95%b0-mid)
+  - [46. 把数字翻译成字符串 [MID]](#46-%e6%8a%8a%e6%95%b0%e5%ad%97%e7%bf%bb%e8%af%91%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
+  - [47. 礼物的最大价值 [MID]](#47-%e7%a4%bc%e7%89%a9%e7%9a%84%e6%9c%80%e5%a4%a7%e4%bb%b7%e5%80%bc-mid)
+  - [48. 最长不含重复字符的子字符串 [MID]](#48-%e6%9c%80%e9%95%bf%e4%b8%8d%e5%90%ab%e9%87%8d%e5%a4%8d%e5%ad%97%e7%ac%a6%e7%9a%84%e5%ad%90%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
+  - [49. 丑数 [MID]](#49-%e4%b8%91%e6%95%b0-mid)
+  - [50. 第一个只出现一次的字符 [EASY]](#50-%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%8f%aa%e5%87%ba%e7%8e%b0%e4%b8%80%e6%ac%a1%e7%9a%84%e5%ad%97%e7%ac%a6-easy)
+  - [51. 数组中的逆序对 [HARD]](#51-%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e9%80%86%e5%ba%8f%e5%af%b9-hard)
+  - [52. 两个链表的第一个公共节点 [EASY]](#52-%e4%b8%a4%e4%b8%aa%e9%93%be%e8%a1%a8%e7%9a%84%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%85%ac%e5%85%b1%e8%8a%82%e7%82%b9-easy)
+  - [53 - I. 在排序数组中查找数字 I [EASY]](#53---i-%e5%9c%a8%e6%8e%92%e5%ba%8f%e6%95%b0%e7%bb%84%e4%b8%ad%e6%9f%a5%e6%89%be%e6%95%b0%e5%ad%97-i-easy)
+  - [53 - II. 0～n-1中缺失的数字 [EASY]](#53---ii-0n-1%e4%b8%ad%e7%bc%ba%e5%a4%b1%e7%9a%84%e6%95%b0%e5%ad%97-easy)
+  - [54. 二叉搜索树的第k大节点 [EASY]](#54-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e7%ac%ack%e5%a4%a7%e8%8a%82%e7%82%b9-easy)
+  - [55 - I. 二叉树的深度 [EASY]](#55---i-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%b7%b1%e5%ba%a6-easy)
+  - [55 - II. 平衡二叉树 [EASY]](#55---ii-%e5%b9%b3%e8%a1%a1%e4%ba%8c%e5%8f%89%e6%a0%91-easy)
+  - [56 - II. 数组中数字出现的次数 II  [MID]](#56---ii-%e6%95%b0%e7%bb%84%e4%b8%ad%e6%95%b0%e5%ad%97%e5%87%ba%e7%8e%b0%e7%9a%84%e6%ac%a1%e6%95%b0-ii-mid)
+  - [57. 和为s的两个数字 [EASY]](#57-%e5%92%8c%e4%b8%bas%e7%9a%84%e4%b8%a4%e4%b8%aa%e6%95%b0%e5%ad%97-easy)
+  - [57 - II. 和为s的连续正数序列 [EASY]](#57---ii-%e5%92%8c%e4%b8%bas%e7%9a%84%e8%bf%9e%e7%bb%ad%e6%ad%a3%e6%95%b0%e5%ba%8f%e5%88%97-easy)
+  - [58 - I. 翻转单词顺序 [EASY]](#58---i-%e7%bf%bb%e8%bd%ac%e5%8d%95%e8%af%8d%e9%a1%ba%e5%ba%8f-easy)
+  - [58 - II. 左旋转字符串 [EASY]](#58---ii-%e5%b7%a6%e6%97%8b%e8%bd%ac%e5%ad%97%e7%ac%a6%e4%b8%b2-easy)
+  - [59 - I. 滑动窗口的最大值 [EASY]](#59---i-%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc-easy)
+  - [59 - II. 队列的最大值 [MID]](#59---ii-%e9%98%9f%e5%88%97%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc-mid)
+  - [60. n个骰子的点数 [EASY]](#60-n%e4%b8%aa%e9%aa%b0%e5%ad%90%e7%9a%84%e7%82%b9%e6%95%b0-easy)
+  - [61. 扑克牌中的顺子 [EASY]](#61-%e6%89%91%e5%85%8b%e7%89%8c%e4%b8%ad%e7%9a%84%e9%a1%ba%e5%ad%90-easy)
+  - [62. 圆圈中最后剩下的数字 [EASY]](#62-%e5%9c%86%e5%9c%88%e4%b8%ad%e6%9c%80%e5%90%8e%e5%89%a9%e4%b8%8b%e7%9a%84%e6%95%b0%e5%ad%97-easy)
+  - [63. 股票的最大利润 [MID]](#63-%e8%82%a1%e7%a5%a8%e7%9a%84%e6%9c%80%e5%a4%a7%e5%88%a9%e6%b6%a6-mid)
+  - [64. 求1+2+…+n [MID]](#64-%e6%b1%8212n-mid)
+  - [65. 不用加减乘除做加法 [EASY]](#65-%e4%b8%8d%e7%94%a8%e5%8a%a0%e5%87%8f%e4%b9%98%e9%99%a4%e5%81%9a%e5%8a%a0%e6%b3%95-easy)
+  - [66. 构建乘积数组 [EASY]](#66-%e6%9e%84%e5%bb%ba%e4%b9%98%e7%a7%af%e6%95%b0%e7%bb%84-easy)
+  - [67. 把字符串转换成整数 [MID]](#67-%e6%8a%8a%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%bd%ac%e6%8d%a2%e6%88%90%e6%95%b4%e6%95%b0-mid)
+  - [68 - I. 二叉搜索树的最近公共祖先 [EASY]](#68---i-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e6%9c%80%e8%bf%91%e5%85%ac%e5%85%b1%e7%a5%96%e5%85%88-easy)
+  - [68 - II. 二叉树的最近公共祖先 [EASY]](#68---ii-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%9c%80%e8%bf%91%e5%85%ac%e5%85%b1%e7%a5%96%e5%85%88-easy)
 
-
-
-#### [03.数组中重复的数字 [EASY] ](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/)
+#### [03.数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -46,7 +118,7 @@ public:
 
 
 
-#### [04.二维数组中的查找 [EASY]](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/)
+#### [04.二维数组中的查找](https://leetcode-cn.com/problems/er-wei-shu-zu-zhong-de-cha-zhao-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -74,7 +146,7 @@ public:
 
 
 
-#### [05.替换空格 [EASY]](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/)
+#### [05.替换空格](https://leetcode-cn.com/problems/ti-huan-kong-ge-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -100,7 +172,7 @@ public:
 
 
 
-#### [06.从尾到头打印链表 [EASY]](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/)
+#### [06.从尾到头打印链表](https://leetcode-cn.com/problems/cong-wei-dao-tou-da-yin-lian-biao-lcof/) [EASY]
 
 ```c++
 /**
@@ -133,7 +205,7 @@ public:
 
 
 
-#### [07. 重建二叉树 [MID]](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/)
+#### [07. 重建二叉树](https://leetcode-cn.com/problems/zhong-jian-er-cha-shu-lcof/) [MID]
 
 ```c++
 /**
@@ -173,7 +245,7 @@ public:
 
 
 
-#### [09. 用两个栈实现队列 [EASY]](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/)
+#### [09. 用两个栈实现队列](https://leetcode-cn.com/problems/yong-liang-ge-zhan-shi-xian-dui-lie-lcof/) [EASY]
 
 ```c++
 class CQueue {
@@ -220,7 +292,7 @@ public:
 
 
 
-#### [10- I. 斐波那契数列 [EASY]](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/)
+#### [10- I. 斐波那契数列](https://leetcode-cn.com/problems/fei-bo-na-qi-shu-lie-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -247,7 +319,7 @@ public:
 
 
 
-#### [10- II. 青蛙跳台阶问题 [EASY]](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/)
+#### [10- II. 青蛙跳台阶问题](https://leetcode-cn.com/problems/qing-wa-tiao-tai-jie-wen-ti-lcof/) [EASY]
 
 ```c++
 // 同上
@@ -261,7 +333,7 @@ public:
 
 
 
-#### [11. 旋转数组的最小数字 [EASY]](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/)
+#### [11. 旋转数组的最小数字](https://leetcode-cn.com/problems/xuan-zhuan-shu-zu-de-zui-xiao-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -289,7 +361,7 @@ public:
 
 
 
-#### [12. 矩阵中的路径 [MID]](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/)
+#### [12. 矩阵中的路径](https://leetcode-cn.com/problems/ju-zhen-zhong-de-lu-jing-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -337,7 +409,7 @@ public:
 
 
 
-#### [13. 机器人的运动范围 [MID]](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/)
+#### [13. 机器人的运动范围](https://leetcode-cn.com/problems/ji-qi-ren-de-yun-dong-fan-wei-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -385,7 +457,7 @@ public:
 
 
 
-#### [14- I. 剪绳子 [MID]](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/)
+#### [14- I. 剪绳子](https://leetcode-cn.com/problems/jian-sheng-zi-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -415,7 +487,7 @@ public:
 
 
 
-#### [14- II. 剪绳子 II [MID]](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/)
+#### [14- II. 剪绳子 II](https://leetcode-cn.com/problems/jian-sheng-zi-ii-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -447,7 +519,7 @@ public:
 
 
 
-#### [15. 二进制中1的个数 [EASY]](https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/)
+#### [15. 二进制中1的个数](https://leetcode-cn.com/problems/er-jin-zhi-zhong-1de-ge-shu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -471,7 +543,7 @@ public:
 
 
 
-#### [16. 数值的整数次方 [MID]](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/)
+#### [16. 数值的整数次方](https://leetcode-cn.com/problems/shu-zhi-de-zheng-shu-ci-fang-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -505,7 +577,7 @@ public:
 
 
 
-#### [17. 打印从1到最大的n位数 [EASY]](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/)
+#### [17. 打印从1到最大的n位数](https://leetcode-cn.com/problems/da-yin-cong-1dao-zui-da-de-nwei-shu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -530,7 +602,7 @@ public:
 
 
 
-#### [18. 删除链表的节点 [EASY]](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/)
+#### [18. 删除链表的节点](https://leetcode-cn.com/problems/shan-chu-lian-biao-de-jie-dian-lcof/) [EASY]
 
 ```c++
 /**
@@ -566,7 +638,7 @@ public:
 
 
 
-#### [19. 正则表达式匹配 [HARD]](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof/)
+#### [19. 正则表达式匹配](https://leetcode-cn.com/problems/zheng-ze-biao-da-shi-pi-pei-lcof/) [HARD]
 
 ```c++
 class Solution {
@@ -605,7 +677,7 @@ public:
 
 
 
-#### [20. 表示数值的字符串 [MID]](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/)
+#### [20. 表示数值的字符串](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -641,7 +713,7 @@ public:
 
 
 
-#### [21. 调整数组顺序使奇数位于偶数前面 [EASY]](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/)
+#### [21. 调整数组顺序使奇数位于偶数前面](https://leetcode-cn.com/problems/diao-zheng-shu-zu-shun-xu-shi-qi-shu-wei-yu-ou-shu-qian-mian-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -671,7 +743,7 @@ public:
 
 
 
-#### [22. 链表中倒数第k个节点 [EASY]](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
+#### [22. 链表中倒数第k个节点](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/) [EASY]
 
 ```c++
 /**
@@ -718,7 +790,7 @@ public:
 
 
 
-#### [24. 反转链表 [EASY]](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/)
+#### [24. 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/) [EASY]
 
 ```c++
 /**
@@ -752,7 +824,7 @@ public:
 
 
 
-#### [25. 合并两个排序的链表 [EASY]](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/)
+#### [25. 合并两个排序的链表](https://leetcode-cn.com/problems/he-bing-liang-ge-pai-xu-de-lian-biao-lcof/) [EASY]
 
 ```c++
 /**
@@ -807,7 +879,7 @@ public:
 
 
 
-#### [26. 树的子结构 [MID]](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/)
+#### [26. 树的子结构](https://leetcode-cn.com/problems/shu-de-zi-jie-gou-lcof/) [MID]
 
 ```c++
 /**
@@ -843,7 +915,7 @@ public:
 
 
 
-#### [27. 二叉树的镜像 [EASY]](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/)
+#### [27. 二叉树的镜像](https://leetcode-cn.com/problems/er-cha-shu-de-jing-xiang-lcof/) [EASY]
 
 ```c++
 /**
@@ -877,7 +949,7 @@ public:
 
 
 
-#### [28. 对称的二叉树 [EASY]](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/)
+#### [28. 对称的二叉树](https://leetcode-cn.com/problems/dui-cheng-de-er-cha-shu-lcof/) [EASY]
 
 ```c++
 /**
@@ -911,7 +983,7 @@ public:
 
 
 
-#### [29. 顺时针打印矩阵 [EASY]](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/)
+#### [29. 顺时针打印矩阵](https://leetcode-cn.com/problems/shun-shi-zhen-da-yin-ju-zhen-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -945,7 +1017,7 @@ public:
 
 
 
-#### [30. 包含min函数的栈 [EASY]](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof/)
+#### [30. 包含min函数的栈](https://leetcode-cn.com/problems/bao-han-minhan-shu-de-zhan-lcof/) [EASY]
 
 ```c++
 class MinStack {
@@ -993,7 +1065,7 @@ public:
 
 
 
-#### [31. 栈的压入、弹出序列 [MID]](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/)
+#### [31. 栈的压入、弹出序列](https://leetcode-cn.com/problems/zhan-de-ya-ru-dan-chu-xu-lie-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1023,7 +1095,7 @@ public:
 
 
 
-#### [32 - I. 从上到下打印二叉树 [MID]](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/)
+#### [32 - I. 从上到下打印二叉树](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-lcof/) [MID]
 
 ```c++
 /**
@@ -1063,7 +1135,7 @@ public:
 
 
 
-#### [32 - II. 从上到下打印二叉树 II [EASY]](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/)
+#### [32 - II. 从上到下打印二叉树 II](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-ii-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1099,7 +1171,7 @@ public:
 
 
 
-#### [32 - III. 从上到下打印二叉树 III [MID]](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/)
+#### [32 - III. 从上到下打印二叉树 III](https://leetcode-cn.com/problems/cong-shang-dao-xia-da-yin-er-cha-shu-iii-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1146,7 +1218,7 @@ public:
 
 
 
-#### [33. 二叉搜索树的后序遍历序列 [MID]](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/)
+#### [33. 二叉搜索树的后序遍历序列](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/) [MID]
 
 [单调栈解法](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/solution/dan-diao-di-zeng-zhan-by-shi-huo-de-xia-tian/)
 
@@ -1181,7 +1253,7 @@ public:
 
 
 
-#### [34. 二叉树中和为某一值的路径 [MID]](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/)
+#### [34. 二叉树中和为某一值的路径](https://leetcode-cn.com/problems/er-cha-shu-zhong-he-wei-mou-yi-zhi-de-lu-jing-lcof/) [MID]
 
 ```c++
 /**
@@ -1220,7 +1292,7 @@ public:
 
 
 
-#### [35. 复杂链表的复制 [MID]](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/)
+#### [35. 复杂链表的复制](https://leetcode-cn.com/problems/fu-za-lian-biao-de-fu-zhi-lcof/) [MID]
 
 ```c++
 /*
@@ -1276,7 +1348,7 @@ public:
 
 
 
-#### [36. 二叉搜索树与双向链表 [MID]](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/)
+#### [36. 二叉搜索树与双向链表](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-yu-shuang-xiang-lian-biao-lcof/) [MID]
 
 ```c++
 /*
@@ -1336,7 +1408,7 @@ public:
 
 
 
-#### [37. 序列化二叉树 [HARD]](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/)
+#### [37. 序列化二叉树](https://leetcode-cn.com/problems/xu-lie-hua-er-cha-shu-lcof/) [HARD]
 
 ```c++
 /**
@@ -1399,7 +1471,7 @@ public:
 
 
 
-#### [38. 字符串的排列 [MID]](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/)
+#### [38. 字符串的排列](https://leetcode-cn.com/problems/zi-fu-chuan-de-pai-lie-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1440,7 +1512,7 @@ public:
 
 
 
-#### [39. 数组中出现次数超过一半的数字 [EASY]](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/)
+#### [39. 数组中出现次数超过一半的数字](https://leetcode-cn.com/problems/shu-zu-zhong-chu-xian-ci-shu-chao-guo-yi-ban-de-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1469,7 +1541,7 @@ public:
 
 
 
-#### [40. 最小的k个数](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/)
+#### [40. 最小的k个数](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1511,7 +1583,7 @@ public:
 
 
 
-#### [41. 数据流中的中位数 [HARD]](https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/)
+#### [41. 数据流中的中位数](https://leetcode-cn.com/problems/shu-ju-liu-zhong-de-zhong-wei-shu-lcof/) [HARD]
 
 ```c++
 class MedianFinder {
@@ -1546,7 +1618,7 @@ public:
 
 
 
-#### [42. 连续子数组的最大和 [EASY]](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/)
+#### [42. 连续子数组的最大和](https://leetcode-cn.com/problems/lian-xu-zi-shu-zu-de-zui-da-he-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1572,7 +1644,7 @@ public:
 
 
 
-#### [43. 1～n整数中1出现的次数 [MID]](https://leetcode-cn.com/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/)
+#### [43. 1～n整数中1出现的次数](https://leetcode-cn.com/problems/1nzheng-shu-zhong-1chu-xian-de-ci-shu-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1600,7 +1672,7 @@ public:
 
 
 
-#### [44. 数字序列中某一位的数字 [MID]](https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/)
+#### [44. 数字序列中某一位的数字](https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1631,7 +1703,7 @@ public:
 
 
 
-#### [45. 把数组排成最小的数 [MID]](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/)
+#### [45. 把数组排成最小的数](https://leetcode-cn.com/problems/ba-shu-zu-pai-cheng-zui-xiao-de-shu-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1656,7 +1728,7 @@ public:
 
 
 
-#### [46. 把数字翻译成字符串 [MID]](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/)
+#### [46. 把数字翻译成字符串](https://leetcode-cn.com/problems/ba-shu-zi-fan-yi-cheng-zi-fu-chuan-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1689,7 +1761,7 @@ public:
 
 
 
-#### [47. 礼物的最大价值 [MID]](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/)
+#### [47. 礼物的最大价值](https://leetcode-cn.com/problems/li-wu-de-zui-da-jie-zhi-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1716,7 +1788,7 @@ public:
 
 
 
-#### [48. 最长不含重复字符的子字符串 [MID]](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/)
+#### [48. 最长不含重复字符的子字符串](https://leetcode-cn.com/problems/zui-chang-bu-han-zhong-fu-zi-fu-de-zi-zi-fu-chuan-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1744,7 +1816,7 @@ public:
 
 
 
-#### [49. 丑数 [MID]](https://leetcode-cn.com/problems/chou-shu-lcof/)
+#### [49. 丑数](https://leetcode-cn.com/problems/chou-shu-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -1775,7 +1847,7 @@ public:
 
 
 
-#### [50. 第一个只出现一次的字符 [EASY]](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/)
+#### [50. 第一个只出现一次的字符](https://leetcode-cn.com/problems/di-yi-ge-zhi-chu-xian-yi-ci-de-zi-fu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1803,7 +1875,7 @@ public:
 
 
 
-#### [51. 数组中的逆序对 [HARD]](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/)
+#### [51. 数组中的逆序对](https://leetcode-cn.com/problems/shu-zu-zhong-de-ni-xu-dui-lcof/) [HARD]
 
 ```c++
 class Solution {
@@ -1842,7 +1914,7 @@ public:
 
 
 
-#### [52. 两个链表的第一个公共节点 [EASY]](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/)
+#### [52. 两个链表的第一个公共节点](https://leetcode-cn.com/problems/liang-ge-lian-biao-de-di-yi-ge-gong-gong-jie-dian-lcof/) [EASY]
 
 ```c++
 /**
@@ -1874,7 +1946,7 @@ public:
 
 
 
-#### [53 - I. 在排序数组中查找数字 I [EASY]](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/)
+#### [53 - I. 在排序数组中查找数字 I](https://leetcode-cn.com/problems/zai-pai-xu-shu-zu-zhong-cha-zhao-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1915,7 +1987,7 @@ public:
 
 
 
-#### [53 - II. 0～n-1中缺失的数字 [EASY]](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/)
+#### [53 - II. 0～n-1中缺失的数字](https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -1949,7 +2021,7 @@ public:
 
 
 
-#### [54. 二叉搜索树的第k大节点 [EASY]](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/)
+#### [54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/) [EASY]
 
 ```c++
 /**
@@ -1990,7 +2062,7 @@ public:
 
 
 
-#### [55 - I. 二叉树的深度 [EASY]](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/)
+#### [55 - I. 二叉树的深度](https://leetcode-cn.com/problems/er-cha-shu-de-shen-du-lcof/) [EASY]
 
 ```c++
 /**
@@ -2019,7 +2091,7 @@ public:
 
 
 
-#### [55 - II. 平衡二叉树 [EASY]](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/)
+#### [55 - II. 平衡二叉树](https://leetcode-cn.com/problems/ping-heng-er-cha-shu-lcof/) [EASY]
 
 ```c++
 /**
@@ -2056,7 +2128,7 @@ public:
 
 
 
-#### [56 - II. 数组中数字出现的次数 II [MID]](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/)
+#### [56 - II. 数组中数字出现的次数 II](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-ii-lcof/)  [MID]
 
 ```c++
 class Solution {
@@ -2084,7 +2156,7 @@ public:
 
 
 
-#### [57. 和为s的两个数字 [EASY]](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/)
+#### [57. 和为s的两个数字](https://leetcode-cn.com/problems/he-wei-sde-liang-ge-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2116,7 +2188,7 @@ public:
 
 
 
-#### [57 - II. 和为s的连续正数序列 [EASY]](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/)
+#### [57 - II. 和为s的连续正数序列](https://leetcode-cn.com/problems/he-wei-sde-lian-xu-zheng-shu-xu-lie-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2148,7 +2220,7 @@ public:
 
 
 
-#### [58 - I. 翻转单词顺序 [EASY]](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/)
+#### [58 - I. 翻转单词顺序](https://leetcode-cn.com/problems/fan-zhuan-dan-ci-shun-xu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2199,7 +2271,7 @@ public:
 
 
 
-#### [58 - II. 左旋转字符串 [EASY]](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/)
+#### [58 - II. 左旋转字符串](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2221,7 +2293,7 @@ public:
 
 
 
-#### [59 - I. 滑动窗口的最大值 [EASY]](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/)
+#### [59 - I. 滑动窗口的最大值](https://leetcode-cn.com/problems/hua-dong-chuang-kou-de-zui-da-zhi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2251,7 +2323,7 @@ public:
 
 
 
-#### [59 - II. 队列的最大值 [MID]](https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/)
+#### [59 - II. 队列的最大值](https://leetcode-cn.com/problems/dui-lie-de-zui-da-zhi-lcof/) [MID]
 
 ```c++
 class MaxQueue {
@@ -2290,7 +2362,7 @@ public:
 
 
 
-#### [60. n个骰子的点数 [EASY]](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/)
+#### [60. n个骰子的点数](https://leetcode-cn.com/problems/nge-tou-zi-de-dian-shu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2324,7 +2396,7 @@ public:
 
 
 
-#### [61. 扑克牌中的顺子 [EASY]](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/)
+#### [61. 扑克牌中的顺子](https://leetcode-cn.com/problems/bu-ke-pai-zhong-de-shun-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2353,7 +2425,7 @@ public:
 
 
 
-#### [62. 圆圈中最后剩下的数字 [EASY]](https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/)
+#### [62. 圆圈中最后剩下的数字](https://leetcode-cn.com/problems/yuan-quan-zhong-zui-hou-sheng-xia-de-shu-zi-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2377,7 +2449,7 @@ public:
 
 
 
-#### [63. 股票的最大利润 [MID]](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/)
+#### [63. 股票的最大利润](https://leetcode-cn.com/problems/gu-piao-de-zui-da-li-run-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -2402,7 +2474,7 @@ public:
 
 
 
-#### [64. 求1+2+…+n [MID]](https://leetcode-cn.com/problems/qiu-12n-lcof/)
+#### [64. 求1+2+…+n](https://leetcode-cn.com/problems/qiu-12n-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -2422,7 +2494,7 @@ public:
 
 
 
-#### [65. 不用加减乘除做加法 [EASY]](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/)
+#### [65. 不用加减乘除做加法](https://leetcode-cn.com/problems/bu-yong-jia-jian-cheng-chu-zuo-jia-fa-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2446,7 +2518,7 @@ public:
 
 
 
-#### [66. 构建乘积数组 [EASY]](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof/)
+#### [66. 构建乘积数组](https://leetcode-cn.com/problems/gou-jian-cheng-ji-shu-zu-lcof/) [EASY]
 
 ```c++
 class Solution {
@@ -2474,7 +2546,7 @@ public:
 };
 ```
 
-#### [67. 把字符串转换成整数 [MID]](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/)
+#### [67. 把字符串转换成整数](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/) [MID]
 
 ```c++
 class Solution {
@@ -2510,7 +2582,7 @@ public:
 
 
 
-#### [68 - I. 二叉搜索树的最近公共祖先 [EASY]](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/)
+#### [68 - I. 二叉搜索树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-zui-jin-gong-gong-zu-xian-lcof/) [EASY]
 
 ```c++
 /**
@@ -2543,7 +2615,7 @@ public:
 
 
 
-#### [68 - II. 二叉树的最近公共祖先 [EASY]](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/)
+#### [68 - II. 二叉树的最近公共祖先](https://leetcode-cn.com/problems/er-cha-shu-de-zui-jin-gong-gong-zu-xian-lcof/) [EASY]
 
 ```c++
 // 同上
