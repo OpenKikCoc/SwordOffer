@@ -1,6 +1,10 @@
 ### SwordOffer
 SwordOffer Solutions
 
+[toc]
+
+
+
 - [SwordOffer](#swordoffer)
   - [03.数组中重复的数字 [EASY]](#03%e6%95%b0%e7%bb%84%e4%b8%ad%e9%87%8d%e5%a4%8d%e7%9a%84%e6%95%b0%e5%ad%97-easy)
   - [04.二维数组中的查找 [EASY]](#04%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e6%9f%a5%e6%89%be-easy)
@@ -1843,6 +1847,17 @@ public:
 
 ```python
 # python3
+class Solution:
+    def nthUglyNumber(self, n: int) -> int:
+        dp,a,b,c=[1]*n,0,0,0
+        dp[0]=1
+        for i in range(1,n):
+            tmp=min(dp[i]*2,dp[i]*3,dp[i]*5)
+            if tmp==dp[i]*2:a+=1
+            if tmp==dp[i]*3:b+=1
+            if tmp==dp[i]*5:c+=1
+            dp[i]=tmp
+        return dp[-1]
 ```
 
 
