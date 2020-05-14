@@ -118,6 +118,39 @@ public:
 
 ```python
 # python3
+# 用集合判断 nums[i] 是否存在于集合中，如果存在，则返回该值。但需要用到额外空间，时间复杂度和空间复杂度都是O(N)
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        my_set=set()
+        for c in nums:
+            if c in my_set:
+                return c
+            else:
+                my_set.add(c)
+
+#把集合换成哈希表也可以
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        dict={}
+        for i in nums:
+           if i not in dic:
+               dic[i] = 0
+           else:
+               return i
+
+# ========= another solution 一个萝卜一个坑
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        i=0
+        while i<len(nums):
+            if nums[i]==i:
+                i+=1
+                continue
+            if nums[nums[i]]==nums[i]:return nums[i]
+            else:
+                nums[nums[i]],nums[i]=nums[i],nums[nums[i]]
+        return -1
+        
 ```
 
 
@@ -146,6 +179,21 @@ public:
 
 ```python
 # python3
+class Solution:
+    def findNumberIn2DArray(self,matrix:List[List[int]],target:int)->bool:
+        rows=len(matrix)
+        if rows==0:return False
+        cols=len(matrix[0])
+        if cols==0:return False
+
+        #从右上角开始查找
+        i,j=0,cols-1
+
+        while i<rows and j>=0:
+            if matrix[i][j]<target:i+=1
+            elif matrix[i][j]>target:j-=1
+            else:return True
+        return False
 ```
 
 
@@ -172,6 +220,30 @@ public:
 
 ```python
 # python3
+class Solution:
+    def replaceSpace(self,s:str)->str:
+        res=[]
+        for c in s:
+            if c=='':res.append("%20")
+            else:res.append(c)
+        return ''.join(res)
+                    
+# ========= another solution, 用python的内置函数（在面试中不推荐使用）           
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+        s = s.replace(' ','%20')
+        return s
+
+#创建一个新的字符串，对字符串进行遍历；该方法不如法一用列表好，因为字符串为不可变类型，每加一个字符就会变成新的字符串，太消耗内存了。     
+class Solution:
+    def replaceSpace(self, s: str) -> str:
+        res = ''
+        for i in s:
+            if i == ' ':
+                res += '%20'
+            else:
+                res += i
+        return res
 ```
 
 
@@ -205,6 +277,35 @@ public:
 
 ```python
 # python3
+#堆栈法
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        stack = []
+        while head: # push
+            stack.append(head.val)
+            head = head.next
+        res = []
+        while stack: # pop
+            res.append(stack.pop())
+        return res
+
+#========= 反转
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next
+        return res[::-1]  # 或者 reverse(res)
+
+
+#========= 递归
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        if not head: return []
+        return self.reversePrint(head.next) + [head.val]
+
+
 ```
 
 
@@ -245,6 +346,36 @@ public:
 
 ```python
 # python3
+class Solution:
+    # def __init__(self):
+    #     self.preorder=None
+    #     self.reverses=None
+    
+    def buildTree(self,preorder:List[int],inorder:List[int])->TreeNode:
+        # pre_size=len(preorder)
+        # in_size=len(inorder)
+        # if pre_size!=in_size:
+        #     return None
+
+        self.preorder=preorder
+        self.reverses=dict()
+        # 以空间换时间，否则，找根结点在中序遍历中的位置需要遍历
+        for i in range(in_size):
+            self.reverses[inorder[i]]=i
+        
+        return self.recur(0,pre_size-1,0,in_size-1)
+    
+    def recur(self,pre_left,pre_right,in_left,in_right):
+        if pre_left>pre_right or in_left>in_right:
+            return None
+        
+        pivot=self.preorder[pre_left]
+        root=TreeNode(pivot)
+
+        pivot_index=self.reverses[pivot]
+        root.left=self.recur(pre_left + 1,pivot_index - in_left + pre_left,in_left,pivot_index - 1)
+        root.right=self.recur(pivot_index - in_left + pre_left + 1, pre_right,pivot_index + 1, in_right)
+        return root
 ```
 
 
@@ -292,6 +423,22 @@ public:
 
 ```python
 # python3
+class CQueue:
+
+    def __init__(self):
+        self.A,self.B=[],[]
+
+    def appendTail(self, value: int) -> None:
+        self.A.append(value)
+
+    def deleteHead(self) -> int:
+        if self.B:
+            return self.B.pop()
+        if not self.A:
+            return -1
+        while self.A:
+            self.B.append(self.A.pop())
+        return self.B.pop()
 ```
 
 
@@ -319,6 +466,12 @@ public:
 
 ```python
 # python3
+class Solution:
+    def fib(self, n: int) -> int:
+        a,b=0,1
+        for _ in range(0,n):
+            a,b=b,a+b
+        return a%1000000007
 ```
 
 
@@ -333,6 +486,12 @@ public:
 
 ```python
 # python3
+class Solution:
+    def numWays(self, n: int) -> int:
+        a, b = 1, 1
+        for _ in range(n):
+            a, b = b, a + b
+        return a % 1000000007
 ```
 
 
@@ -361,6 +520,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def minArray(self,numbers:List[int])->int:
+        i,j=0,len(numbers)-1
+        while i<j:
+            m=(i+j)//2
+            if numbers[m]>numbers[j]:i=m+1
+            elif numbers[m]<numbers[j]:j=m
+            else:j-=1
+        return numbers[i]
 ```
 
 
@@ -409,6 +577,46 @@ public:
 
 ```python
 # python3
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        # 使用深度优先搜索
+        if not board:   # 边界条件
+            return False
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if self.dfs(board, i, j, word):
+                    return True
+        return False
+
+    def dfs(self, board, i, j, word):
+        if len(word) == 0: # 如果单词已经检查完毕
+            return True
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or word[0] != board[i][j]:  # 如果路径出界或者矩阵中的值不是word的首字母，返回False
+            return False
+        tmp = board[i][j]  # 如果找到了第一个字母，检查剩余的部分
+        board[i][j] = '0'
+        res = self.dfs(board,i+1,j,word[1:]) or self.dfs(board,i-1,j,word[1:]) or self.dfs(board,i,j+1,word[1:]) or self.dfs(board, i, j-1, word[1:]) # 上下左右四个方向搜索
+
+        board[i][j] = tmp
+        return res
+      
+#========= 
+class Solution:
+    def exist(self,board:List[List[str]],word:str)->bool:
+        def dfs(i,j,k):
+            if not 0<=i<len(board) or not 0<=j<len(board[0]) or board[i][j]!=word[k]:
+                return False
+            if k==len(word)-1:return True
+            tmp,board[i][j]=board[i][j],'0'
+            res=dfs(i+1,j,k+1) or dfs(i-1,j,k+1) or dfs(i,j+1,k+1) or dfs(i,j-1,k+1)
+            board[i][j]=tmp
+            return res
+        
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                if dfs(i,j,0):
+                    return True
+        return False
 ```
 
 
@@ -457,6 +665,29 @@ public:
 
 ```python
 # python3
+#========= DFS
+class Solution:
+    def movingCount(self,m:int,n:int,k:int)->int:
+        def dfs(i,j,si,sj):
+            if i>=m or j>=n or k<si+sj or (i,j) in visited:
+                return 0
+            visited.add((i,j))
+            return 1+dfs(i+1,j,si+1 if (i+1)%10 else si-8,sj)+dfs(i,j+1,si, sj+1 if (sj+1)%10 else sj-8)
+        
+        visited=set()
+        return dfs(0,0,0,0)
+
+#========= BFS
+class Solution:
+    def movingCount(self, m: int, n: int, k: int) -> int:
+        queue, visited,  = [(0, 0, 0, 0)], set()
+        while queue:
+            i, j, si, sj = queue.pop(0)
+            if i >= m or j >= n or k < si + sj or (i, j) in visited: continue
+            visited.add((i,j))
+            queue.append((i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj))
+            queue.append((i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8))
+        return len(visited)
 ```
 
 
@@ -487,6 +718,13 @@ public:
 
 ```python
 # python3
+class Solution:
+    def cuttingRope(self, n: int) -> int:
+        if n<=3:return n-1
+        a,b=n//3,n%3
+        if b==0:return int(math.pow(3,a))
+        if b==1:return int(math.pow(3,a-1)*4)
+        return int(math.pow(3, a) * 2)
 ```
 
 
@@ -519,6 +757,7 @@ public:
 
 ```python
 # python3
+
 ```
 
 
@@ -543,6 +782,13 @@ public:
 
 ```python
 # python3
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res=0
+        while n:
+            res+=n&1
+            n>>=1
+        return res
 ```
 
 
@@ -577,6 +823,7 @@ public:
 
 ```python
 # python3
+
 ```
 
 
@@ -602,6 +849,9 @@ public:
 
 ```python
 # python3
+class Solution:
+    def printNumbers(self, n: int) -> List[int]:
+        return [i for i in range(1,10**n)]
 ```
 
 
@@ -638,6 +888,16 @@ public:
 
 ```python
 # python3
+class Solution:
+    def deleteNode(self,head:ListNode,val:int)->ListNode:
+        if head.val==val:
+            return head.next
+        pre, cur=head,head.next
+        while cur and cur.val!=val:
+            pre,cur=cur,cur.next
+        if cur:
+            pre.next=cur.next
+        return head
 ```
 
 
@@ -743,6 +1003,17 @@ public:
 
 ```python
 # python3
+#双指针法
+class Solution:
+    def exchange(self,nums:List[int])->List[int]:
+        i,j=0,len(nums)-1
+        while i<j:
+            while i<j and nums[i]%2==1:
+                i+=1
+            while i<j and nums[j]%2==0:
+                j-=1
+            nums[i],nums[j]=nums[j],nums[i]
+        return nums
 ```
 
 
@@ -790,6 +1061,14 @@ public:
 
 ```python
 # python3
+class Solution:
+    def getKthFromEnd(self,head:ListNode,k:int)->ListNode:
+        fast,slow=head,head
+        for _ in range(k):
+            fast=fast.next
+        while fast!=None:
+            fast,slow=fast.next,slow.next
+        return slow
 ```
 
 
@@ -824,6 +1103,47 @@ public:
 
 ```python
 # python3
+#========= 迭代
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def reverseList(self,head:ListNode)->ListNode:
+        cur,pre,p=head,None,None
+        while cur:
+            p=cur.next
+            cur.next=pre
+            pre=cur
+            cur=p
+        return pre
+
+
+#========= 递归
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        if not head or not head.next:
+            return head
+        cur = self.reverseList(head.next)
+        head.next.next = head
+        head.next = None
+        return cur
+     
+ #=========借助列表
+class Solution:
+    def reverseList(self, head: ListNode) -> ListNode:
+        outList = []
+        phead=head
+        while phead != None:
+            outList.append(phead.val)
+            phead = phead.next
+            
+        outList.reverse()
+        print(outList)
+        return outList
+
 ```
 
 
@@ -1744,7 +2064,7 @@ public:
         vector<int> dp(n+1);
         dp[1] = 1;dp[0] = 1;
         for(int i = 2; i <= n; ++i) {
-            dp[i] = dp[i-1];
+            dp[i] = dp[i-1];		// dp[i] 为v[i-1]字符对应的dp值
             if(v[i-2] == '1' && v[i-1] >= '0' && v[i-1] <= '9') {
                 dp[i] += dp[i-2];
             }
@@ -1761,6 +2081,27 @@ public:
 
 ```python
 # python3
+class Solution:
+    def translateNum(self, num: int) -> int:
+        s=str(num)
+        n=len(s)
+        dp=[1 for _ in range(n+1)]
+        for i in range(2,n+1):
+            dp[i]=dp[i-1]
+            if s[i-2]=='1':
+                dp[i]+=dp[i-2]
+            elif s[i-2]=='2' and s[i-1]<'6':
+                dp[i]+=dp[i-2]
+        return dp[n]
+      
+ # python3    
+class Solution:
+    def translateNum(self, num: int) -> int:
+        s = str(num)
+        a = b = 1
+        for i in range(2, len(s) + 1):
+            a, b = (a + b if "10" <= s[i - 2:i] <= "25" else a), a
+        return a
 ```
 
 
@@ -2073,6 +2414,23 @@ public:
 
 ```python
 # python3
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        self.res,self.k=None,k
+
+        def dfs(root):
+            if not root:
+                return
+            else:
+                dfs(root.right)
+                self.k-=1
+                if self.k==0:
+                    self.res=root.val
+                elif self.k>0:
+                    dfs(root.left)
+
+        dfs(root)
+        return self.res
 ```
 
 
