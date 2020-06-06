@@ -538,36 +538,27 @@ class Solution:
 ```c++
 class Solution {
 public:
-    int wordlen;
     int m, n;
     int dx[4] = {0, -1, 1, 0}, dy[4] = {-1, 0, 0, 1};
-    bool dfs(int x, int y, int idx, vector<vector<bool>>& vis, vector<vector<char>>& board, string word) {
-        if (board[x][y] != word[idx]) return false;
-        if (idx == wordlen-1) return true;
+    bool dfs(vector<vector<char>>& b, vector<vector<bool>>& vis, string& w, int x, int y, int p) {
+        if(b[x][y] != w[p]) return false;
+        if(p == w.size()-1) return true;
+        vis[x][y] = true;
         for(int i = 0; i < 4; ++i) {
             int nx = x + dx[i], ny = y + dy[i];
-            if (nx >= 0 && nx < m && ny >= 0 && ny <n) {
-                if (vis[nx][ny]) continue;
-                vis[nx][ny] = true;
-                if (dfs(nx, ny, idx+1, vis, board, word)) return true;
-                vis[nx][ny] = false;
+            if(nx >= 0 && nx < m && ny >= 0 && ny < n) if(!vis[nx][ny]){
+                if(dfs(b, vis, w, nx, ny, p+1)) return true;
             }
         }
+        vis[x][y] = false;
         return false;
     }
     bool exist(vector<vector<char>>& board, string word) {
-        if (board.empty()) return false;
-        wordlen = word.size();
-        m = board.size();
-        n = board[0].size();
+        m = board.size(), n = board[0].size();
         vector<vector<bool>> vis(m, vector<bool>(n));
-        for(int i = 0; i < m; ++i) {
-            for( int j = 0; j < n; ++j) {
-                vis[i][j] = true;
-                if (dfs(i, j, 0, vis, board, word)) return true;\
-                vis[i][j] = false;
-            }
-        }
+        for(int i = 0; i < m; ++i)
+            for(int j = 0; j < n; ++j)
+                if(dfs(board, vis, word, i, j, 0)) return true;
         return false;
     }
 };
@@ -917,12 +908,12 @@ public:
         for(int i = 1; i <= m; ++i) {
             for(int j = 1; j <= n; ++j) {
                 if(s[i-1] == p[j-1] || p[j-1] == '.') {
-                		// s[i-1] p[j-1] 可以匹配
+                    // s[i-1] p[j-1] 可以匹配
                     dp[i][j] = dp[i-1][j-1];
                 } else if (p[j-1] == '*') {
-                  	// 此时显然s[i-1] p[j-1] 不可以匹配 考虑使用p[j-2]位置
-                  	// if 不能匹配->不使用p[j-2]与p[j-1]组成的模式串
-                  	// else 能匹配->使用p[j-2]与p[j-1]组成的模式串1或多次
+                    // 此时显然s[i-1] p[j-1] 不可以匹配 考虑使用p[j-2]位置
+                    // if 不能匹配->不使用p[j-2]与p[j-1]组成的模式串
+                    // else 能匹配->使用p[j-2]与p[j-1]组成的模式串1或多次
                     if(p[j-2] != '.' && p[j-2] != s[i-1]) dp[i][j] = dp[i][j-2];
                     else dp[i][j] = dp[i][j-2] || dp[i-1][j];
                 }
@@ -1045,7 +1036,7 @@ public:
         return slow->next;
     }
   	// another solution
-  	ListNode* getKthFromEnd(ListNode* head, int k) {
+    ListNode* getKthFromEnd(ListNode* head, int k) {
       	ListNode* slow = head, *fast = head;
       	while(k--) fast = fast->next;
       	while(fast) {
@@ -1095,6 +1086,14 @@ public:
             cur = next;
         }
         return pre;
+    }
+    // 递归
+    ListNode* reverseList(ListNode* head) {
+        if(!head || !head->next) return head;
+        ListNode* ret = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return ret;
     }
 };
 ```
@@ -1164,20 +1163,18 @@ public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
         ListNode* dummy = new ListNode(-1);
         ListNode* pre = dummy;
-        while(l1 != nullptr && l2 != nullptr) {
+        while(l1 && l2) {
             if(l1->val <= l2->val) {
                 pre->next = l1;
-                pre = l1;
                 l1 = l1->next;
             } else {
                 pre->next = l2;
-                pre = l2;
                 l2 = l2->next;
             }
+            pre = pre->next;
         }
-        if(l1 == nullptr) pre->next = l2;
-        else pre->next = l1;
-        return dummy->next;
+        if(l1) pre->next = l1;
+        else pre->next = l2;
     }
 /*
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
@@ -1217,16 +1214,14 @@ public:
  */
 class Solution {
 public:
-    bool helper(TreeNode* A, TreeNode* B) {
-        if(!B) return true;
-        if(!A) return false;
-        if(A->val != B->val) return false;
-        return helper(A->left, B->left) && helper(A->right, B->right);
+    bool helper(TreeNode* a, TreeNode* b) {
+        if(!b) return true;
+        if(!a) return false;
+        return a->val == b->val && helper(a->left, b->left) && helper(a->right, b->right);
     }
     bool isSubStructure(TreeNode* A, TreeNode* B) {
-        if(!B || !A) return false;
-        if(A->val == B->val) return helper(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
-        return isSubStructure(A->left, B) || isSubStructure(A->right, B);
+        if(!A || !B) return false;
+        return helper(A, B) || isSubStructure(A->left, B) || isSubStructure(A->right, B);
     }
 };
 ```
@@ -1254,12 +1249,9 @@ public:
 class Solution {
 public:
     TreeNode* mirrorTree(TreeNode* root) {
-        if(!root) return root;
-        TreeNode* l, *r;
-        l = mirrorTree(root->right);
-        r = mirrorTree(root->left);
-        root->left = l;
-        root->right = r;
+        if(!root) return nullptr;
+        TreeNode *l = mirrorTree(root->right), *r = mirrorTree(root->left);
+        root->left = l, root->right = r;
         return root;
     }
 };
@@ -1948,12 +1940,11 @@ public:
 class Solution {
 public:
     int maxSubArray(vector<int>& nums) {
-        int n = nums.size();
-        if(!n) return 0;
-        int res = INT_MIN, sum = 0;
-        for(int i = 0; i < n; ++i) {
-            sum = max(nums[i], nums[i] + sum);
-            res = max(res, pre);
+        int sum = INT_MIN, res = INT_MIN;
+        for(auto v : nums) {
+            if(sum <= 0) sum = v;
+            else sum += v;
+            res = max(res, sum);
         }
         return res;
     }
@@ -2033,12 +2024,12 @@ public:
 class Solution {
 public:
     string minNumber(vector<int>& nums) {
-        auto cmp = [](string sa, string sb){return sa+sb < sb+sa;};
+        auto cmp = [](string& sa, string& sb){return sa+sb < sb+sa;};
         vector<string> t;
         for(auto v : nums) t.push_back(to_string(v));
         sort(t.begin(), t.end(), cmp);
         string res;
-        for(auto s : t) res+=s;
+        for(auto s : t) res += s;
         return res;
     }
 };
@@ -2114,13 +2105,12 @@ public:
     int maxValue(vector<vector<int>>& grid) {
         int m = grid.size(), n = grid[0].size();
         vector<int> dp(n+1);
-        for(int i = 0; i < n; ++i) dp[i+1] = dp[i] + grid[0][i];
-        for(int i = 1; i < m; ++i) {
+        for(int i = 0; i < m; ++i) {
             for(int j = 0; j < n; ++j) {
-                dp[j+1] = max(dp[j], dp[j+1]) + grid[i][j];
+                dp[j] = max(j?dp[j-1]:0, dp[j]) + grid[i][j];
             }
         }
-        return dp[n];
+        return dp[n-1];
     }
 };
 ```
@@ -2209,15 +2199,9 @@ class Solution:
 class Solution {
 public:
     char firstUniqChar(string s) {
-        int n = s.size();
-        if(!n) return ' ';
-        vector<int> cnt(26);
-        for(int i = 0; i < n; ++i) {
-            ++cnt[s[i]-'a'];
-        }
-        for(int i = 0; i < n; ++i) {
-            if(cnt[s[i]-'a'] == 1) return s[i];
-        }
+        vector<int> m(30);
+        for(auto c : s) ++m[c-'a'];
+        for(auto c : s) if(m[c-'a'] == 1) return c;
         return ' ';
     }
 };
@@ -2236,28 +2220,27 @@ public:
 ```c++
 class Solution {
 public:
-    int mergeSort(vector<int>& nums, vector<int>& tmp, int l, int r) {
+    int merge(vector<int>& nums, vector<int>& t, int l, int r) {
         if(l >= r) return 0;
         int mid = l + (r-l)/2;
-        int cnt = mergeSort(nums, tmp, l, mid) + mergeSort(nums, tmp, mid+1, r);
-        int i = l, j = mid+1, pos = l;
-        while(i<=mid && j<=r) {
-            if(nums[i] <= nums[j]) {
-                tmp[pos++] = nums[i++];
-            } else {
-                cnt += mid + 1 - i;
-                tmp[pos++] = nums[j++];
+        int cnt = merge(nums, t, l, mid) + merge(nums, t, mid+1, r);
+        int i = l, j = mid+1, p = l;
+        while(i <= mid && j <= r) {
+            if(nums[i] <= nums[j]) t[p++] = nums[i++];
+            else {
+                cnt += mid - i + 1;
+                t[p++] = nums[j++];
             }
         }
-        for(int k = i; k <= mid; ++k) tmp[pos++] = nums[k];
-        for(int k = j; k <= r; ++k) tmp[pos++] = nums[k];
-        copy(tmp.begin()+l, tmp.begin()+r+1, nums.begin()+l);
+        while(i <= mid) t[p++] = nums[i++];
+        while(j <= r) t[p++] = nums[j++];
+        copy(t.begin()+l, t.begin()+r+1, nums.begin()+l);
         return cnt;
     }
     int reversePairs(vector<int>& nums) {
         int n = nums.size();
-        vector<int> tmp(n);
-        return mergeSort(nums, tmp, 0, n-1);
+        vector<int> t(n);
+        return merge(nums, t, 0, n-1);
     }
 };
 ```
@@ -2356,7 +2339,7 @@ public:
         return target - tot;
     }
   	// another
-  	int missingNumber(vector<int>& nums) {
+    int missingNumber(vector<int>& nums) {
         int n = nums.size();
         int l = 0, r = n-1;
         while(l <= r) {
@@ -2519,6 +2502,16 @@ public:
         return res;
     }
 };
+
+    int singleNumber(vector<int>& nums) {
+        int a = 0, b = 0;
+        for (int c : nums) {
+            int tempA = (~a & b & c) + (a & ~b & ~c);
+            b = (~a & ~b & c) + (~a & b & ~c);
+            a = tempA;
+        }
+        return b;
+    }
 ```
 
 
@@ -2569,8 +2562,8 @@ public:
     vector<vector<int>> findContinuousSequence(int target) {
         vector<vector<int>> res;
         if(target == 1) return res;
-        int l = 1, r = 1, v;
-        while(l <= target/2) {
+        int l = 1, r = 1;
+        while(l <= target/2) {	// = 因为target可能是奇数
             int sum = (l+r)*(r-l+1)/2;
             if(sum == target) {
                 vector<int> t;
