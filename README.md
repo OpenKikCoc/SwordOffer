@@ -1,4 +1,7 @@
+
+
 ### SwordOffer
+
 SwordOffer Solutions
 
 [toc]
@@ -1199,6 +1202,18 @@ public:
 
 ```python
 # python3
+#伪头节点dum节点
+class Solution:
+    def mergeTwoLists(self,l1:ListNode,l2:ListNode)->ListNode:
+        cur=dum=ListNode(0)
+        while l1 and l2:
+            if l1.val<l2.val:
+                cur.next,l1=l1,l1.next
+            else:
+                cur.next,l2=l2,l2.next
+            cur=cur.next
+        cur.next=l1 if l1 else l2
+        return dum.next
 ```
 
 
@@ -1235,6 +1250,35 @@ public:
 
 ```python
 # python3
+
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+class Solution:
+    def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
+        def dfs(A, B):
+            if not B: return True
+            if not A or A.val != B.val: return False
+            return dfs(A.left, B.left) and dfs(A.right, B.right)
+
+        return bool(A and B) and (dfs(A, B) or self.isSubStructure(A.left, B) or self.isSubStructure(A.right, B))
+      
+      
+      
+###两个函数分开写     
+class Solution:
+    def isSubStructure(self, A: TreeNode, B: TreeNode) -> bool:
+        if A==None or B==None:
+            return False
+        return self.dfs(A,B) or self.isSubStructure(A.left,B) or self.isSubStructure(A.right,B)
+
+    def dfs(self,A: TreeNode, B: TreeNode) -> bool:
+        if B==None:return True
+        if A==None:return False
+        return A.val==B.val and self.dfs(A.left,B.left) and self.dfs(A.right,B.right)
 ```
 
 
@@ -1269,6 +1313,25 @@ public:
 
 ```python
 # python3
+#递归
+class Solution:
+    def mirrorTree(self,root:TreeNode)->TreeNode:
+        if not root:
+            return None
+        root.left,root.right=self.mirrorTree(root.right), self.mirrorTree(root.left)
+        return root
+
+#不省略tmp的写法
+class Solution:
+    def mirrorTree(self, root: TreeNode) -> TreeNode:
+        if not root: 
+            return None
+        tmp = root.left
+        root.left = self.mirrorTree(root.right)
+        root.right = self.mirrorTree(tmp)
+        return root
+
+
 ```
 
 
@@ -1303,6 +1366,31 @@ public:
 
 ```python
 # python3
+#两个函数分开写
+class Solution:
+    def isSymmetric(self,root:TreeNode)->bool:
+        res=True
+        if root:
+            res=self.recur(root.left,root.right)
+            # res=self.recur(root.left,root.right)
+        return res
+
+    def recur(self,L,R):
+        if not L and not R:return True
+        if not L or not R or L.val!=R.val:return False
+        return self.recur(L.left,R.right) and self.recur(L.right,R.left)
+
+#递归函数写在主函数里
+class Solution:
+    def isSymmetric(self,root:TreeNode)->bool:
+        def recur(L,R):
+            if not L and not R:
+                return True
+            if not L or not R or L.val!=R.val:
+                return False
+            return recur(L.left,R.right) and recur(L.right,R.left)
+        
+        return recur(root.left,root.right) if root else True
 ```
 
 
@@ -1337,6 +1425,28 @@ public:
 
 ```python
 # python3
+class Solution:
+    def spiralOrder(self,matrix:List[List[int]])->List[int]:
+        if not matrix:return []
+        L,R,T,B,res=0,len(matrix[0])-1,0,len(matrix)-1,[]
+        while True:
+            for i in range(L,R+1):
+                res.append(matrix[T][i])
+            T+=1
+            if T>B:break
+            for i in range(T,B+1):
+                res.append(matrix[i][R])
+            R-=1
+            if L>R:break
+            for i in range(R,L-1,-1):
+                res.append(matrix[B][i])
+            B-=1
+            if T>B:break
+            for i in range(B,T-1,-1):
+                res.append(matrix[i][L])
+            L+=1
+            if L>R:break
+        return res
 ```
 
 
@@ -1385,6 +1495,32 @@ public:
 
 ```python
 # python3
+
+class MinStack:
+    def __init__(self):
+        """
+        initialize your data structure here.
+        """
+        self.mini = []
+        self.stack = []
+    def push(self, x: int) -> None:
+        self.stack.append(x)
+        if self.mini != []:
+            if x<self.mini[-1]:self.mini.append(x)
+            else: self.mini.append(self.mini[-1])
+        else:
+            self.mini.append(x)
+
+    def pop(self) -> None:
+        self.mini.pop()
+        return(self.stack.pop())
+
+    def top(self) -> int:
+        return(self.stack[-1])
+
+
+    def min(self) -> int:
+        return(self.mini[-1])
 ```
 
 
@@ -1415,6 +1551,16 @@ public:
 
 ```python
 # python3
+class Solution:
+    def validateStackSequences(self,pushed:List[int],popped:List[int])->bool:
+        res,i=[],0
+        for num in pushed:
+            res.append(num)
+            while res and res[-1]==popped[i]:
+              #pop()默认弹出最后一个元素
+                res.pop()
+                i+=1
+        return not res
 ```
 
 
@@ -1455,6 +1601,21 @@ public:
 
 ```python
 # python3
+#deque是双端队列，popleft的效率更高
+class Solution:
+    def levelOrder(self,root:TreeNode)->List[int]:
+        if not root:return []
+        res,queue=[],collections.deque()
+        queue.append(root)
+        while queue:
+           #node=queue.pop(0)
+            node=queue.popleft()
+            res.append(node.val)
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        return res
 ```
 
 
@@ -1491,6 +1652,20 @@ public:
 
 ```python
 # python3
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:return []
+        res,queue=[],collections.deque()
+        queue.append(root)
+        while queue:
+            tmp=[]
+            for _ in range(len(queue)):
+                node=queue.popleft()
+                tmp.append(node.val)
+                if node.left:queue.append(node.left)
+                if node.right:queue.append(node.right)
+            res.append(tmp)
+        return res
 ```
 
 
@@ -1538,6 +1713,58 @@ public:
 
 ```python
 # python3
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+###用两个双端队列
+#值得注意的是，记录路径时若直接执行 res.append(tmp) ，则是将tmp对象加入了res；后续tmp改变时,res中的tmp对象也会随之改变。
+
+正确做法：res.append(list(path)) ，相当于复制了一个 path 并加入到 res 。
+
+著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root:return []
+        res,queue=[],collections.deque()
+        queue.append(root)
+        while queue:
+            tmp=collections.deque()
+            for _ in range(len(queue)):
+                node=queue.popleft()
+                if len(res)%2:tmp.appendleft(node.val)
+                else:tmp.append(node.val)
+                if node.left:queue.append(node.left)
+                if node.right:queue.append(node.right)
+            res.append(list(tmp))
+        return res
+      
+###用BFS模版
+class Solution:
+    def levelOrder(self, root: TreeNode) -> List[List[int]]:
+        if not root: return []
+        res = []
+        q = collections.deque()  # BFS模板，需要用队列实现
+        q.append(root)
+        while q:
+            tmp = []
+            for _ in range(len(q)): # 模板操作
+                node = q.popleft()
+                tmp.append(node.val)
+                if node.left:
+                    q.append(node.left)
+                if node.right:
+                    q.append(node.right)
+            if len(res) % 2 == 0:  # 如果当前的res的长度是偶数，说明本次tmp中存储的是偶数层(设根为 0 层)
+                res.append(tmp)
+            else:
+                res.append(tmp[::-1])  # 否则将tmp翻转再加入结果集
+        return res
+
+
 ```
 
 
@@ -1573,6 +1800,42 @@ public:
 
 ```python
 # python3
+#易懂的代码
+class Solution:
+    def verifyPostorder(self, postorder: List[int]) -> bool:
+        if postorder is None or len(postorder)==0:
+            return True
+        n=len(postorder)
+
+        root=postorder[-1]
+        for i in range(n):
+            if postorder[i]>root:
+                break
+        
+        for j in range(i,n-1):
+            if postorder[j]<root:
+                return False
+        left=True
+        if i>=0:
+            left=self.verifyPostorder(postorder[:i])
+        right=True
+        if i<=n-1:
+            right=self.verifyPostorder(postorder[i:-1])
+        return left and right
+
+
+#简洁的代码
+class Solution:
+    def verifyPostorder(self, postorder: [int]) -> bool:
+        def recur(i,j):
+            if i>=j:return True
+            p=i
+            while postorder[p]<postorder[j]:p+=1
+            m=p
+            while postorder[p]>postorder[j]:p+=1
+            return p==j and recur(i,m-1) and recur(m,j-1)
+        
+        return recur(0,len(postorder)-1)
 ```
 
 
@@ -1612,6 +1875,21 @@ public:
 
 ```python
 # python3
+class Solution:
+    def pathSum(self,root:TreeNode,sum:int)->List[List[int]]:
+        res, path=[],[]
+        def dfs(root,tar):
+            if not root:return
+            path.append(root.val)
+            tar-=root.val
+            if tar==0 and not root.left and not root.right:
+                res.append(list(path))
+            dfs(root.left,tar)
+            dfs(root.right,tar)
+            path.pop()
+        
+        dfs(root,sum)
+        return res
 ```
 
 
@@ -1791,6 +2069,45 @@ public:
 
 ```python
 # python3
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Codec:
+    def serialize(self, root):
+        if not root:return "[]"
+        queue=collections.deque()
+        queue.append(root)
+        res=[]
+        while queue:
+            node=queue.popleft()
+            if node:
+                res.append(str(node.val))
+                queue.append(node.left)
+                queue.append(node.right)
+            else:res.append("null")
+        return '['+','.join(res)+']'
+
+    def deserialize(self,data):
+        if data=="[]":return
+        vals,i=data[1:-1].split(','),1
+        root=TreeNode(int(vals[0]))
+        queue=collections.deque()
+        queue.append(root)
+        while queue:
+            node=queue.popleft()
+            if vals[i]!="null":
+                node.left=TreeNode(int(vals[i]))
+                queue.append(node.left)
+            i+=1
+            if vals[i]!="null":
+                node.right=TreeNode(int(vals[i]))
+                queue.append(node.right)
+            i+=1
+        return root
 ```
 
 
@@ -1861,6 +2178,17 @@ public:
 
 ```python
 # python3
+class Solution:
+    def majorityElement(self,nums:List[int])->int:
+        votes=0
+        for num in nums:
+            if votes==0:
+                x=num
+            if num==x:
+                votes+=1
+            else:
+                votes-=1
+        return x
 ```
 
 
@@ -1903,6 +2231,34 @@ public:
 
 ```python
 # python3
+class Solution:
+    def partition(self, nums, l, r):
+        import random
+        i=random.randint(l,r)
+        nums[l],nums[i]=nums[i],nums[l]
+        pivot = nums[l]
+        while l < r:
+            while l < r and pivot <= nums[r]:
+                r -= 1
+            nums[l] = nums[r]
+            while l < r and nums[l] <= pivot:
+                l += 1
+            nums[r] = nums[l]
+        nums[l] = pivot
+        return l 
+
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k == 0: return list()
+        l, r = 0, len(arr)-1
+        idx = self.partition(arr, l, r)
+        while idx != k - 1:
+            if idx < k-1:
+                l = idx+1
+                idx = self.partition(arr, l, r)
+            if idx > k-1:
+                r = idx-1
+                idx = self.partition(arr, l, r)
+        return arr[:k]
 ```
 
 
@@ -1964,6 +2320,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxnum=nums[0]
+        for i in range(1,len(nums)):
+            if nums[i-1]>0:
+                nums[i]+=nums[i-1]
+            maxnum=max(maxnum,nums[i])
+        return maxnum
+
 ```
 
 
@@ -2129,6 +2494,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def maxValue(self,grid:List[List[int]])->int:
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if i==0 and j==0:continue
+                if i==0:grid[i][j]+=grid[i][j-1]
+                elif j==0:grid[i][j]+=grid[i-1][j]
+                else:grid[i][j]+=max(grid[i][j-1],grid[i-1][j])
+        return grid[-1][-1]
 ```
 
 
@@ -2157,6 +2531,34 @@ public:
 
 ```python
 # python3
+###双指针法
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        head,tail=0,0
+        if len(s)<2:return len(s)
+        res=1
+
+        while tail<len(s)-1:
+            tail+=1
+            if s[tail] not in s[head:tail]:
+                res=max(tail-head+1,res)
+            else:
+                while s[tail] in s[head:tail]:
+                    head+=1
+        return res
+      
+#双指针+hash表优化，hash表记录每一个字符出现的位置的后面一个位置
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n=len(s)-1
+        dic={}
+        head,tail,res=0,0,0
+        for tail in range(n+1):
+            if s[tail] in dic:
+                head=max(dic[s[tail]],head)
+            dic[s[tail]]=tail+1
+            res=max(res,tail-head+1)
+        return res
 ```
 
 
@@ -2190,14 +2592,14 @@ public:
 # python3
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
+        #初始化dp列表
         dp,a,b,c=[1]*n,0,0,0
-        dp[0]=1
         for i in range(1,n):
-            tmp=min(dp[i]*2,dp[i]*3,dp[i]*5)
-            if tmp==dp[i]*2:a+=1
-            if tmp==dp[i]*3:b+=1
-            if tmp==dp[i]*5:c+=1
-            dp[i]=tmp
+            n2,n3,n5=dp[a]*2,dp[b]*3,dp[c]*5
+            dp[i]=min(n2,n3,n5)
+            if dp[i]==n2:a+=1
+            if dp[i]==n3:b+=1
+            if dp[i]==n5:c+=1
         return dp[-1]
 ```
 
@@ -2227,6 +2629,28 @@ public:
 
 ```python
 # python3
+# 如果dic中不包含key(c),则向dic中添加键值对(c,True);否则就是(c,False)
+ class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        dic={}
+        for c in s:
+            dic[c]=not c in dic
+        for c in s:
+            if dic[c]:return c
+        return ' '
+      
+ #另外一种写法：若c已经存在hash表中，则讲它的值置为0；没有出现过就是1     
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        dic={}
+        for c in s:
+            if c in dic:
+                dic[c]=0
+            else:
+                dic[c]=1
+        for c in s:
+            if dic[c]==1:return c
+        return ' '
 ```
 
 
@@ -2266,6 +2690,41 @@ public:
 
 ```python
 # python3
+# 后有序数组中元素出列的时候，计算逆序个数
+
+#from typing import List
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        n=len(nums)
+        return self.mergeSort(nums,0,n-1)
+        
+    def merge(nums, start, mid, end):
+        i, j, temp = start, mid + 1, []
+        while i <= mid and j <= end:
+            if nums[i] <= nums[j]:
+                temp.append(nums[i])
+                i += 1
+            else:
+                self.cnt += mid - i + 1
+                temp.append(nums[j])
+                j += 1
+        while i <= mid:
+            temp.append(nums[i])
+            i += 1
+        while j <= end:
+            temp.append(nums[j])
+            j += 1
+            
+        for i in range(len(temp)):
+            nums[start + i] = temp[i]
+                    
+
+    def mergeSort(nums, start, end):
+        if start >= end: return
+        mid = (start + end) >> 1
+            mergeSort(nums, start, mid)
+            mergeSort(nums, mid + 1, end)
+            merge(nums, start, mid,  end)
 ```
 
 
@@ -2298,6 +2757,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def getIntersectionNode(self,headA:ListNode,headB:ListNode)->ListNode:
+        node1,node2=headA,headB
+        while node1!=node2:
+            #被注释掉的写法会超时，正确的写法巧妙的避开了两条链表最后都指向了同一个null节点，代替了不相交的特殊情况。
+            #node1 = node1.next if node1.next else headB
+            node1=node1.next if node1 else headB
+            node2=node2.next if node2 else headA
+        return node1
 ```
 
 
@@ -2339,6 +2807,25 @@ public:
 
 ```python
 # python3
+class Solution:
+#找到target后，还需要看它左右是否还有相同的数字，所以讲两个指针都指向中间，再往两边扩散
+    def search(self,nums:List[int],target:int)->int:
+        L,R=0,len(nums)
+        while L<R:
+            m=(L+R)//2
+            if nums[m]==target:
+                i=j=m
+                while i>=0 and nums[i]==target:
+                    i-=1
+                while j<R and nums[j]==target:
+                    j+=1
+                return j-i-1
+            elif nums[m]<target:
+                L=m+1
+            else:R=m
+        return 0
+
+
 ```
 
 
@@ -2373,6 +2860,14 @@ public:
 
 ```python
 # python3
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        i,j=0,len(nums)-1
+        while i<=j:
+            m=(i+j)//2
+            if nums[m]==m:i=m+1
+            else:j=m-1
+        return i
 ```
 
 
@@ -2460,6 +2955,8 @@ public:
 
 ```python
 # python3
+class Solution:
+  def 
 ```
 
 
@@ -2525,6 +3022,40 @@ public:
 
 ```python
 # python3
+#56-I的解答：一个数组，只有两个数字只出现一次，其他的都出现了两次，找出这两个数
+class Solution:
+    def singleNumbers(self, nums: List[int]) -> List[int]:
+        res,a,b=0,0,0
+        for num in nums:
+            res^=num
+        s=1
+        while(res&s==0):
+            s<<=1
+        for num in nums:
+            if(s&num==0):
+                a^=num
+            else:
+                b^=num
+        return [a,b]
+
+#56-II的解答
+#Method1：dict{"key":"value"}
+class Solution:
+    def singleNumber(self, nums: List[int]) -> int:
+        dict={}
+        for num in nums:
+            if num not in dict:
+                dict[num]=1
+            else:
+                dict[num]+=1
+        for num in dict:
+            if dict[num]==1:
+                return num
+           
+#Method2: bit operation
+
+
+         
 ```
 
 
@@ -2557,6 +3088,16 @@ public:
 
 ```python
 # python3
+class Solution:
+    def twoSum(self,nums:List[int],target:int)->List[int]:
+        i,j=0,len(nums)-1
+        while i<j:
+            s=nums[i]+nums[j]
+            if s>target:j-=1
+            elif s<target:i+=1
+            else:
+                return nums[i],nums[j]
+        return []
 ```
 
 
@@ -2589,6 +3130,28 @@ public:
 
 ```python
 # python3
+class Solution:
+    def findContinuousSequence(self, target: int) -> List[List[int]]:
+        # 初始化窗口指针和输出列表
+        i, j, res = 1,2, []
+
+        # 滑动窗口的右边界不能超过target的中值
+        while j <= target//2 + 1:
+            # 计算当前窗口内数字之和
+            cur_sum = sum(list(range(i,j+1)))
+            # 若和小于目标，右指针向右移动，扩大窗口
+            if cur_sum < target:
+                j += 1
+            # 若和大于目标，左指针向右移动，减小窗口
+            elif cur_sum > target:
+                i += 1
+            # 相等就把指针形成的窗口添加进输出列表中
+            # 别忘了，这里还要继续扩大寻找下一个可能的窗口哦
+            else:
+                res.append(list(range(i,j+1)))
+                # 这里用j+=1，i+=1，i+=2都可以的
+                j += 1
+        return res
 ```
 
 
@@ -2640,6 +3203,17 @@ public:
 
 ```python
 # python3
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        s=s.strip()
+        i=j=len(s)-1
+        res=[]
+        while i>=0:
+            while i>=0 and s[i]!=' ':i-=1
+            res.append(s[i+1:j+1])
+            while s[i]==' ':i-=1
+            j=i
+        return ' '.join(res)
 ```
 
 
@@ -2662,6 +3236,32 @@ public:
 
 ```python
 # python3
+#slice
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        return s[n:] + s[:n]
+
+#list
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        res = []
+        for i in range(n, len(s)):
+            res.append(s[i])
+        for i in range(n):
+            res.append(s[i])
+        return ''.join(res)
+
+
+#string 字符串不可以改拜年，但是可以进行拼接
+class Solution:
+    def reverseLeftWords(self, s: str, n: int) -> str:
+        res = ""
+        for i in range(n, len(s)):
+            res += s[i]
+        for i in range(n):
+            res += s[i]
+        return res
+
 ```
 
 
@@ -2794,6 +3394,28 @@ public:
 
 ```python
 # python3
+#法一
+class Solution:
+    def isStraight(self, nums: List[int]) -> bool:
+        joker = 0
+        nums.sort() # 数组排序
+        for i in range(4):
+            if nums[i] == 0: joker += 1 # 统计大小王数量
+            elif nums[i] == nums[i + 1]: return False # 若有重复，提前返回 false
+        return nums[4] - nums[joker] < 5 # 最大牌 - 最小牌 < 5 则可构成顺子
+      
+#法二
+class Solution:
+    def isStraight(self, nums: List[int]) -> bool:
+        repeat=set()
+        ma,mi=0,14
+        for num in nums:
+            if num==0:continue
+            ma=max(ma,num)
+            mi=min(mi,num)
+            if num in repeat:return False
+            repeat.add(num)
+        return ma-mi<5
 ```
 
 
@@ -2843,6 +3465,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        if prices==[]:return 0
+        res=0
+        minv=prices[0]
+        for i in range(1,len(prices)):
+            minv=min(minv,prices[i])
+            res=max(res,prices[i]-minv)
+        return res
 ```
 
 
@@ -2863,6 +3494,14 @@ public:
 
 ```python
 # python3
+class Solution:
+    def __init__(self):
+        self.res = 0
+
+    def sumNums(self, n: int) -> int:
+        n>1 and self.sumNums(n-1)
+        self.res+=n
+        return self.res
 ```
 
 
@@ -2919,6 +3558,18 @@ public:
 };
 ```
 
+
+
+```python
+#python3
+class Solution:
+    def constructArr(self, a: List[int]) -> List[int]:
+      
+
+```
+
+
+
 #### [67. 把字符串转换成整数](https://leetcode-cn.com/problems/ba-zi-fu-chuan-zhuan-huan-cheng-zheng-shu-lcof/) [MID]
 
 ```c++
@@ -2951,6 +3602,19 @@ public:
 
 ```python
 # python3
+class Solution:
+    def strToInt(self, str: str) -> int:
+        str=str.strip()
+        if not str:return 0
+        res,i,flag,max_int=0,1,1,2**31-1
+        if str[0]=='-':flag=-1
+        elif str[0]!='+':i=0
+        for c in str[i:]:
+            if not '0'<=c<='9':break
+            res=10*res+ord(c)-ord('0')
+            if res>max_int:
+                return max_int if flag==1 else -max_int-1
+        return flag*res  
 ```
 
 
@@ -2984,6 +3648,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        while root:
+            if root.val <p.val and root.val <q.val:
+                root=root.right
+            elif root.val>p.val and root.val >q.val:
+                root=root.left
+            else:break
+        return root
 ```
 
 
@@ -2996,5 +3669,15 @@ public:
 
 ```python
 # python3
+class Solution:
+    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
+      	if not root or root==p or root==q:return root
+        left=self.lowestCommonAncestor(root.left,p,q)
+        right=self.lowestCommonAncestor(root.right,p,q)
+        if not left and not right:return None
+        if not left:return right
+        if not right:return left
+        return root
+      
 ```
 
