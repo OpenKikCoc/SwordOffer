@@ -348,37 +348,38 @@ public:
 
 
 ```python
-# python3
-class Solution:
-    # def __init__(self):
-    #     self.preorder=None
-    #     self.reverses=None
-    
-    def buildTree(self,preorder:List[int],inorder:List[int])->TreeNode:
-        # pre_size=len(preorder)
-        # in_size=len(inorder)
-        # if pre_size!=in_size:
-        #     return None
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
-        self.preorder=preorder
-        self.reverses=dict()
-        # 以空间换时间，否则，找根结点在中序遍历中的位置需要遍历
-        for i in range(in_size):
-            self.reverses[inorder[i]]=i
-        
-        return self.recur(0,pre_size-1,0,in_size-1)
-    
-    def recur(self,pre_left,pre_right,in_left,in_right):
-        if pre_left>pre_right or in_left>in_right:
-            return None
-        
-        pivot=self.preorder[pre_left]
-        root=TreeNode(pivot)
-
-        pivot_index=self.reverses[pivot]
-        root.left=self.recur(pre_left + 1,pivot_index - in_left + pre_left,in_left,pivot_index - 1)
-        root.right=self.recur(pivot_index - in_left + pre_left + 1, pre_right,pivot_index + 1, in_right)
-        return root
+#算法流程：
+#1.在前序遍历中找到根节点：前序遍历的第一个数 就是根节点的值
+#2.在中序遍历中找到根节点对应的位置k，则 k的左边就是左子树的中序遍历，k的右边就是右子树的中序遍历 （这一步需要用一个字典来存储对应的位置）
+#3.假设左子树的长度为l,那么在前序遍历里，根节点后l个数 是左子树的前序遍历，剩下的树就是右子树的前序遍历
+#4.有了左右子树的前序遍历和中序遍历，我们可以先递归创建出左右子树，然后再创建根节点；
+class Solution(object):
+    def buildTree(self, pre, inor):
+        """
+        :type preorder: List[int]
+        :type inorder: List[int]
+        :rtype: TreeNode
+        """
+        def dfs(pre_l,pre_r,in_l,in_r):
+            if pre_l > pre_r:
+                return 
+            root = TreeNode(pre[pre_l])
+            idx = dic[pre[pre_l]]
+            root.left = dfs(pre_l + 1, idx - in_l + pre_l, in_l, idx - 1)
+            root.right = dfs(idx - in_l + pre_l + 1, pre_r, idx + 1, in_r)
+            return root  # 递归返回这一层对应的root , 也就是重建后的二叉树
+            
+        dic = dict()
+        for i in range(len(inor)):
+            dic[inor[i]] = i
+        return dfs(0,len(pre) - 1, 0, len(inor) - 1)
 ```
 
 
@@ -425,23 +426,50 @@ public:
 
 
 ```python
-# python3
-class CQueue:
+class MyQueue(object):
 
     def __init__(self):
-        self.A,self.B=[],[]
+        """
+        Initialize your data structure here.
+        """
+        self.A = []
+        self.B = []
 
-    def appendTail(self, value: int) -> None:
-        self.A.append(value)
+    def push(self, x):
+        """
+        Push element x to the back of queue.
+        :type x: int
+        :rtype: void
+        """
+        self.A.append(x)
+        
 
-    def deleteHead(self) -> int:
-        if self.B:
-            return self.B.pop()
-        if not self.A:
-            return -1
+    def pop(self):
+        """
+        Removes the element from in front of queue and returns that element.
+        :rtype:int
+        """
+        if self.B:return self.B.pop()
         while self.A:
             self.B.append(self.A.pop())
         return self.B.pop()
+
+    def peek(self):
+        """
+        Get the front element.
+        :rtype: int
+        """
+        if self.B:return self.B[-1]
+        while self.A:
+            self.B.append(self.A.pop())
+        return self.B[-1]
+
+    def empty(self):
+        """
+        Returns whether the queue is empty.
+        :rtype: bool
+        """
+        return not self.A and not self.B
 ```
 
 
@@ -473,7 +501,7 @@ class Solution:
     def fib(self, n: int) -> int:
         a,b=0,1
         for _ in range(0,n):
-            a,b=b,a+b
+            a,b = b, a + b  #踩坑：需要同步交换，不能写成2行
         return a%1000000007
 ```
 
@@ -530,7 +558,7 @@ class Solution:
             m=(i+j)//2
             if numbers[m]>numbers[j]:i=m+1
             elif numbers[m]<numbers[j]:j=m
-            else:j-=1
+            else:j-=1  # 踩坑：当数字相同的时候，直接把右指针向左移动一个。如果当前数为最小数，删除掉右边的这个数 不会对结果产生影响
         return numbers[i]
 ```
 
@@ -579,46 +607,32 @@ public:
 
 
 ```python
-# python3
-class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        # 使用深度优先搜索
-        if not board:   # 边界条件
+class Solution(object):
+    def hasPath(self, matrix, word):
+       # DFS, 经典的搜索问题。最重要的是考虑顺序！
+       # 我们先枚举单词的起点，然后依次枚举单词的每个字母。过程中需要将已经使用过的字母改成一个特殊字母，以避免重复使用字符。
+       # 这道题需要记录 具体的路径， BFS不方便记录路径，所以只用DFS来遍历记录
+        def dfs(x, y, u):
+            if word[u] != matrix[x][y]:return False
+            if u == length -1 :return True
+            tmp = matrix[x][y]
+            matrix[x][y] = '*'
+            dx, dy = [0, 0, 1, -1], [-1, 1, 0, 0]
+            for i in range(4):
+                a, b = x + dx[i], y + dy[i]
+                if 0 <= a < n and 0 <= b < m:
+                    if dfs(a, b, u+1):
+                        return True
+            matrix[x][y] = tmp
             return False
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                if self.dfs(board, i, j, word):
-                    return True
-        return False
-
-    def dfs(self, board, i, j, word):
-        if len(word) == 0: # 如果单词已经检查完毕
-            return True
-        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]) or word[0] != board[i][j]:  # 如果路径出界或者矩阵中的值不是word的首字母，返回False
-            return False
-        tmp = board[i][j]  # 如果找到了第一个字母，检查剩余的部分
-        board[i][j] = '0'
-        res = self.dfs(board,i+1,j,word[1:]) or self.dfs(board,i-1,j,word[1:]) or self.dfs(board,i,j+1,word[1:]) or self.dfs(board, i, j-1, word[1:]) # 上下左右四个方向搜索
-
-        board[i][j] = tmp
-        return res
-      
-#========= 
-class Solution:
-    def exist(self,board:List[List[str]],word:str)->bool:
-        def dfs(i,j,k):
-            if not 0<=i<len(board) or not 0<=j<len(board[0]) or board[i][j]!=word[k]:
-                return False
-            if k==len(word)-1:return True
-            tmp,board[i][j]=board[i][j],'0'
-            res=dfs(i+1,j,k+1) or dfs(i-1,j,k+1) or dfs(i,j+1,k+1) or dfs(i,j-1,k+1)
-            board[i][j]=tmp
-            return res
-        
-        for i in range(len(board)):
-            for j in range(len(board[0])):
-                if dfs(i,j,0):
-                    return True
+         
+        if not matrix:return False
+        n, m = len(matrix), len(matrix[0])
+        length = len(word)
+        for i in range(n):
+           for j in range(m):
+               if dfs(i, j, 0):   #从字符串的第0个开始枚举
+                   return True
         return False
 ```
 
@@ -667,30 +681,71 @@ public:
 
 
 ```python
-# python3
-#========= DFS
-class Solution:
-    def movingCount(self,m:int,n:int,k:int)->int:
-        def dfs(i,j,si,sj):
-            if i>=m or j>=n or k<si+sj or (i,j) in visited:
-                return 0
-            visited.add((i,j))
-            return 1+dfs(i+1,j,si+1 if (i+1)%10 else si-8,sj)+dfs(i,j+1,si, sj+1 if (sj+1)%10 else sj-8)
+class Solution(object):
+    def movingCount(self, k, n, m):
+        # 经典的BFS/DFS(也可以做)
+        if not n or not m:return 0
+        st = [[False] * m for _ in range(n)]
         
-        visited=set()
-        return dfs(0,0,0,0)
-
-#========= BFS
-class Solution:
-    def movingCount(self, m: int, n: int, k: int) -> int:
-        queue, visited,  = [(0, 0, 0, 0)], set()
-        while queue:
-            i, j, si, sj = queue.pop(0)
-            if i >= m or j >= n or k < si + sj or (i, j) in visited: continue
-            visited.add((i,j))
-            queue.append((i + 1, j, si + 1 if (i + 1) % 10 else si - 8, sj))
-            queue.append((i, j + 1, si, sj + 1 if (j + 1) % 10 else sj - 8))
-        return len(visited)
+        def sumAll(x, y):
+            res = 0
+            while x > 0:
+                res += x % 10
+                x //= 10
+            while y > 0:
+                res += y % 10
+                y //= 10
+            return res
+            
+        # def dfs(x, y):
+        #     nonlocal ans
+        #     if st[x][y] or sumAll(x, y) > k:return 
+        #     st[x][y] = True  #踩坑：记得把遍历过的格子状态更新
+        #     ans += 1
+        #     dx, dy = [0,0,1,-1], [1,-1,0,0]
+        #     for i in range(4):
+        #         a, b = x + dx[i], y + dy[i]
+        #         if 0 <= a < n and 0 <= b < m and not st[a][b] and sumAll(a, b) <= k:
+        #             dfs(a, b)
+        # ans = 0 
+        # dfs(0,0)
+        # return ans
+        
+        from collections import deque
+        q = deque()
+        q.append([0,0])
+        ans = 0 
+        dx, dy = [0,0,1,-1], [1,-1,0,0]
+        while q:
+            t = q.popleft()
+            x, y =t[0],t[1]
+            if st[x][y] or sumAll(x,y) > k:continue
+            ans +=1 
+            st[x][y] = True
+            for i in range(4):
+                nx, ny = x + dx[i], y + dy[i]
+                if 0 <= nx < n and 0 <= ny < m and not st[nx][ny]:
+                    q.append([nx,ny])
+        return ans
+        
+        
+        
+        #BFS 提前判断：（DFS也可以提前判断，可以少一些进入到队列或者递归的次数）
+        from collections import deque
+        q = deque()
+        res = 0
+        q.append([0,0])
+        st[0][0] = True
+        while q:
+            x, y = q.popleft()
+            res += 1
+            dx, dy = [0,0,1,-1], [1,-1,0,0]
+            for i in range(4):
+                nx, ny = x + dx[i], y + dy[i]
+                if 0 <= nx < n and 0 <= ny < m and not st[nx][ny] and sumAll(nx, ny) <= k:
+                    st[nx][ny] = True
+                    q.append([nx, ny])
+        return res
 ```
 
 
@@ -784,13 +839,23 @@ public:
 
 
 ```python
-# python3
+# python3，以下做法是没有考虑n为负数的情况
 class Solution:
     def hammingWeight(self, n: int) -> int:
         res=0
         while n:
             res+=n&1
             n>>=1
+        return res
+      
+# 当n为负数时，python和c++/java语言的存储处理不一致
+class Solution(object):
+    def NumberOf1(self,n):
+        res = 0
+        n = n & ((1 << 32) - 1)   # 正数的32位2进制表示不变，但负数变为正数
+        while n:
+            res +=  1
+            n -= (n & -n)
         return res
 ```
 
