@@ -446,7 +446,7 @@ public:
     TreeNode* helper(unordered_map<int, int>& h, vector<int>& pre, int s0, int e0, int s1) {
         if (s0 > e0) return nullptr;
         // 父节点 父节点在中序序列的idx
-        int mid = pre[s1], idx = h[mid], leftLen = idx-s0;
+        int mid = pre[s1], idx = h[mid], leftLen = idx - s0;
         TreeNode* node = new TreeNode(mid);
         node->left = helper(h, pre, s0, idx - 1, s1 + 1);
         node->right = helper(h, pre, idx + 1, e0, s1 + 1 + leftLen);
@@ -693,7 +693,7 @@ public:
         for (int i = 2; i <= n; ++ i ) {
             tmp = a;
             a = b % mod;
-            b = (tmp + b)%mod;
+            b = (tmp + b) % mod;
         }
         return b;
     }
@@ -760,7 +760,7 @@ public:
             while (l <= r && numbers[l] == numbers[r]) -- r ;
             if (l > r || numbers[l] < numbers[r]) break;
             int mid = l + (r - l) / 2;
-            if (numbers[mid] >= numbers[l]) l = mid + 1;	// must mid > r
+            if (numbers[mid] >= numbers[l]) l = mid + 1;    // must mid > r
             else r = mid;
         }
         return numbers[l];
@@ -1146,7 +1146,7 @@ class Solution {
 public:
     long long mod = 1e9+7;
     int cuttingRope(int n) {
-        if (n <= 3) return n-1;
+        if (n <= 3) return n - 1;
         long long res = 1;
         if (n % 3 == 1) {
             res *= 4;
@@ -1232,7 +1232,7 @@ class Solution(object):
 class Solution {
 public:
     double myPow(double x, int n) {
-      	// case
+          // case
         if (x == 1) return 1;
         else if (x == -1) return n & 1 ? -1 : 1;
         if (n == INT_MIN) return 0;
@@ -1338,7 +1338,23 @@ public:
 };
 ```
 
-删除链表中重复的节点
+
+
+```python
+# python3
+class Solution:
+    def deleteNode(self,head:ListNode,val:int)->ListNode:
+        if head.val==val:
+            return head.next
+        pre, cur=head,head.next
+        while cur and cur.val!=val:
+            pre,cur=cur,cur.next
+        if cur:
+            pre.next=cur.next
+        return head
+```
+
+#### Plus: 删除链表中重复的节点
 
 ```c++
 // AcWing
@@ -1374,20 +1390,8 @@ public:
 };
 ```
 
-
-
 ```python
-# python3
-class Solution:
-    def deleteNode(self,head:ListNode,val:int)->ListNode:
-        if head.val==val:
-            return head.next
-        pre, cur=head,head.next
-        while cur and cur.val!=val:
-            pre,cur=cur,cur.next
-        if cur:
-            pre.next=cur.next
-        return head
+
 ```
 
 
@@ -1407,12 +1411,12 @@ public:
         for (int i = 1; i <= m; ++ i ) {
             for (int j = 1; j <= n; ++ j ) {
                 if (s[i - 1] == p[j - 1] || p[j - 1] == '.') {
-                		// s[i-1] p[j-1] 可以匹配
-                    dp[i][j] = dp[i-1][j-1];
+                    // s[i-1] p[j-1] 可以匹配
+                    dp[i][j] = dp[i - 1][j - 1];
                 } else if (p[j-1] == '*') {
-                  	// 此时显然s[i-1] p[j-1] 不可以匹配 考虑使用p[j-2]位置
-                  	// if 不能匹配->不使用p[j-2]与p[j-1]组成的模式串
-                  	// else 能匹配->使用p[j-2]与p[j-1]组成的模式串1或多次
+                    // 此时显然s[i-1] p[j-1] 不可以匹配 考虑使用p[j-2]位置
+                    // if 不能匹配->不使用p[j-2]与p[j-1]组成的模式串
+                    // else 能匹配->使用p[j-2]与p[j-1]组成的模式串1或多次
                     if (p[j - 2] != '.' && p[j - 2] != s[i - 1]) dp[i][j] = dp[i][j - 2];
                     else dp[i][j] = dp[i][j - 2] || dp[i - 1][j];
                 }
@@ -1464,7 +1468,7 @@ class Solution {
 public:
     bool isNumber(string s) {
         int len = s.size();
-      	// d1:整数部分 d2:小数部分 d3:幂次部分
+          // d1:整数部分 d2:小数部分 d3:幂次部分
         int p = 0, d1 = 0, dot = 0, d2 = 0, e = 0, d3 = 0;
         while (p < len && s[p] == ' ') ++ p ;
         if (s[p] == '-' || s[p] == '+') ++ p ;
@@ -1578,15 +1582,15 @@ public:
         }
         return slow->next;
     }
-  	// another solution
-  	ListNode* getKthFromEnd(ListNode* head, int k) {
-      	ListNode* slow = head, *fast = head;
-      	while (k -- ) fast = fast->next;
-      	while (fast) {
-          	slow = slow->next;
-          	fast = fast->next;
+      // another solution
+      ListNode* getKthFromEnd(ListNode* head, int k) {
+          ListNode* slow = head, *fast = head;
+          while (k -- ) fast = fast->next;
+          while (fast) {
+              slow = slow->next;
+              fast = fast->next;
         }
-      	return slow;
+          return slow;
     }
 };
 ```
@@ -1634,7 +1638,7 @@ class Solution:
         return slow
 ```
 
-链表中环的入口结点
+#### Plus: 链表中环的入口结点
 
 ```c++
 /**
@@ -3042,7 +3046,7 @@ public:
         if (!root) return;
         helper(root->left, head, pre);
         if (!head) {
-            head = root;	// 初始化
+            head = root;    // 初始化
             pre = root;
         } else {
             pre->right = root;
@@ -3476,7 +3480,7 @@ class Solution:
 class Solution {
 public:
     int partition(vector<int>& nums, int l, int r) {
-        int pivot = nums[l];	// privot = nums[rand((r-l)%l+l)]
+        int pivot = nums[l];    // privot = nums[rand((r-l)%l+l)]
         while (l < r) {
             while (l < r && nums[r] >= pivot) -- r ;
             nums[l] = nums[r];
@@ -3891,7 +3895,7 @@ public:
         vector<int> dp(n + 1);
         dp[1] = 1;dp[0] = 1;
         for (int i = 2; i <= n; ++ i ) {
-            dp[i] = dp[i - 1];		// dp[i] 为v[i-1]字符对应的dp值
+            dp[i] = dp[i - 1];        // dp[i] 为v[i-1]字符对应的dp值
             if (v[i - 2] == '1' && v[i - 1] >= '0' && v[i - 1] <= '9')
                 dp[i] += dp[i - 2];
             else if (v[i - 2] == '2' && v[i - 1] >= '0' && v[i - 1] <= '5')
@@ -4178,29 +4182,6 @@ public:
 };
 ```
 
-字符流中第一个只出现一次的字符
-
-```c++
-// AcWing
-class Solution{
-public:
-    unordered_map<char, int> hash;
-    queue<char> q;
-
-    //Insert one char from stringstream
-    void insert(char ch){
-        q.push(ch);
-        if ( ++ hash[ch] > 1)
-            while (q.size() && hash[q.front()] > 1)
-                q.pop();
-    }
-    //return the first appearence once char in current stringstream
-    char firstAppearingOnce(){
-        return q.empty() ? '#' : q.front();
-    }
-};
-```
-
 
 
 ```python
@@ -4227,6 +4208,29 @@ class Solution:
         for c in s:
             if dic[c]==1:return c
         return ' '
+```
+
+#### Plus: 字符流中第一个只出现一次的字符
+
+```c++
+// AcWing
+class Solution{
+public:
+    unordered_map<char, int> hash;
+    queue<char> q;
+
+    //Insert one char from stringstream
+    void insert(char ch){
+        q.push(ch);
+        if ( ++ hash[ch] > 1)
+            while (q.size() && hash[q.front()] > 1)
+                q.pop();
+    }
+    //return the first appearence once char in current stringstream
+    char firstAppearingOnce(){
+        return q.empty() ? '#' : q.front();
+    }
+};
 ```
 
 
@@ -4434,7 +4438,7 @@ public:
         }
         if (r < 0 || nums[r] != target) t = -1;
         else t = r;
-      	
+          
         return t - s + 1;
     }
 };
@@ -4511,14 +4515,14 @@ public:
         for (auto v : nums) tot += v;
         return target - tot;
     }
-  	// another
-  	int missingNumber(vector<int>& nums) {
+    // another
+    int missingNumber(vector<int>& nums) {
         int n = nums.size();
         int l = 0, r = n - 1;
         while (l <= r) {
-          	int mid = l + (r - l) / 2;
-          	if (nums[mid] == mid) l = mid + 1;
-          	else r = mid - 1;
+            int mid = l + (r - l) / 2;
+            if (nums[mid] == mid) l = mid + 1;
+            else r = mid - 1;
         }
         return l;
     }
@@ -5070,25 +5074,20 @@ public:
 // AcWing
 class Solution {
 public:
-    vector<vector<int> > findContinuousSequence(int sum) {
-        vector<vector<int>> res;
-        for (int l = 1, r = 1, s = 0; r <= sum; ++ r ) {
-            s += r;
-            while (l < r && s > sum)
-                s -= l ++ ;
-            if (l < r && s == sum) {
-                vector<int> t;
-                for (int i = l; i <= r; ++ i )
-                    t.push_back(i);
-                res.push_back(t);
-            }
+    string reverseWords(string s) {
+        int n = s.size();
+        for (int i = 0; i < n; ++ i ) {
+            int j = i + 1;
+            while (j < n && s[j] != ' ')
+                j ++ ;
+            reverse(s.begin() + i, s.begin() + j);
+            i = j;
         }
-        return res;
+        reverse(s.begin(), s.end());
+        return s;
     }
 };
 ```
-
-
 
 
 
@@ -5179,7 +5178,7 @@ class Solution {
 public:
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
         vector<int> res;
-        deque<int> dq;		// 保存下标
+        deque<int> dq;        // 保存下标
         int n = nums.size();
         for (int i = 0; i < n; ++ i ) {
             while (!dq.empty() && dq.front() <= i - k)
@@ -5521,7 +5520,7 @@ public:
     int add(int a, int b) {
         while (b) {
             int carry = (unsigned int)(a & b) << 1;
-            a ^= b;		// 求和
+            a ^= b;        // 求和
             b = carry;
         }
         return a;
@@ -5576,6 +5575,25 @@ public:
         }
         */
         return b;
+    }
+};
+```
+
+```c++
+// AcWing
+class Solution {
+public:
+    vector<int> multiply(const vector<int>& A) {
+        if (A.empty())
+            return {};
+        int n = A.size();
+        vector<int> res(n);
+        res[0] = 1;
+        for (int i = 1, p = A[0]; i < n; ++ i )
+            res[i] = p, p *= A[i];
+        for (int i = n - 2, p = A[n - 1]; i >= 0; -- i )
+            res[i] *= p, p *= A[i];
+        return res;
     }
 };
 ```
@@ -5749,7 +5767,7 @@ class Solution:
 # python3
 class Solution:
     def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-      	if not root or root==p or root==q:return root
+          if not root or root==p or root==q:return root
         left=self.lowestCommonAncestor(root.left,p,q)
         right=self.lowestCommonAncestor(root.right,p,q)
         if not left and not right:return None
