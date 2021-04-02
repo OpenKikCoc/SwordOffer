@@ -4860,7 +4860,9 @@ public:
 ```python
 # python3
 class Solution:
-  def 
+    def treeDepth(self, root):
+        if not root:return 0
+        return max(self.treeDepth(root.left), self.treeDepth(root.right)) + 1
 ```
 
 
@@ -4928,6 +4930,18 @@ public:
 
 ```python
 # python3
+class Solution(object):
+    def isBalanced(self, root):
+        def dfs(p):
+            nonlocal ans
+            if not p:return 0
+            left, right = dfs(p.left), dfs(p.right)
+            if abs(left - right) >1:
+                ans = False
+            return max(left, right) + 1 #这是递归函数的return的值
+        ans = True
+        dfs(root)
+        return ans
 ```
 
 
@@ -5902,15 +5916,23 @@ class Solution:
 
 ```python
 # python3
-class Solution:
-    def lowestCommonAncestor(self, root: TreeNode, p: TreeNode, q: TreeNode) -> TreeNode:
-          if not root or root==p or root==q:return root
-        left=self.lowestCommonAncestor(root.left,p,q)
-        right=self.lowestCommonAncestor(root.right,p,q)
-        if not left and not right:return None
-        if not left:return right
-        if not right:return left
-        return root
-      
+class Solution(object):
+    def lowestCommonAncestor(self, root, p, q):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        def dfs(r):
+            if not r:return None
+            if p == r or q ==r:return r  
+            left = dfs(r.left)
+            right = dfs(r.right)
+            if left and right:return r 
+            if not left:return right
+            if not right:return left
+
+        return dfs(root)
 ```
 
