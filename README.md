@@ -2,87 +2,7 @@
 
 ### SwordOffer
 
-SwordOffer Solutions
-
 [toc]
-
-
-
-- [SwordOffer](#swordoffer)
-  - [03.数组中重复的数字 [EASY]](#03%e6%95%b0%e7%bb%84%e4%b8%ad%e9%87%8d%e5%a4%8d%e7%9a%84%e6%95%b0%e5%ad%97-easy)
-  - [04.二维数组中的查找 [EASY]](#04%e4%ba%8c%e7%bb%b4%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e6%9f%a5%e6%89%be-easy)
-  - [05.替换空格 [EASY]](#05%e6%9b%bf%e6%8d%a2%e7%a9%ba%e6%a0%bc-easy)
-  - [06.从尾到头打印链表 [EASY]](#06%e4%bb%8e%e5%b0%be%e5%88%b0%e5%a4%b4%e6%89%93%e5%8d%b0%e9%93%be%e8%a1%a8-easy)
-  - [07. 重建二叉树 [MID]](#07-%e9%87%8d%e5%bb%ba%e4%ba%8c%e5%8f%89%e6%a0%91-mid)
-  - [09. 用两个栈实现队列 [EASY]](#09-%e7%94%a8%e4%b8%a4%e4%b8%aa%e6%a0%88%e5%ae%9e%e7%8e%b0%e9%98%9f%e5%88%97-easy)
-  - [10- I. 斐波那契数列 [EASY]](#10--i-%e6%96%90%e6%b3%a2%e9%82%a3%e5%a5%91%e6%95%b0%e5%88%97-easy)
-  - [10- II. 青蛙跳台阶问题 [EASY]](#10--ii-%e9%9d%92%e8%9b%99%e8%b7%b3%e5%8f%b0%e9%98%b6%e9%97%ae%e9%a2%98-easy)
-  - [11. 旋转数组的最小数字 [EASY]](#11-%e6%97%8b%e8%bd%ac%e6%95%b0%e7%bb%84%e7%9a%84%e6%9c%80%e5%b0%8f%e6%95%b0%e5%ad%97-easy)
-  - [12. 矩阵中的路径 [MID]](#12-%e7%9f%a9%e9%98%b5%e4%b8%ad%e7%9a%84%e8%b7%af%e5%be%84-mid)
-  - [13. 机器人的运动范围 [MID]](#13-%e6%9c%ba%e5%99%a8%e4%ba%ba%e7%9a%84%e8%bf%90%e5%8a%a8%e8%8c%83%e5%9b%b4-mid)
-  - [14- I. 剪绳子 [MID]](#14--i-%e5%89%aa%e7%bb%b3%e5%ad%90-mid)
-  - [14- II. 剪绳子 II [MID]](#14--ii-%e5%89%aa%e7%bb%b3%e5%ad%90-ii-mid)
-  - [15. 二进制中1的个数 [EASY]](#15-%e4%ba%8c%e8%bf%9b%e5%88%b6%e4%b8%ad1%e7%9a%84%e4%b8%aa%e6%95%b0-easy)
-  - [16. 数值的整数次方 [MID]](#16-%e6%95%b0%e5%80%bc%e7%9a%84%e6%95%b4%e6%95%b0%e6%ac%a1%e6%96%b9-mid)
-  - [17. 打印从1到最大的n位数 [EASY]](#17-%e6%89%93%e5%8d%b0%e4%bb%8e1%e5%88%b0%e6%9c%80%e5%a4%a7%e7%9a%84n%e4%bd%8d%e6%95%b0-easy)
-  - [18. 删除链表的节点 [EASY]](#18-%e5%88%a0%e9%99%a4%e9%93%be%e8%a1%a8%e7%9a%84%e8%8a%82%e7%82%b9-easy)
-  - [19. 正则表达式匹配 [HARD]](#19-%e6%ad%a3%e5%88%99%e8%a1%a8%e8%be%be%e5%bc%8f%e5%8c%b9%e9%85%8d-hard)
-  - [20. 表示数值的字符串 [MID]](#20-%e8%a1%a8%e7%a4%ba%e6%95%b0%e5%80%bc%e7%9a%84%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
-  - [21. 调整数组顺序使奇数位于偶数前面 [EASY]](#21-%e8%b0%83%e6%95%b4%e6%95%b0%e7%bb%84%e9%a1%ba%e5%ba%8f%e4%bd%bf%e5%a5%87%e6%95%b0%e4%bd%8d%e4%ba%8e%e5%81%b6%e6%95%b0%e5%89%8d%e9%9d%a2-easy)
-  - [22. 链表中倒数第k个节点 [EASY]](#22-%e9%93%be%e8%a1%a8%e4%b8%ad%e5%80%92%e6%95%b0%e7%ac%ack%e4%b8%aa%e8%8a%82%e7%82%b9-easy)
-  - [24. 反转链表 [EASY]](#24-%e5%8f%8d%e8%bd%ac%e9%93%be%e8%a1%a8-easy)
-  - [25. 合并两个排序的链表 [EASY]](#25-%e5%90%88%e5%b9%b6%e4%b8%a4%e4%b8%aa%e6%8e%92%e5%ba%8f%e7%9a%84%e9%93%be%e8%a1%a8-easy)
-  - [26. 树的子结构 [MID]](#26-%e6%a0%91%e7%9a%84%e5%ad%90%e7%bb%93%e6%9e%84-mid)
-  - [27. 二叉树的镜像 [EASY]](#27-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e9%95%9c%e5%83%8f-easy)
-  - [28. 对称的二叉树 [EASY]](#28-%e5%af%b9%e7%a7%b0%e7%9a%84%e4%ba%8c%e5%8f%89%e6%a0%91-easy)
-  - [29. 顺时针打印矩阵 [EASY]](#29-%e9%a1%ba%e6%97%b6%e9%92%88%e6%89%93%e5%8d%b0%e7%9f%a9%e9%98%b5-easy)
-  - [30. 包含min函数的栈 [EASY]](#30-%e5%8c%85%e5%90%abmin%e5%87%bd%e6%95%b0%e7%9a%84%e6%a0%88-easy)
-  - [31. 栈的压入、弹出序列 [MID]](#31-%e6%a0%88%e7%9a%84%e5%8e%8b%e5%85%a5%e5%bc%b9%e5%87%ba%e5%ba%8f%e5%88%97-mid)
-  - [32 - I. 从上到下打印二叉树 [MID]](#32---i-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-mid)
-  - [32 - II. 从上到下打印二叉树 II [EASY]](#32---ii-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-ii-easy)
-  - [32 - III. 从上到下打印二叉树 III [MID]](#32---iii-%e4%bb%8e%e4%b8%8a%e5%88%b0%e4%b8%8b%e6%89%93%e5%8d%b0%e4%ba%8c%e5%8f%89%e6%a0%91-iii-mid)
-  - [33. 二叉搜索树的后序遍历序列 [MID]](#33-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e5%90%8e%e5%ba%8f%e9%81%8d%e5%8e%86%e5%ba%8f%e5%88%97-mid)
-  - [34. 二叉树中和为某一值的路径 [MID]](#34-%e4%ba%8c%e5%8f%89%e6%a0%91%e4%b8%ad%e5%92%8c%e4%b8%ba%e6%9f%90%e4%b8%80%e5%80%bc%e7%9a%84%e8%b7%af%e5%be%84-mid)
-  - [35. 复杂链表的复制 [MID]](#35-%e5%a4%8d%e6%9d%82%e9%93%be%e8%a1%a8%e7%9a%84%e5%a4%8d%e5%88%b6-mid)
-  - [36. 二叉搜索树与双向链表 [MID]](#36-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e4%b8%8e%e5%8f%8c%e5%90%91%e9%93%be%e8%a1%a8-mid)
-  - [37. 序列化二叉树 [HARD]](#37-%e5%ba%8f%e5%88%97%e5%8c%96%e4%ba%8c%e5%8f%89%e6%a0%91-hard)
-  - [38. 字符串的排列 [MID]](#38-%e5%ad%97%e7%ac%a6%e4%b8%b2%e7%9a%84%e6%8e%92%e5%88%97-mid)
-  - [39. 数组中出现次数超过一半的数字 [EASY]](#39-%e6%95%b0%e7%bb%84%e4%b8%ad%e5%87%ba%e7%8e%b0%e6%ac%a1%e6%95%b0%e8%b6%85%e8%bf%87%e4%b8%80%e5%8d%8a%e7%9a%84%e6%95%b0%e5%ad%97-easy)
-  - [40. 最小的k个数 [EASY]](#40-%e6%9c%80%e5%b0%8f%e7%9a%84k%e4%b8%aa%e6%95%b0-easy)
-  - [41. 数据流中的中位数 [HARD]](#41-%e6%95%b0%e6%8d%ae%e6%b5%81%e4%b8%ad%e7%9a%84%e4%b8%ad%e4%bd%8d%e6%95%b0-hard)
-  - [42. 连续子数组的最大和 [EASY]](#42-%e8%bf%9e%e7%bb%ad%e5%ad%90%e6%95%b0%e7%bb%84%e7%9a%84%e6%9c%80%e5%a4%a7%e5%92%8c-easy)
-  - [43. 1～n整数中1出现的次数 [MID]](#43-1n%e6%95%b4%e6%95%b0%e4%b8%ad1%e5%87%ba%e7%8e%b0%e7%9a%84%e6%ac%a1%e6%95%b0-mid)
-  - [44. 数字序列中某一位的数字 [MID]](#44-%e6%95%b0%e5%ad%97%e5%ba%8f%e5%88%97%e4%b8%ad%e6%9f%90%e4%b8%80%e4%bd%8d%e7%9a%84%e6%95%b0%e5%ad%97-mid)
-  - [45. 把数组排成最小的数 [MID]](#45-%e6%8a%8a%e6%95%b0%e7%bb%84%e6%8e%92%e6%88%90%e6%9c%80%e5%b0%8f%e7%9a%84%e6%95%b0-mid)
-  - [46. 把数字翻译成字符串 [MID]](#46-%e6%8a%8a%e6%95%b0%e5%ad%97%e7%bf%bb%e8%af%91%e6%88%90%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
-  - [47. 礼物的最大价值 [MID]](#47-%e7%a4%bc%e7%89%a9%e7%9a%84%e6%9c%80%e5%a4%a7%e4%bb%b7%e5%80%bc-mid)
-  - [48. 最长不含重复字符的子字符串 [MID]](#48-%e6%9c%80%e9%95%bf%e4%b8%8d%e5%90%ab%e9%87%8d%e5%a4%8d%e5%ad%97%e7%ac%a6%e7%9a%84%e5%ad%90%e5%ad%97%e7%ac%a6%e4%b8%b2-mid)
-  - [49. 丑数 [MID]](#49-%e4%b8%91%e6%95%b0-mid)
-  - [50. 第一个只出现一次的字符 [EASY]](#50-%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%8f%aa%e5%87%ba%e7%8e%b0%e4%b8%80%e6%ac%a1%e7%9a%84%e5%ad%97%e7%ac%a6-easy)
-  - [51. 数组中的逆序对 [HARD]](#51-%e6%95%b0%e7%bb%84%e4%b8%ad%e7%9a%84%e9%80%86%e5%ba%8f%e5%af%b9-hard)
-  - [52. 两个链表的第一个公共节点 [EASY]](#52-%e4%b8%a4%e4%b8%aa%e9%93%be%e8%a1%a8%e7%9a%84%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%85%ac%e5%85%b1%e8%8a%82%e7%82%b9-easy)
-  - [53 - I. 在排序数组中查找数字 I [EASY]](#53---i-%e5%9c%a8%e6%8e%92%e5%ba%8f%e6%95%b0%e7%bb%84%e4%b8%ad%e6%9f%a5%e6%89%be%e6%95%b0%e5%ad%97-i-easy)
-  - [53 - II. 0～n-1中缺失的数字 [EASY]](#53---ii-0n-1%e4%b8%ad%e7%bc%ba%e5%a4%b1%e7%9a%84%e6%95%b0%e5%ad%97-easy)
-  - [54. 二叉搜索树的第k大节点 [EASY]](#54-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e7%ac%ack%e5%a4%a7%e8%8a%82%e7%82%b9-easy)
-  - [55 - I. 二叉树的深度 [EASY]](#55---i-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%b7%b1%e5%ba%a6-easy)
-  - [55 - II. 平衡二叉树 [EASY]](#55---ii-%e5%b9%b3%e8%a1%a1%e4%ba%8c%e5%8f%89%e6%a0%91-easy)
-  - [56 - II. 数组中数字出现的次数 II  [MID]](#56---ii-%e6%95%b0%e7%bb%84%e4%b8%ad%e6%95%b0%e5%ad%97%e5%87%ba%e7%8e%b0%e7%9a%84%e6%ac%a1%e6%95%b0-ii-mid)
-  - [57. 和为s的两个数字 [EASY]](#57-%e5%92%8c%e4%b8%bas%e7%9a%84%e4%b8%a4%e4%b8%aa%e6%95%b0%e5%ad%97-easy)
-  - [57 - II. 和为s的连续正数序列 [EASY]](#57---ii-%e5%92%8c%e4%b8%bas%e7%9a%84%e8%bf%9e%e7%bb%ad%e6%ad%a3%e6%95%b0%e5%ba%8f%e5%88%97-easy)
-  - [58 - I. 翻转单词顺序 [EASY]](#58---i-%e7%bf%bb%e8%bd%ac%e5%8d%95%e8%af%8d%e9%a1%ba%e5%ba%8f-easy)
-  - [58 - II. 左旋转字符串 [EASY]](#58---ii-%e5%b7%a6%e6%97%8b%e8%bd%ac%e5%ad%97%e7%ac%a6%e4%b8%b2-easy)
-  - [59 - I. 滑动窗口的最大值 [EASY]](#59---i-%e6%bb%91%e5%8a%a8%e7%aa%97%e5%8f%a3%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc-easy)
-  - [59 - II. 队列的最大值 [MID]](#59---ii-%e9%98%9f%e5%88%97%e7%9a%84%e6%9c%80%e5%a4%a7%e5%80%bc-mid)
-  - [60. n个骰子的点数 [EASY]](#60-n%e4%b8%aa%e9%aa%b0%e5%ad%90%e7%9a%84%e7%82%b9%e6%95%b0-easy)
-  - [61. 扑克牌中的顺子 [EASY]](#61-%e6%89%91%e5%85%8b%e7%89%8c%e4%b8%ad%e7%9a%84%e9%a1%ba%e5%ad%90-easy)
-  - [62. 圆圈中最后剩下的数字 [EASY]](#62-%e5%9c%86%e5%9c%88%e4%b8%ad%e6%9c%80%e5%90%8e%e5%89%a9%e4%b8%8b%e7%9a%84%e6%95%b0%e5%ad%97-easy)
-  - [63. 股票的最大利润 [MID]](#63-%e8%82%a1%e7%a5%a8%e7%9a%84%e6%9c%80%e5%a4%a7%e5%88%a9%e6%b6%a6-mid)
-  - [64. 求1+2+…+n [MID]](#64-%e6%b1%8212n-mid)
-  - [65. 不用加减乘除做加法 [EASY]](#65-%e4%b8%8d%e7%94%a8%e5%8a%a0%e5%87%8f%e4%b9%98%e9%99%a4%e5%81%9a%e5%8a%a0%e6%b3%95-easy)
-  - [66. 构建乘积数组 [EASY]](#66-%e6%9e%84%e5%bb%ba%e4%b9%98%e7%a7%af%e6%95%b0%e7%bb%84-easy)
-  - [67. 把字符串转换成整数 [MID]](#67-%e6%8a%8a%e5%ad%97%e7%ac%a6%e4%b8%b2%e8%bd%ac%e6%8d%a2%e6%88%90%e6%95%b4%e6%95%b0-mid)
-  - [68 - I. 二叉搜索树的最近公共祖先 [EASY]](#68---i-%e4%ba%8c%e5%8f%89%e6%90%9c%e7%b4%a2%e6%a0%91%e7%9a%84%e6%9c%80%e8%bf%91%e5%85%ac%e5%85%b1%e7%a5%96%e5%85%88-easy)
-  - [68 - II. 二叉树的最近公共祖先 [EASY]](#68---ii-%e4%ba%8c%e5%8f%89%e6%a0%91%e7%9a%84%e6%9c%80%e8%bf%91%e5%85%ac%e5%85%b1%e7%a5%96%e5%85%88-easy)
 
 #### [03.数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/) [EASY]
 
@@ -140,7 +60,66 @@ public:
 };
 ```
 
-不修改数组找出重复的数字 [TAG]
+
+
+```python
+# python3
+# ========= another solution 一个萝卜一个坑
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:  
+        for i in range(len(nums)):
+            while nums[i] != i:
+                if nums[i] == nums[nums[i]]:
+                    return nums[i]
+                else:
+                    nums[i], nums[nums[i]] =  nums[nums[i]], nums[i]
+        return -1
+
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        i = 0
+        while i < len(nums):
+            if nums[i] == i:
+                i += 1
+            elif nums[nums[i]] == nums[i]:return nums[i]
+            else:
+                nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
+        return -1
+
+
+# 用集合判断 nums[i] 是否存在于集合中，如果存在，则返回该值。但需要用到额外空间，时间复杂度和空间复杂度都是O(N)
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        my_set = set()
+        for c in nums:
+            if c in my_set:
+                return c
+            else:
+                my_set.add(c)
+
+#把集合换成哈希表也可以
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        dict={}
+        for i in nums:
+           if i not in dic:
+               dic[i] = 0
+           else:
+               return i   
+            
+# 用defaultdict哈希            
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        my_dict = collections.defaultdict(int)
+        for x in nums:
+            my_dict[x] += 1
+            if my_dict[x] > 1:
+                return x             
+```
+
+
+
+#### 03.1不修改数组找出重复的数字 [TAG]
 
 ```c++
 class Solution {
@@ -163,45 +142,6 @@ public:
         return l;
     }
 };
-```
-
-
-
-```python
-# python3
-# ========= another solution 一个萝卜一个坑
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        i=0
-        while i<len(nums):
-            if nums[i]==i:
-                i+=1
-                continue
-            if nums[nums[i]]==nums[i]:return nums[i]
-            else:
-                nums[nums[i]],nums[i]=nums[i],nums[nums[i]]
-        return -1
-
-
-# 用集合判断 nums[i] 是否存在于集合中，如果存在，则返回该值。但需要用到额外空间，时间复杂度和空间复杂度都是O(N)
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        my_set=set()
-        for c in nums:
-            if c in my_set:
-                return c
-            else:
-                my_set.add(c)
-
-#把集合换成哈希表也可以
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        dict={}
-        for i in nums:
-           if i not in dic:
-               dic[i] = 0
-           else:
-               return i       
 ```
 
 
@@ -264,17 +204,15 @@ public:
 # python3
 # 从右上角开始查找，当前数比target大，就i -= 1; 当前数小，就j += 1
 class Solution:
-    def findNumberIn2DArray(self,matrix:List[List[int]],target:int)->bool:
-        if not arr:return False
-        n, m = len(arr), len(arr[0])
-        x, y = 0, m - 1  
-        while 0 <= x < n and 0 <= y < m:
-            if arr[x][y] > target:
-                y -= 1
-            elif arr[x][y] < target:
-                x += 1
-            else:
-                return True
+    def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
+        if not matrix:return False
+        i, j = 0, len(matrix[0]) - 1
+        while i < len(matrix) and j >= 0:
+            if matrix[i][j] > target:
+                j -= 1
+            elif matrix[i][j] < target:
+                i += 1
+            else:return True 
         return False
 ```
 
@@ -516,21 +454,22 @@ public:
 #2. 在中序遍历中找到根节点对应的位置k，则 k的左边就是左子树的中序遍历，k的右边就是右子树的中序遍历 （这一步需要用一个字典来存储对应的位置）
 #3. 假设左子树的长度为l,那么在前序遍历里，根节点后l个数 是左子树的前序遍历，剩下的树就是右子树的前序遍历
 #4. 有了左右子树的前序遍历和中序遍历，我们可以先递归创建出左右子树，然后再创建根节点；
-class Solution(object):
-    def buildTree(self, pre, inor):
-        def dfs(pre_l,pre_r,in_l,in_r):
-            if pre_l > pre_r:
-                return 
-            root = TreeNode(pre[pre_l])
-            idx = dic[pre[pre_l]]
-            root.left = dfs(pre_l + 1, idx - in_l + pre_l, in_l, idx - 1)
-            root.right = dfs(idx - in_l + pre_l + 1, pre_r, idx + 1, in_r)
-            return root  # 递归返回这一层对应的root , 也就是重建后的二叉树
-            
-        dic = dict()
-        for i in range(len(inor)):
-            dic[inor[i]] = i
-        return dfs(0,len(pre) - 1, 0, len(inor) - 1)
+class Solution:
+    def buildTree(self, pre: List[int], ino: List[int]) -> TreeNode:
+        my_dict = dict()
+        for i in range(len(ino)):
+            my_dict[ino[i]] = i
+
+        def dfs(pre_L, pre_R, ino_L, ino_R):
+            if pre_L > pre_R:return    # 踩坑： 只能 大于 的时候 才能return
+            root = TreeNode(pre[pre_L])
+            idx = my_dict[pre[pre_L]]
+            root.left = dfs(pre_L + 1, idx - ino_L + pre_L, ino_L, idx - 1)
+            root.right = dfs(idx - ino_L + pre_L + 1, pre_R, idx + 1, ino_R)
+            return root   # 递归返回这一层对应的root , 也就是重建后的二叉树
+        
+        return dfs(0, len(pre) - 1, 0, len(ino) - 1)      
+      
 ```
 
 
@@ -632,6 +571,27 @@ public:
 
 
 ```python
+class CQueue:
+    def __init__(self):
+        self.A = []
+        self.B = []
+
+    def appendTail(self, value: int) -> None:
+        self.A.append(value)
+
+    def deleteHead(self) -> int:
+        if self.B:return self.B.pop()  #先判断self.B是否有元素，有的话 直接弹出
+        if not self.A:return -1 # 如果B中没有元素，那就看A是不是有新加入的元素，没有的话 返回-1.
+        while self.A: # 有的话，再把A中元素全部压入到B中
+            self.B.append(self.A.pop())
+        return self.B.pop()
+```
+
+
+
+
+
+```python
 # 需要一个辅助栈；
 # A栈负责入栈所有元素，辅助栈B就负责pop和peek
 class MyQueue(object):
@@ -721,10 +681,19 @@ public:
 # python3
 class Solution:
     def fib(self, n: int) -> int:
-        a,b=0,1
+        a, b = 0, 1
         for _ in range(0,n):
-            a,b = b, a + b  #踩坑：需要同步交换，不能写成2行
-        return a%1000000007
+            a, b = b, a + b  #踩坑：需要同步交换，不能写成2行
+        return a % 1000000007
+      
+#       
+class Solution:
+    def fib(self, n: int) -> int:
+        if n <= 1:return n 
+        a, b = 1, 1
+        for i in range(2, n):
+            a, b = b, a + b
+        return b % 1000000007      
 ```
 
 
@@ -901,32 +870,33 @@ public:
 
 ```python
 # DFS, 经典的搜索问题。最重要的是考虑顺序！
+# 在进入递归的时候，首先要考虑 什么情况下就要返回！（满足条件/不满足条件）
 # 我们首先枚举单词的起点，然后依次枚举单词的每个字母，在这过程中需要将已经用过的字母做标记，以避免重复使用字符。
 # 这道题需要记录 具体的路径，BFS不方便记录，所以DFS更适合。
       
-class Solution(object):
-    def hasPath(self, matrix, word):
-        def dfs(x, y, u):
-            if word[u] != matrix[x][y]:return False
-            if u == length -1 :return True
-            tmp = matrix[x][y]
-            matrix[x][y] = '*'
-            dx, dy = [0, 0, 1, -1], [-1, 1, 0, 0]
+class Solution:
+    def exist(self, board: List[List[str]], word: str) -> bool:
+        n, m = len(board), len(board[0])
+
+        def dfs(x, y, word):
+            if len(word) == 0:
+                return True   # 踩坑1 ：首先要考虑啥时候返回True！！！
+            tmp = board[x][y]
+            board[x][y] = '/'
+            dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]
             for i in range(4):
-                a, b = x + dx[i], y + dy[i]
-                if 0 <= a < n and 0 <= b < m:
-                    if dfs(a, b, u+1):
+                nx, ny = x + dx[i], y + dy[i]
+                if 0 <= nx < n and 0 <= ny < m and board[nx][ny] == word[0]:
+                    if dfs(nx, ny, word[1:]):
                         return True
-            matrix[x][y] = tmp
-            return False
-         
-        if not matrix:return False
-        n, m = len(matrix), len(matrix[0])
-        length = len(word)
+            board[x][y] = tmp   # 踩坑2:记得恢复现场
+            return False  # 踩坑3:上述条件不满足 就返回False
+
         for i in range(n):
-           for j in range(m):
-               if dfs(i, j, 0):   #从字符串的第0个开始枚举
-                   return True
+            for j in range(m):
+                if board[i][j] == word[0]:
+                    if dfs(i, j, word[1:]):
+                        return True
         return False
 ```
 
@@ -1022,7 +992,7 @@ public:
 # 如果当前格子走过 或者 当前格子数字之和太大，都需要Continue(直接跳过)
 
 class Solution(object):
-    def movingCount(self, k, n, m):
+    def movingCount(self, n, m, k):
         if not n or not m:return 0
         st = [[False] * m for _ in range(n)]
         
@@ -1035,21 +1005,25 @@ class Solution(object):
                 res += y % 10
                 y //= 10
             return res
-            
-        # def dfs(x, y):
-        #     nonlocal ans
-        #     if st[x][y] or sumAll(x, y) > k:return 
-        #     st[x][y] = True  #踩坑：记得把遍历过的格子状态更新
-        #     ans += 1
-        #     dx, dy = [0,0,1,-1], [1,-1,0,0]
-        #     for i in range(4):
-        #         a, b = x + dx[i], y + dy[i]
-        #         if 0 <= a < n and 0 <= b < m and not st[a][b] and sumAll(a, b) <= k:
-        #             dfs(a, b)
-        # ans = 0 
-        # dfs(0,0)
-        # return ans
         
+        
+        # DFS遍历
+        def dfs(x, y):
+            # nonlocal ans  #这个也可以，ans定义在外面，初始值为0 
+            # if st[x][y] or sumAll(x, y) > k:return  # 这一条是多余的，因为进入的时候已经做了判断
+            st[x][y] = True   #踩坑：记得把遍历过的格子状态更新
+            self.res += 1
+            dx, dy = [0,0,1,-1], [1,-1,0,0]
+            for i in range(4):
+                a, b = x + dx[i], y + dy[i]
+                if 0 <= a < n and 0 <= b < m and not st[a][b] and sumAll(a, b) <= k:
+                    dfs(a, b)
+        self.res = 0 
+        dfs(0, 0)
+        return self.res
+        
+        
+        # BFS
         from collections import deque
         q = deque()
         q.append([0,0])
@@ -1057,8 +1031,8 @@ class Solution(object):
         dx, dy = [0,0,1,-1], [1,-1,0,0]
         while q:
             t = q.popleft()
-            x, y =t[0],t[1]
-            if st[x][y] or sumAll(x,y) > k:continue
+            x, y = t[0], t[1]
+            if st[x][y] or sumAll(x,y) > k:continue # 这里有优化空间，可以提前遍历
             ans +=1 
             st[x][y] = True
             for i in range(4):
@@ -1142,17 +1116,17 @@ public:
 class Solution(object):
     def maxProductAfterCutting(self,n):
         f = [0] * (n + 1)
-        for i in range(2,n+1):
-            for j in range(1,i):
+        for i in range(2, n + 1):
+            for j in range(1, i):
                 f[i] = max(f[i], j * (i - j), j * f[i - j])
  
 # 数学方法
 class Solution:
     def cuttingRope(self, n: int) -> int:
-        if n<=3:return n-1
-        a,b=n//3,n%3
-        if b==0:return int(math.pow(3,a))
-        if b==1:return int(math.pow(3,a-1)*4)
+        if n <= 3:return n - 1
+        a, b = n // 3,n % 3
+        if b == 0:return int(math.pow(3, a))
+        if b == 1:return int(math.pow(3, a-1) * 4)
         return int(math.pow(3, a) * 2)
 ```
 
@@ -1233,7 +1207,7 @@ class Solution:
     def hammingWeight(self, n: int) -> int:
         res = 0
         while n:
-            res += n&1
+            res += n & 1
             n >>= 1
         return res
       
@@ -1367,6 +1341,20 @@ public:
 ```python
 # python3
 # 需要一个辅助节点pre, cur, 然后画图就很好理解
+
+class Solution:
+    def deleteNode(self, head: ListNode, val: int) -> ListNode:
+        dummy = ListNode(None)
+        dummy.next = head 
+        pre = dummy 
+        cur = head 
+        while cur and cur.val != val:
+            cur = cur.next 
+            pre = pre.next 
+        pre.next = cur.next 
+        return dummy.next
+
+      
 class Solution:
     def deleteNode(self,head:ListNode,val:int)->ListNode:
         if head.val == val:
@@ -1508,11 +1496,37 @@ public:
 
 
 ```python
-# python3
+# 状态表示：f[i,j]: 表示 s[1-i] 和 p[1-j] 是否匹配；
+# 状态转移：当前p[j]字符是什么？以p[j] 是否为 '*' 来区分
+# 1) p[j] != '*'：那当且仅当s[i] == p[j] 或者 p[j] == '.'时，f[i][j] = f[i-1][j-1]
+# 2）p[j] == '*'：那就是枚举通配符 '*' 可以匹配多少个p[j-1]
+# 2.1）如果匹配0个，表示丢弃这一次的 '*' 和它之前的那个字符:f[i][j] = f[i][j-2]（不管前一个字符的s和前一个字符的p是否能匹配，都有这个情况）
+# 2.2) 匹配一个，不丢弃前面那个字符，并且只保留一次字符，f[i][j] = f[i-1][j-2]
+# 2.3）匹配2个（及以上），那s[i]这个字符是一定能被匹配的，就看前面的字符了: f[i][j] = f[i-1][j]
+# 由于 f[i-1][j]是由f[i-1][j-2]转移过来的，所以前者包含了后者的情况。
+# 2.2 和 2.3 可以统一写成 当s[i]和p[j-1]匹配，并且*匹配>=1的情况下 : f[i][j] = f[i-1][j]
 
 
-
-
+# 最好的写法，把特殊情况拎出来
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        n, m = len(s), len(p)
+        s, p = ' ' + s, ' ' + p
+        f = [[False] * (m + 1) for _ in range(n + 1)]
+        f[0][0] = True  # 初始值
+        for i in range(2, m + 1):  # 特殊情况判断：当s字符串为空的时候
+            if p[i] == '*':
+                f[0][i] = f[0][i-2]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                if s[i] == p[j] or p[j] == '.':
+                    f[i][j] = f[i-1][j-1]
+                elif p[j] == '*':
+                    if p[j-1] == s[i] or p[j-1] == '.':
+                        f[i][j] = f[i][j-2] or f[i-1][j]  # 踩坑：这里也有舍弃前一个字符的时候
+                    else:
+                        f[i][j] = f[i][j-2]
+        return f[n][m]
 ```
 
 
@@ -1549,6 +1563,26 @@ public:
 
 ```python
 # python3
+class Solution:
+    def isNumber(self, s):
+        s = s.strip()
+        met_dot = met_e = met_digit = False
+        for i, char in enumerate(s):
+            if char in ['+', '-']:
+                if i > 0 and (s[i-1] != 'e' and s[i-1] != 'E'):
+                    return False
+            elif char == '.':
+                if met_dot or met_e: return False
+                met_dot = True
+            elif char == 'e' or char == 'E':
+                if met_e or not met_digit:
+                    return False
+                met_e, met_digit = True, False
+            elif char.isdigit():
+                met_digit = True
+            else:
+                return False
+        return met_digit
 ```
 
 
@@ -3031,38 +3065,33 @@ public:
 
 ```python
 # python3
-# 很经典的题。巧妙的方法：可以省掉一个哈希表的额外空间
+# 很经典的题。巧妙的方法：可以省掉一个哈希表的额外空间>
 # 思路方法：1. 在每个节点的后面加上这个点的复制；2. 从前向后遍历所有点，对于有random指针的点，让p.next.random = p.random.next就OK; 3.把所有点拆出来
-class Solution(object):
-    def copyRandomList(self, head):
-        if head == None:return None
 
-        p = head # 第一步，复制
-        while p != None:
-            n = ListNode(p.val)
-            n.next, n.random = p.next, p.random
-            p.next = n 
+class Solution:
+    def copyRandomList(self, head: 'Node') -> 'Node':
+        if not head:return head
+
+        p = head    # 第一步：复制一个小弟
+        while p:
+            q = Node(p.val)
+            q.next = p.next 
+            p.next = q 
+            p = p.next.next 
+
+        p = head  # 第二步：赋值random指针
+        while p:
+            if p.random:
+                p.next.random = p.random.next 
             p = p.next.next
 
-        p = head # 第二步：random指针的匹配
-        while p != None:
-            if p.random != None:
-                p.next.random = p.random.next
+        dummy = ListNode(None)  # 第三步：拆分
+        cur = dummy
+        p = head 
+        while p:
+            cur.next = p.next
+            cur = cur.next 
             p = p.next.next
-
-        dummy = ListNode(None) # 第三步：拆分
-        q = head
-        p = head.next
-        dummy.next = p
-
-        while p and q:
-            q.next = p.next
-            q = q.next
-            if q == None:
-                break
-            p.next = q.next
-            p = p.next
-
         return dummy.next
 ```
 
@@ -3648,35 +3677,32 @@ public:
 ```python
 # python3
 # 快排的思想
-class Solution(object):
-    def getLeastNumbers_Solution(self, nums, k):
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
         def partition(l, r):
-            if l > r:return 
             import random
-            x = random.randint(l,r)
-            nums[x], nums[l] = nums[l], nums[x]
-            pivot = nums[l]
+            i = random.randint(l,r)
+            arr[l], arr[i] = arr[i], arr[l]
+            pivot = arr[l]
             while l < r:
-                while l < r and nums[r] > pivot:r -= 1
-                nums[l] = nums[r]
-                while l < r and nums[l] < pivot:l += 1
-                nums[r] = nums[l]
-            nums[l] = pivot
-            return l 
+                while l < r and pivot <= arr[r]:
+                    r -= 1
+                arr[l] = arr[r]    
+                while l < r and arr[l] <= pivot:
+                    l += 1
+                arr[r] = arr[l]
+            arr[l] = pivot    
+            return l
 
-        if not nums or k == 0:return []
-        n = len(nums)
-        l, r = 0, n - 1
-        idx = partition(l, r)
-        while idx != (k - 1):  #这种返回 不能保证输出顺利 是从小到大
+        if k == 0: return []
+        l, r = 0, len(arr) - 1
+        while l < r:   # 本质上：在排除不合法的区间（思想和二分的思想相似）
+            idx = partition(l,r)
             if idx < k - 1:
                 l = idx + 1
-                idx = partition(l, r)
-            if idx > k - 1:
-                r = idx - 1
-                idx = partition(l, r)
-        res = nums[:k]
-        res.sort()  #最后再排序一下
+            else:r = idx 
+        return arr[:k]
+        res.sort()   #最后再排序一下
         return res
 ```
 
@@ -3737,6 +3763,35 @@ public:
 
 ```python
 # python3
+
+# 思路比较精巧：利用大小堆求解一个不断更新的数组的中位数
+# 将数分为两个部分，用大根堆存储较小的那部分数；用小根堆存储较大的那部分数；大根堆/小根堆的顶部就是我们需要的数字。
+# 我们必须维护好两个堆中元素的个数关系，元素的大小关系，即大根堆的所有元素理应比小根堆的所有元素要小，如果违反了此规则，就需要进行元素的对换。
+# 如果当前数的个数是奇数，那么就返回大根堆的堆顶；如果当前数的个数是偶数，那么就返回 大根堆和小根堆的堆顶的平均值。
+# 数据流过来一个数，就直接加入到大根堆中，做了调整后（维护成了一个大根堆后）然后再判断：
+# 1. 如果大根堆的堆顶元素 > 小根堆的堆顶元素，那么就交换两个堆顶元素（在交换2个堆的元素的时候，一定要 先判断上面的小根堆中有没有元素。 上面的小根堆中 没有元素是不能交换的）
+# 2. 当大根堆的元素总数 > 小根堆的元素总数 + 1( 也就是多2个的时候，就需要把大根堆的堆顶放到小根堆中去)
+
+
+from heapq import *
+class Solution:
+    def __init__ (self):
+        self.maxheap = [] # 大根堆放置较小的一半元素
+        self.minheap = [] # 小根放置较大的一半元素
+    def insert(self, num):
+        heappush(self.maxheap, -num) # 新元素无条件先插到大根堆, 由于python默认结构为小根堆，所以对大根堆插入和弹出元素都要取相反数  踩坑！：记得数字取反后 再加入到大根堆里
+        if len(self.minheap) and -self.maxheap[0] > self.minheap[0]:  # 若小根堆非空，且大根堆堆顶元素大于小根堆堆顶元素，则交换两个数所在堆
+            maxv = -heappop(self.maxheap) #heappop弹出最小的元素（总是位于索引0处），并确保剩余元素中最小的那个位于索引0处（保持堆特征）
+            minv = heappop(self.minheap)
+            heappush(self.maxheap, - minv)  # ！！！踩坑2: 同理！！要取反！
+            heappush(self.minheap, maxv)
+        if len(self.maxheap) > len(self.minheap) + 1:
+            heappush(self.minheap, - heappop(self.maxheap)) 
+
+    def getMedian(self):
+        if len(self.maxheap) + len(self.minheap) & 1: # 若总数为奇数，返回大根堆堆顶元素
+            return -self.maxheap[0]
+        return (-self.maxheap[0] + self.minheap[0])/2.0 # 否则返回两个堆的堆顶元素求平均； python中对整数的除法是：//, 对保留小数是：/
 ```
 
 
@@ -4239,17 +4294,112 @@ public:
 
 ```python
 # python3
+
+# 法一：dp
+# f[i]: 从小到大排列的第i个丑数值
+# 如何转移过来呢？用k个指针指向dp中的元素，最小的丑数只可能出现在如dp[l2]的2倍、dp[l7]的7倍、dp[l13]的13倍和dp[l19]的19倍四者中间。通过移动k个指针，就能保证生成的丑数是有序的。通过求到最小值来保证丑数数组有序排列。
+# 初始条件：题目给定条件为1 是任何给定 primes 的超级丑数。所以dp[0] = 1
+
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
-        #初始化dp列表
-        dp,a,b,c=[1]*n,0,0,0
-        for i in range(1,n):
-            n2,n3,n5=dp[a]*2,dp[b]*3,dp[c]*5
-            dp[i]=min(n2,n3,n5)
-            if dp[i]==n2:a+=1
-            if dp[i]==n3:b+=1
-            if dp[i]==n5:c+=1
-        return dp[-1]
+        # a, b, c = 0, 0, 0
+        # f = [1] * n 
+        # for i in range(1, n):
+        #     p2, p3, p5 = f[a] * 2, f[b] * 3, f[c]  * 5
+        #     f[i] = min(p2, p3, p5)
+        #     if f[i] == p2:a += 1
+        #     if f[i] == p3:b += 1
+        #     if f[i] == p5:c += 1
+        # return f[-1]
+
+
+        # 统一dp写法
+        nums = [2, 3, 5]
+        m = len(nums)
+        p = [0] * m
+        f = [1] * n 
+        for i in range(1, n):
+            f[i] = min(x * f[y] for x, y in zip(nums, p))  # zip用得非常秒啊
+            for j in range(m):
+                if f[i] == nums[j] * f[p[j]]:
+                    p[j] += 1 
+        return f[-1]
+      
+# 最小堆：因为丑数是2, 3, 5的倍数，我们不断把它们的倍数压入栈中，再按顺序弹出
+# 法2: 小根堆
+        import heapq
+        # heap = [1]
+        # heapq.heapify(heap)
+        heap = []
+        heapq.heappush(heap, 1)
+        res = 0
+        for _ in range(n):
+            res = heapq.heappop(heap)
+            while heap and res == heap[0]:
+                res = heapq.heappop(heap)
+            a, b, c = res * 2, res * 3, res * 5
+            for t in [a, b, c]:
+                heapq.heappush(heap, t)
+            print(heap)
+        return res
+
+```
+
+
+
+#### Plus: [263. 丑数](https://leetcode-cn.com/problems/ugly-number/)
+
+```c++
+
+
+
+
+
+
+
+```
+
+```python
+# 法1: 递归
+# class Solution:
+#     def isUgly(self, n: int) -> bool:
+#         if n == 0:return False
+#         if n == 1:return True
+#         if n % 2 == 0:return self.isUgly(n // 2)
+#         if n % 3 == 0:return self.isUgly(n // 3)
+#         if n % 5 == 0:return self.isUgly(n // 5)
+#         return False
+
+# 法2: 迭代
+class Solution:
+    def isUgly(self, n: int) -> bool:
+        if n == 0:return False 
+        for p in 2,3,5:
+            while n and n % p == 0:
+                n //= p 
+        return n == 1
+```
+
+
+
+#### Plus: [313. 超级丑数](https://leetcode-cn.com/problems/super-ugly-number/)
+
+```c++
+
+```
+
+```python
+class Solution:
+    def nthSuperUglyNumber(self, n: int, primes: List[int]) -> int:
+        m = len(primes)
+        p = [0] * m 
+        f = [1] * n  #初始化
+        for i in range(1, n):
+            f[i] = min( x * f[y] for x, y in zip(primes, p))
+            for j in range(m):
+                if f[i] == f[p[j]] * primes[j]:
+                    p[j] += 1
+        return f[-1]
 ```
 
 
@@ -4330,6 +4480,38 @@ public:
     }
 };
 ```
+
+
+
+```python
+# 如何把O(n*n)算法优化成O(N) : 双指针，单调队列（找工作面试时的优化方式）
+# 首先看一下答案是不是单调的？从前往后走，找第一个没有被划掉的位置。（答案的位置是从前往后递增的，具备一定的单调性）
+# 可以用双指针算法 进行优化。（具备单调性，才能用双指针算法）
+# 在实现的时候，可以换一种实现方式，比如队列（队列本身就是个双指针）
+# 判断队头元素出现的次数是否大于1，如果大于1了，就直接删除。
+
+from collections import deque
+
+class Solution:  
+    def __init__(self):
+        self.dic = {}
+        self.q = deque()
+        
+    def firstAppearingOnce(self):
+        if not self.q:return '#'
+        return self.q[0]
+        
+    def insert(self, char):
+        if char in self.dic:
+            self.dic[char] += 1
+            while self.q and self.dic[self.q[0]] > 1:
+                self.q.popleft()
+        else:
+            self.dic[char] = 1
+            self.q.append(char)
+```
+
+
 
 
 
@@ -4939,6 +5121,7 @@ class Solution(object):
             if abs(left - right) >1:
                 ans = False
             return max(left, right) + 1 #这是递归函数的return的值
+          
         ans = True
         dfs(root)
         return ans
@@ -5002,20 +5185,27 @@ public:
 ```python
 # python3
 #56-I的解答：一个数组，只有两个数字只出现一次，其他的都出现了两次，找出这两个数
-class Solution:
-    def singleNumbers(self, nums: List[int]) -> List[int]:
-        res,a,b=0,0,0
-        for num in nums:
-            res^=num
-        s=1
-        while (res&s==0):
-            s<<=1
-        for num in nums:
-            if (s&num==0):
-                a^=num
+
+# 1. 先把所有的数 异或一遍； 
+# 2. 异或的结果就是x^y的结果，并且一定不为0；
+# 3. 找到最低的那位 不为1 的位；
+# 4. 根据这一位 把集合划分为两个集合；相同的数肯定是属于统一集合
+#  次数两个集合内部 各自异或一遍 得到的结果 就是这两个不同的数。
+class Solution(object):
+    def findNumsAppearOnce(self, nums):
+        res, a, b = 0, 0, 0
+        for c in nums:
+            res ^= c 
+        k = 0 
+        while not res >> k & 1:
+            k += 1
+        for c in nums:
+            if c >> k & 1 == 0:
+                a ^= c
             else:
-                b^=num
+                b ^= c 
         return [a,b]
+
 
 #56-II的解答
 #Method1：dict{"key":"value"}
@@ -5032,9 +5222,24 @@ class Solution:
                 return num
            
 #Method2: bit operation
+# 方法比较跳跃性，需要多思考回顾
+# 1. 建立一个长度为 32 的数组counts ，记录所有数字的各二进制位的 11 的出现次数。
+# 2. 将 counts各元素对 33 求余，则结果为 “只出现一次的数字” 的各二进制位。
+# 3. 利用 左移操作 和 或运算 ，可将 counts数组中各二进位的值恢复到数字 res 上，最后返回 res
 
-
-         
+# 实际上，只需要修改求余数值 mm ，即可实现解决 除了一个数字以外，其余数字都出现 mm 次 的通用问题
+class Solution(object):
+    def findNumberAppearingOnce(self, nums):
+        counts = [0] * 32
+        for num in nums:
+            for j in range(32):
+                counts[j] += num & 1
+                num >>= 1
+        res, m = 0, 3
+        for i in range(32):
+            res <<= 1
+            res |= counts[31 - i] % m
+        return res if counts[31] % m == 0 else ~(res ^ 0xffffffff) # 对负数的处理     
 ```
 
 
@@ -5089,16 +5294,17 @@ public:
 
 ```python
 # python3
-class Solution:
-    def twoSum(self,nums:List[int],target:int)->List[int]:
-        i,j=0,len(nums)-1
-        while i<j:
-            s=nums[i]+nums[j]
-            if s>target:j-=1
-            elif s<target:i+=1
+class Solution(object):
+    def findNumbersWithSum(self, nums, target):
+        nums.sort()  # 如果给定的题意已经是排序，则无需再排序
+        l, r = 0 ,len(nums) - 1
+        while l < r:
+            if nums[l] + nums[r] > target:
+                r -= 1
+            elif nums[l] + nums[r] < target:
+                l += 1
             else:
-                return nums[i],nums[j]
-        return []
+                return [nums[l], nums[r]]
 ```
 
 
@@ -5153,27 +5359,24 @@ public:
 
 ```python
 # python3
-class Solution:
-    def findContinuousSequence(self, target: int) -> List[List[int]]:
-        # 初始化窗口指针和输出列表
-        i, j, res = 1,2, []
+# 双指针法
 
-        # 滑动窗口的右边界不能超过target的中值
-        while j <= target//2 + 1:
-            # 计算当前窗口内数字之和
-            cur_sum = sum(list(range(i,j+1)))
-            # 若和小于目标，右指针向右移动，扩大窗口
-            if cur_sum < target:
-                j += 1
-            # 若和大于目标，左指针向右移动，减小窗口
-            elif cur_sum > target:
-                i += 1
-            # 相等就把指针形成的窗口添加进输出列表中
-            # 别忘了，这里还要继续扩大寻找下一个可能的窗口哦
+class Solution(object):
+    def findContinuousSequence(self, num):
+        if num <= 2:return []
+        s = num//2 + 1
+        l, r = 1, 2
+        res = []
+        while r <= s:
+            cur_sum = sum(range(l, r + 1))
+            if cur_sum < num:
+                r += 1
+            elif cur_sum > num:
+                l += 1 
             else:
-                res.append(list(range(i,j+1)))
-                # 这里用j+=1，i+=1，i+=2都可以的
-                j += 1
+                res.append(list(range(l, r + 1)))  # 相等就把指针形成的窗口添加进输出列表中
+          
+                r += 1    # 别忘了，这里还要继续扩大寻找下一个可能的窗口哦
         return res
 ```
 
@@ -5244,16 +5447,22 @@ public:
 
 ```python
 # python3
-class Solution:
-    def reverseWords(self, s: str) -> str:
-        s=s.strip()
-        i=j=len(s)-1
-        res=[]
-        while i>=0:
-            while i>=0 and s[i]!=' ':i-=1
-            res.append(s[i+1:j+1])
-            while s[i]==' ':i-=1
-            j=i
+# 双指针法：1. 首先去掉首尾的空格 2.两个指针都从尾部开始扫描遍历 
+
+class Solution(object):
+    def reverseWords(self, s):
+        n = len(s)
+        if n <= 1:return s
+        s = s.strip()  
+        p1 = p2 =  n - 1  
+        res = []  
+        while p1 >= 0:
+            while p1 >= 0 and s[p1] != ' ': 
+                p1 -= 1
+            res.append(s[p1 + 1 : p2 + 1])
+            while s[p1] == ' ':  # 踩坑： 防止有多个连续的空格符号
+                p1 -= 1
+            p2 = p1
         return ' '.join(res)
 ```
 
@@ -5369,6 +5578,24 @@ public:
 
 ```python
 # python3
+# 单调队列的使用
+
+class Solution(object):
+    def maxInWindows(self, nums, k):
+        if not nums:return []
+        from collections import deque 
+        q = deque()
+        # l = 0
+        res = []
+        for r in range(len(nums)):
+            if q and q[0] <= r - k:  # 踩坑 ：不需要l指针，直接用队列里的元素来表示；队列里存的就是当前数的下标
+                q.popleft()
+            while q and nums[q[-1]] < nums[r]:
+                q.pop()
+            q.append(r)
+            if r >= k - 1:
+                res.append(nums[q[0]])
+        return res
 ```
 
 
@@ -5408,6 +5635,30 @@ public:
 
 ```python
 # python3
+
+import collections
+class MaxQueue:
+    def __init__(self):
+        self.A ,self.B = deque(), deque()
+
+    def max_value(self) -> int:
+        if self.B:
+            return self.B[0]
+        else:
+            return -1
+
+    def push_back(self, value: int) -> None:
+        self.A.append(value)
+        while self.B and self.B[-1] < value:
+            self.B.pop()
+        self.B.append(value)
+
+    def pop_front(self) -> int:
+        if not self.A:return -1
+        x = self.A.popleft()
+        if x == self.B[0]:  # 踩坑：这里是0！！popfront是取出队首元素
+            self.B.popleft()
+        return x
 ```
 
 
@@ -5458,6 +5709,25 @@ public:
 
 ```python
 # python3
+
+# 分组背包问题： 有n次取物品的机会，每组物品的价值在[1,6]范围内，每组物品只能选一个，凑出总和在n-6n的方案数
+# 状态表示：f[i,j]: 前i次投骰子，总和为j的方案数；属性：Max
+# 状态转移：按照最后一次划分为6个集合，1点，2点，3点，...，6点；当最后一次点数是k时，对应的方案数：f[i-1][j-k]
+
+class Solution(object):
+    def numberOfDice(self, n):
+        f = [[0] * (6 * n + 1) for _ in range(n + 1)]
+        for i in range(1,7):  # 初始化，当只有一个骰子的时候，所有的方案数都是1 
+            f[1][i] = 1   
+        for i in range(2, n + 1):
+            for j in range(i, 6 * i + 1):
+                for k in range(1, 7):
+                    if j > k:
+                        f[i][j] += f[i - 1][j - k]
+        res = []
+        for i in range(n, n * 6 + 1):
+            res.append(f[n][i])
+        return res
 ```
 
 
@@ -5509,28 +5779,20 @@ public:
 
 ```python
 # python3
-#法一
-class Solution:
-    def isStraight(self, nums: List[int]) -> bool:
-        joker = 0
-        nums.sort() # 数组排序
-        for i in range(4):
-            if nums[i] == 0: joker += 1 # 统计大小王数量
-            elif nums[i] == nums[i + 1]: return False # 若有重复，提前返回 false
-        return nums[4] - nums[joker] < 5 # 最大牌 - 最小牌 < 5 则可构成顺子
-      
-#法二
-class Solution:
-    def isStraight(self, nums: List[int]) -> bool:
-        repeat=set()
-        ma,mi=0,14
-        for num in nums:
-            if num==0:continue
-            ma=max(ma,num)
-            mi=min(mi,num)
-            if num in repeat:return False
-            repeat.add(num)
-        return ma-mi<5
+
+class Solution(object):
+    def isContinuous(self, nums):
+        if not nums:return False
+        my_set = set()
+        minv, maxv = 14, 1
+        for x in nums:
+            if x == 0:continue  # 踩坑1: 当数值为0时，则不进入minv, maxv的判断
+            minv = min(x, minv)
+            maxv = max(x, maxv)
+            if x in my_set:  # 踩坑2: 注意判断 是否存在相同的数！所以需要加一个if判断！！！不要写成for了！！
+                return False
+            my_set.add(x)
+        return maxv - minv <= 4
 ```
 
 
@@ -5573,6 +5835,15 @@ public:
 
 ```python
 # python3
+
+# 很经典的数学问题---约瑟夫问题
+class Solution(object):
+    def lastRemaining(self, n, m):
+        if n == 1:return 0
+        res = 0
+        for i in range(2, n + 1):
+            res = (m + res) % i 
+        return res   
 ```
 
 
@@ -5611,14 +5882,17 @@ public:
 
 ```python
 # python3
-class Solution:
-    def maxProfit(self, prices: List[int]) -> int:
-        if prices==[]:return 0
-        res=0
-        minv=prices[0]
-        for i in range(1,len(prices)):
-            minv=min(minv,prices[i])
-            res=max(res,prices[i]-minv)
+
+# 不用两次暴力遍历，可以用一个变量记录前i-1天的最小值，可以省一层循环（每次更新这个变量）
+class Solution(object):
+    def maxDiff(self, nums):
+
+        n = len(nums)
+        if n <= 1:return 0
+        res, minv = 0, nums[0]  # minv: 表示前i天的最小值
+        for i in range(1, n):
+            minv = min(minv, nums[i])
+            res = max(res, nums[i] - minv)
         return res
 ```
 
@@ -5659,6 +5933,16 @@ class Solution:
         n>1 and self.sumNums(n-1)
         self.res+=n
         return self.res
+      
+      
+class Solution(object):
+    def getSum(self, n):
+        # self.sum = 0  #递归会爆栈
+        # n > 0 and self.getSum(n - 1)
+        # self.sum += n 
+        # return self.sum
+        import functools
+        return functools.reduce(lambda x, y: x+y, range(n+1))      
 ```
 
 
@@ -5698,6 +5982,23 @@ public:
 
 ```python
 # python3
+
+# Python 中会自动把超过 int 类型的最大值转换成 long 类型，所以代码实现上要做一定处理。
+# 思路：先计算不进位的和，再计算进位
+
+class Solution(object):
+    def add(self, num1, num2):
+        while True:  # 不进位加法
+            s = num1 ^ num2
+            carry = num1 & num2   # 计算进位
+            num1 = s & 0xFFFFFFFF   # 手动把高于 32 位的部分变成 0
+            num2 = carry << 1
+
+            if carry == 0:break
+     
+        if num1 >> 31 == 0:   # 如果是正数和 0 ，就直接返回这个正数好了
+            return num1
+        return num1 - (1 << 32)    # 如果是负数
 ```
 
 
@@ -5753,10 +6054,25 @@ public:
 
 ```python
 #python3
-class Solution:
-    def constructArr(self, a: List[int]) -> List[int]:
-      
+#  只能使用常数O(1)的空间，只能开一个数组
+#  想一个循环的顺序，算B[i]的时候拆成两步来做，曲线救国！
+#  B[i] = 左半边 * 右半边 （这样就可以不用除法了）
 
+class Solution(object):
+    def multiply(self, A):
+        n = len(A)
+        if not A or n == 0: return []
+        B = [0] * n
+        p = 1
+        for i in range(n):
+            B[i] = p
+            p *= A[i]
+        # B[i] = [1, 1, 2, 6, 24] #下标i之前所有数字乘积
+        p = 1
+        for i in range(n-1, -1, -1):
+            B[i] *= p
+            p *=A[i]
+        return B
 ```
 
 
@@ -5918,12 +6234,6 @@ class Solution:
 # python3
 class Solution(object):
     def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
         def dfs(r):
             if not r:return None
             if p == r or q ==r:return r  
