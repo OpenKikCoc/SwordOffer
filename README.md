@@ -64,7 +64,28 @@ public:
 
 ```python
 # python3
-# ========= another solution 一个萝卜一个坑
+# 一个萝卜一个坑：主要思想是把每个数放到对应的位置上，即让 nums[i] = i。
+# O(N) + S(1)
+
+# 统一写法：
+# 算法的目的 就是把 当前数 放到 该放到的位置上：外层循环遍历整个数组，内层用 while 循环判断当前数 是否在该在的位置上，如果不再 就一直交换位置，直到满足要求。跳出 while 循环时就可以进行判断 当前数 和 下标 相等，如果不相等 说明重复了【因为当前数在while循环中已经被放到该放的位置了，已经出现过一次了】
+
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        for i in range(n):
+            # while nums[i] >= 0 and nums[i] < n and nums[i] != nums[nums[i]]:  # 这里是对 nums[i] 范围的判断，这道题已经明确说明了 nums[i] 的范围，所以可以省去
+            while nums[i] != nums[nums[i]]:
+                nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
+            # if nums[i] != i:     # 这里在while循环后 直接输出也可以。
+            #     return nums[i]
+        for i in range(n):
+            if nums[i] != i:
+                return nums[i]
+
+
+# 遍历整个数组，把 nums[i] 交换到正确的位置，直到遇到 nums[i] 是在正确位置，但是另一个位置 j 的值 nums[j] 与 nums[i]相等，也就是两个不同位置上的数相同的时候。这种情况，nums[i]就是需要寻找的，重复的数字。              
+
 class Solution:
     def findRepeatNumber(self, nums: List[int]) -> int:  
         for i in range(len(nums)):
@@ -73,17 +94,6 @@ class Solution:
                     return nums[i]
                 else:
                     nums[i], nums[nums[i]] =  nums[nums[i]], nums[i]
-        return -1
-
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        i = 0
-        while i < len(nums):
-            if nums[i] == i:
-                i += 1
-            elif nums[nums[i]] == nums[i]:return nums[i]
-            else:
-                nums[nums[i]], nums[i] = nums[i], nums[nums[i]]
         return -1
 
 
@@ -97,15 +107,6 @@ class Solution:
             else:
                 my_set.add(c)
 
-#把集合换成哈希表也可以
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        dict={}
-        for i in nums:
-           if i not in dic:
-               dic[i] = 0
-           else:
-               return i   
             
 # 用defaultdict哈希            
 class Solution:
@@ -202,7 +203,7 @@ public:
 
 ```python
 # python3
-# 从右上角开始查找，当前数比target大，就i -= 1; 当前数小，就j += 1
+# 单调性扫描：从右上角开始查找，当前数比target大，就i -= 1; 当前数小，就j += 1
 class Solution:
     def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
         if not matrix:return False
@@ -345,8 +346,22 @@ public:
 
 ```python
 # python3
+# 递归 / 迭代 都可以
 # 用一个指针记录，把值压入列表中，最后反转输出即可
-#========= 反转
+
+# 递归
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        res = []
+        def dfs(p):
+            if not p:return
+            dfs(p.next)   # 一层层往里递归
+            res.append(p.val)
+
+        dfs(head)
+        return res
+      
+# 迭代 --- 反转
 class Solution:
     def reversePrint(self, head: ListNode) -> List[int]:
         res = []
@@ -368,12 +383,6 @@ class Solution:
         while stack: # pop
             res.append(stack.pop())
         return res
-
-#========= 递归
-class Solution:
-    def reversePrint(self, head: ListNode) -> List[int]:
-        if not head: return []
-        return self.reversePrint(head.next) + [head.val]
 ```
 
 
@@ -461,15 +470,14 @@ class Solution:
             my_dict[ino[i]] = i
 
         def dfs(pre_L, pre_R, ino_L, ino_R):
-            if pre_L > pre_R:return    # 踩坑： 只能 大于 的时候 才能return
-            root = TreeNode(pre[pre_L])
+            if pre_L > pre_R:return    # 踩坑： 只能 大于 的时候 才能return! 进入 dfs 后，每次都记得先想一下终止条件！
+            root = TreeNode(pre[pre_L])    # 进入 dfs ，把每一层的 root 节点构造出来！
             idx = my_dict[pre[pre_L]]
             root.left = dfs(pre_L + 1, idx - ino_L + pre_L, ino_L, idx - 1)
             root.right = dfs(idx - ino_L + pre_L + 1, pre_R, idx + 1, ino_R)
             return root   # 递归返回这一层对应的root , 也就是重建后的二叉树
         
         return dfs(0, len(pre) - 1, 0, len(ino) - 1)      
-      
 ```
 
 
@@ -571,6 +579,11 @@ public:
 
 
 ```python
+# 算法流程：1. self.A 是用来压入数据的，self.B 用来弹出数据
+# 2. 在append 的时候，就直接压入 self.A 中
+# 3. 在delete 队头元素时，首先先判断 self.B 中是否有元素，有的话，直接弹出就可以。如果没有的话，再去看self.A 中是否有元素，如果 self.A 中也没有元素的话，说明当前模拟的队列已经是空了，直接return -1；
+# 4. 当self.A 还有元素时，把self.A 的元素全部 pop 到 self.B 中，返回 self.B 的top 元素即可
+
 class CQueue:
     def __init__(self):
         self.A = []
@@ -597,46 +610,26 @@ class CQueue:
 class MyQueue(object):
 
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
         self.A = []
         self.B = []
 
-    def push(self, x):
-        """
-        Push element x to the back of queue.
-        :type x: int
-        :rtype: void
-        """
+    def push(self, x)：
         self.A.append(x)
         
 
     def pop(self):
-        """
-        Removes the element from in front of queue and returns that element.
-        :rtype:int
-        """
         if self.B:return self.B.pop()
         while self.A:
             self.B.append(self.A.pop())
         return self.B.pop()
 
     def peek(self):
-        """
-        Get the front element.
-        :rtype: int
-        """
         if self.B:return self.B[-1]
         while self.A:
             self.B.append(self.A.pop())
         return self.B[-1]
 
     def empty(self):
-        """
-        Returns whether the queue is empty.
-        :rtype: bool
-        """
         return not self.A and not self.B
 ```
 
@@ -679,21 +672,23 @@ public:
 
 ```python
 # python3
+# 普通 dp 写法
+class Solution:
+    def fib(self, n: int) -> int:
+        if n == 0:return 0
+        f = [0] * (n+1)
+        f[1] = 1
+        for i in range(2, n + 1):
+            f[i] = f[i-1] + f[i-2]
+        return f[n] % 1000000007
+
+# 空间压缩，当前数永远只依赖前两个数
 class Solution:
     def fib(self, n: int) -> int:
         a, b = 0, 1
-        for _ in range(0,n):
+        for _ in range(n):
             a, b = b, a + b  #踩坑：需要同步交换，不能写成2行
         return a % 1000000007
-      
-#       
-class Solution:
-    def fib(self, n: int) -> int:
-        if n <= 1:return n 
-        a, b = 1, 1
-        for i in range(2, n):
-            a, b = b, a + b
-        return b % 1000000007      
 ```
 
 
@@ -708,6 +703,14 @@ class Solution:
 
 ```python
 # python3
+class Solution:
+    def numWays(self, n: int) -> int:
+        f = [1] * (n + 1)
+        for i in range(2, n + 1):
+            f[i] = f[i-1] + f[i-2]
+        return f[n] % 1000000007
+
+
 class Solution:
     def numWays(self, n: int) -> int:
         a, b = 1, 1
@@ -1009,39 +1012,18 @@ class Solution(object):
         
         # DFS遍历
         def dfs(x, y):
-            # nonlocal ans  #这个也可以，ans定义在外面，初始值为0 
             # if st[x][y] or sumAll(x, y) > k:return  # 这一条是多余的，因为进入的时候已经做了判断
             st[x][y] = True   #踩坑：记得把遍历过的格子状态更新
             self.res += 1
             dx, dy = [0,0,1,-1], [1,-1,0,0]
             for i in range(4):
-                a, b = x + dx[i], y + dy[i]
-                if 0 <= a < n and 0 <= b < m and not st[a][b] and sumAll(a, b) <= k:
-                    dfs(a, b)
+                nx, ny = x + dx[i], y + dy[i]
+                if 0 <= nx < n and 0 <= ny < m and allsumn(nx, ny) <= k and not st[nx][ny]:
+                    dfs(nx, ny)
         self.res = 0 
         dfs(0, 0)
         return self.res
-        
-        
-        # BFS
-        from collections import deque
-        q = deque()
-        q.append([0,0])
-        ans = 0 
-        dx, dy = [0,0,1,-1], [1,-1,0,0]
-        while q:
-            t = q.popleft()
-            x, y = t[0], t[1]
-            if st[x][y] or sumAll(x,y) > k:continue # 这里有优化空间，可以提前遍历
-            ans +=1 
-            st[x][y] = True
-            for i in range(4):
-                nx, ny = x + dx[i], y + dy[i]
-                if 0 <= nx < n and 0 <= ny < m and not st[nx][ny]:
-                    q.append([nx,ny])
-        return ans
-        
-        
+                
         
         #BFS 提前判断：（DFS也可以提前判断，可以少一些进入到队列或者递归的次数）
         from collections import deque
@@ -1113,21 +1095,40 @@ public:
 # 状态表示：f[i] : 表示长度为i时的乘积方案数；属性：Max
 # 状态转移：第一刀剪在长度为j, 那区别在于：后面的（i-j)是否还要再剪：
 #          要剪：那就是j * f[i-j];不剪：j *(i-j)
-class Solution(object):
-    def maxProductAfterCutting(self,n):
-        f = [0] * (n + 1)
-        for i in range(2, n + 1):
-            for j in range(1, i):
-                f[i] = max(f[i], j * (i - j), j * f[i - j])
- 
-# 数学方法
 class Solution:
     def cuttingRope(self, n: int) -> int:
-        if n <= 3:return n - 1
-        a, b = n // 3,n % 3
-        if b == 0:return int(math.pow(3, a))
-        if b == 1:return int(math.pow(3, a-1) * 4)
-        return int(math.pow(3, a) * 2)
+        f = [0] * (n + 1)  # 长度为1时，为0；长度为2，最大乘积为1
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                f[i] = max(f[i], j * (i-j), j * f[i-j])
+        return f[n]
+      
+ 
+
+# 数学方法
+# 结论：把这个整数分成尽可能多的3，如果剩下两个2，就分成两个2 
+# 证明如下：
+# 1. 显然1 不会出现在最优解里
+# 2. 证明最优解没有 大于等于5的数。假设有一个数ni >= 5, 那么其实可以把ni 拆为 3 + （ni -3），很显然可以证明：3(ni-3) > ni；所以最优解里肯定不会有大于等于5的数字，那最大的只可能是4
+# 3. 证明最优解里不存在4，因为 4 拆出来 2 + 2，乘积不变，所以可以定最优解里没有4
+# 4. 证明最优解里最多只能有两个2，因为假设有3个2，那3 * 3 > 2 * 2 * 2, 替换成3 乘积更大，所以最优解不能有三个2.
+
+# 综上，选用尽量多的3，直到剩下2 或者 4，用2.
+
+class Solution:
+    def cuttingRope(self, n: int) -> int:
+        if n <= 3:return 1 * (n - 1)
+       	res = 1
+        if n % 3 == 1:   # 处理 最优解 有两个2的情况
+            res *= 4
+            n -= 4
+        elif n % 3 == 2:   # 处理 最优解 只有一个2的情况
+            res *= 2
+            n -= 2
+        while n:
+            res *= 3
+            n -= 3
+        return res
 ```
 
 
@@ -1160,7 +1161,29 @@ public:
 
 ```python
 # python3
-
+class Solution:
+    def cuttingRope(self, n: int) -> int:
+        f = [0] * (n + 1)
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                f[i] = max(f[i], j * (i - j), j * f[i - j])
+        return f[n] % (1000000007)
+      
+# 证明解题思路如上提。      
+class Solution:
+    def cuttingRope(self, n: int) -> int:
+        if n <= 3:return 1 * (n - 1)
+       	res = 1
+        if n % 3 == 1:   # 处理 最优解 有两个2的情况
+            res *= 4
+            n -= 4
+        elif n % 3 == 2:   # 处理 最优解 只有一个2的情况
+            res *= 2
+            n -= 2
+        while n:
+            res *= 3
+            n -= 3
+        return res % 1000000007      
 ```
 
 
@@ -1276,7 +1299,25 @@ public:
 
 ```python
 # python3
+# 快速幂 求 pow(n, k) ===> O(logk)
+# 快速幂算法的原理是通过将指数 k 拆分成几个因数相乘的形式，来简化幂运算。
+# 原理就是利用位运算里的位移“>>”和按位与“&”运算，代码中 k & 1其实就是取 k 二进制的最低位，用来判断最低位是0还是1，再根据是0还是1决定乘不乘，如果是1，就和当前的 n 相乘，并且 k 要往后移动，把当前的 1 移走，同时 需要 x *= x；
 
+class Solution:
+    def myPow(self, x: float, n: int) -> float:
+        def fastPow(a, b):
+            res = 1
+            while b:
+                if b & 1:
+                    res *= a
+                b >>= 1
+                a *= a
+            return res
+
+        if x == 0:return 0
+        if n < 0:
+            x, n = 1/x, -n
+        return fastPow(x, n)
 ```
 
 
@@ -1341,6 +1382,7 @@ public:
 ```python
 # python3
 # 需要一个辅助节点pre, cur, 然后画图就很好理解
+# 用一个虚拟头节点，可以避免当删除的节点是头节点的时候 一些代码逻辑的麻烦的处理问题。
 
 class Solution:
     def deleteNode(self, head: ListNode, val: int) -> ListNode:
@@ -1523,7 +1565,7 @@ class Solution:
                     f[i][j] = f[i-1][j-1]
                 elif p[j] == '*':
                     if p[j-1] == s[i] or p[j-1] == '.':
-                        f[i][j] = f[i][j-2] or f[i-1][j]  # 踩坑：这里也有舍弃前一个字符的时候
+                        f[i][j] = f[i][j-2] or f[i-1][j]  # 踩坑：这里就是 就算我能匹配，但是我也不用这个字符
                     else:
                         f[i][j] = f[i][j-2]
         return f[n][m]
@@ -1631,7 +1673,7 @@ public:
 
 ```python
 # python3
-#双指针法
+# 双指针法:
 class Solution(object):
     def reOrderArray(self, arr):
         l, r = 0, len(arr) -1
@@ -1709,22 +1751,18 @@ public:
 
 
 ```python
-# 双指针法：1. 让指针1先走k步， 2. 然后指针p1和p2一起走 直到p1为空 输出p2即可
+# 双指针法：1. 让指针 fast 先走 k 步， 2. 然后指针 fast 和 head 一起走 直到 fast 为空 输出 slow 即可
 
-class Solution(object):
-    def findKthToTail(self, head, k):
-        if not head:
-            return None
-
-        p1, p2 = head, head 
-        for _ in range(k):
-            if p1:
-                p1 = p1.next 
-            else:
-                return None
-        while p1:
-            p1, p2 = p1.next, p2.next 
-        return p2
+class Solution:
+    def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
+        fast, slow = head, head 
+        while k:
+            fast = fast.next 
+            k -= 1
+        while fast:
+            fast = fast.next 
+            slow = slow.next 
+        return slow
 ```
 
 #### Plus: 链表中环的入口结点
@@ -1837,14 +1875,15 @@ public:
 #         self.val = x
 #         self.next = None
 
+# 迭代
 class Solution:
-    def reverseList(self,head:ListNode)->ListNode:
-        cur,pre,p=head,None,None
+    def reverseList(self, head: ListNode) -> ListNode:
+        cur, pre, p = head, None, None
         while cur:
-            p=cur.next
-            cur.next=pre
-            pre=cur
-            cur=p
+            p = cur.next
+            cur.next = pre
+            pre = cur 
+            cur = p
         return pre
 
 
@@ -2110,8 +2149,6 @@ class Solution:
         root.left = self.mirrorTree(root.right)
         root.right = self.mirrorTree(tmp)
         return root
-
-
 ```
 
 
@@ -2177,7 +2214,7 @@ public:
 ```python
 # python3
 # 递归中非常重要的两点：
-# 1. 找到递归的出口（就是什么时候return 判断为True 或者加入到要求的结果中；
+# 1. 找到递归的出口（就是什么时候return 判断为True 或者加入到要求的结果中；)
 # 2. 递归的类似于 剪枝 的部分。不然递归会无穷止境下去。也就是找到不符合条件 不需要往下递归去做的部分
 
 # 本题中：递归的出口就是 递归到L和R都不存在了，也就是所有的元素都递归判断过了，如果中间有过程不满足，中间就会判断为False，所以在这里最后就是return True
@@ -2265,9 +2302,9 @@ public:
 
 ```python
 # python3
-class Solution(object):
-    def printMatrix(self, arr):
-        if len(arr) == 0 or len(arr[0]) == 0:  # 测试的数据很恶心，需要加le n(arr[0]) == 0的特殊case
+class Solution:
+    def spiralOrder(self, arr: List[List[int]]) -> List[int]:
+        if len(arr) == 0 or len(arr[0]) == 0:  # 测试的数据很恶心，需要加len(arr[0]) == 0的特殊case
             return []
         n, m =len(arr), len(arr[0])
         L, R, T, B = 0, m-1, 0, n-1
@@ -2380,9 +2417,9 @@ public:
 
 ```python
 # python3
-# 借助一个辅助栈min-B 专门存储最小，返回最小元素。
-# 压入栈的时候，需要判断B中的情况，如果B不存在 or B中栈顶元素大于当前元素，那么应该把当前元素压入栈中；
-# 在pop的时候， 需要判断A pop出去的元素是否还在B中存在，如果相等 就也要把B中的元素pop出去
+# 借助一个辅助栈min-B 专门存储最小元素，栈顶存储的就是当前栈的最小元素。
+# 压入栈的时候，需要判断B中的情况，如果B不存在 or B中栈顶元素大于当前元素，那么应该把当前元素压入栈中，否则就不压入到B中【这是由于栈具有先进后出性质，所以在当前元素被弹出之前，栈中一直存在一个数比该数小，所以当前元素一定不会被当作最小数输出】
+# 在pop的时候， 需要判断A pop出去的元素是否等于min-B的栈顶元素，如果是的话，就需要把B 的栈顶元素弹出。
 
 class MinStack(object):
     def __init__(self):
@@ -2460,18 +2497,18 @@ public:
 # 思路：相当于在比较两个字符串是否匹配；但是 对于A而言，当前字符不一定能和B马上匹配使用，可能后续才会用到，所以需要用到栈的结构
 # 用一个辅助栈s，将入栈序列压入s, 压入后 栈顶元素 和 出栈序列做对比，如果相同 就把用过的元素都pop出去（对于s 是pop出去，对于出栈序列 是指针++1）
 
-class Solution(object):
-    def isPopOrder(self, A, B):
-        if len(A) != len(B):return False  # 踩坑：特殊case
-        if not A and not B :return True   #踩坑： 特殊case
-        stack = []
-        p = 0
-        for i in range(len(A)):
-            stack.append(A[i])  # 踩坑，需要先压入再判断，否则会存在最后一个元素在栈内 没有被比较pop出去
-            while stack and stack[-1] == B[p]:
+class Solution:
+    def validateStackSequences(self, A: List[int], B: List[int]) -> bool:
+        n, m = len(A), len(B)
+        if n != m:return False    # 踩坑：特殊case
+        if not A and not B:return True    # 踩坑：特殊case
+        stack, k = [], 0
+        for i in range(n):
+            stack.append(A[i])   # 踩坑，需要先压入再判断，否则会存在最后一个元素在栈内 没有被比较pop出去
+            while stack and stack[-1] == B[k]:
                 stack.pop()
-                p += 1
-        return p == len(B)
+                k += 1
+        return k == m
 ```
 
 
@@ -2847,27 +2884,29 @@ public:
 # python3
 # 普通做法：
 # 二叉搜索树是：左 < 根 < 右；后续遍历顺序：左 右 根
-# 1. 所以就先从头到尾遍历，找到第一个比 最后一个节点（也就是根节点）的值 大的位置，那个位置就是右子树的起点p。
-# 2. 然后从p继续往后遍历直到根节点，如果这过程中 有数值小于 根节点的数值，那就返回false；如果没有的话，说明这一段是符合要求的，那么继续向下递归判断即可。
+# 1. 所以就先从头到尾遍历，找到第一个比 【最后一个节点（也就是根节点）的值】 大的位置，那个位置就是右子树的起点 p。
+# 2. 然后从 p 继续往后遍历直到根节点，如果这过程中 有数值小于 根节点的数值，那就返回false；如果没有的话，说明这一段是符合要求的，那么继续向下递归判断即可。
 
 class Solution:
-    def verifySequenceOfBST(self, seq):
-        def dfs(l, r):
-            if l >= r:return True
-            for i in range(r)
-                if seq[i] < seq[r]:
-                    continue
-            p = i
-            while p < r:
-                if seq[p] > seq[n]:
-                    p += 1
-                else:
-                    return False
-            return dfs(l, p - 1) and dfs(p, r - 1)
+    def verifyPostorder(self, seq: List[int]) -> bool:
+        n = len(po)
         
-        n = len(seq)
-        if n <= 1 :return True
-        dfs(0, n - 1)
+        def dfs(l, r):
+            if l > r:return True
+            i = l
+            Rval = po[r]
+            while po[i] < Rval:
+                i += 1
+            p = i 
+            while p < r:
+                if po[p] > Rval:
+                    p += 1
+                else:return False
+            return dfs(l, p - 1) and dfs(p, r - 1)
+
+
+        if n <= 1:return True
+        return dfs(0, n - 1)
        
 # 单调队列优化版
 # 找到 根节点 的 左边 第一个比它 小 的数值的位置i, 该位置i + 1就是右子树的起点；
@@ -2958,8 +2997,8 @@ public:
 class Solution(object):
     def findPath(self, root, sum):
         def dfs(p, sum): 
-            if not p or p.val > sum:return  # 踩坑1: 这个放在入口
-            sum -= p.val   # 踩坑2:满足条件的话，先把满足条件的这个点加入
+            if not p:return  # 踩坑1: 这个放在入口【测试数据 可能有负数】
+            sum -= p.val    # 踩坑2:满足条件的话，先把满足条件的这个点加入
             path.append(p.val)
             if sum == 0 and not p.left and not p.right:# 然后才进入这里判断
                 res.append(path[:])
@@ -3487,6 +3526,30 @@ public:
 
 ```python
 # python3
+# 搜索DFS：1. 需要一个状态记录当前字符有没有被用过；2. 需要把字符串排序，判断当前字符和前面一个字符是否相同，如果当前字符没有被用过 并且和前一个数相同，并且前一个数也没有被用过，就直接跳过。
+
+class Solution:
+    def permutation(self, s: str) -> List[str]:
+        res = []
+        n = len(s)
+        used = [False] * n
+        s = sorted(s)
+
+        def dfs(path):
+            if len(path) == n:
+                res.append(path)
+            for i in range(n):
+                if not used[i]:  : # 踩坑1: 首先就必须判断当前数 有没有被用过，没有被用过 才能进入到后续的判断中
+                    if i > 0 and s[i] == s[i-1] and not used[i-1]:continue  #踩坑2: 判断条件写漏了not used[i-1] 踩坑3: i>0 (不是i > =0)!!!! 【i==0 的话， i-1 就会有溢出的问题】
+                    used[i] = True    #踩坑4:只能先进行上述判断后，才能把当前数的状态改为true
+                    dfs(path+s[i])
+                    used[i] = False
+
+        dfs('')
+        return res
+
+
+
 # 搜索：1. 需要一个数组判断当前数是不是被用过 2.需要排序判断当前数和前面一个数是否相同，如果当前数没有被用过，并且和前一个数相同，并且前一个数也没被用过，那么就跳过。
 
 class Solution:
@@ -3503,8 +3566,8 @@ class Solution:
                 return 
             for i in range(n):
                 if not used[i] : # 踩坑1: 首先就必须判断当前数 有没有被用过，没有被用过 才能进入到后续的判断中
-                    if i > 0 and nums[i] == nums[i-1] and not used[i-1]:continue  #踩坑2: 判断条件写漏了not used[i-1] 踩坑2: i>0 (不是i > =0)!!!!会导致很多特殊case过不了，比如[3], [1,1,1]
-                    used[i] = True  #踩坑3:只能先进行上述判断后，才能把当前数的状态改为true
+                    if i > 0 and nums[i] == nums[i-1] and not used[i-1]:continue  #踩坑2: 判断条件写漏了not used[i-1] 踩坑3: i>0 (不是i > =0)!!!! 【i==0 的话， i-1 就会有溢出的问题】
+                    used[i] = True  #踩坑4:只能先进行上述判断后，才能把当前数的状态改为true
                     path.append(nums[i])
 
                     dfs(path, used)
@@ -3564,16 +3627,18 @@ public:
 ```python
 # python3
 # #投票计数法
-class Solution(object):
-    def moreThanHalfNum_Solution(self, nums):
-        vote = 0 
+
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        votes = 0
+        val = nums[0]
         for x in nums:
-            if vote == 0:
-                a = x   # 踩坑1: 这里不需要再加一条vote += 1 ；后续if判断中会有。不然就会出错[4,2,2]
-            if x == a:
-                vote += 1
-            else:vote -= 1
-        return a
+            if votes == 0:
+                val = x   # 踩坑1: 这里不需要再加一条vote += 1 ；后续if判断中会有。不然就会出错[4,2,2]
+            if x == val:
+                votes += 1
+            else:votes -= 1
+        return val
 ```
 
 
@@ -3677,6 +3742,38 @@ public:
 ```python
 # python3
 # 快排的思想
+
+# less + more 荷兰国旗的写法
+class Solution:
+    def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
+        if k == 0:return []
+
+        def partition(l, r):
+            import random
+            x = random.randint(l, r)
+            arr[x], arr[r] = arr[r], arr[x]
+            less, more = l - 1, r
+            while l < more:
+                if arr[l] < arr[r]:
+                    less += 1
+                    arr[less], arr[l] = arr[l], arr[less]
+                    l += 1
+                elif arr[l] > arr[r]:
+                    more -= 1
+                    arr[more], arr[l] = arr[l], arr[more]
+                else:l += 1
+            arr[more], arr[r] = arr[r], arr[more]
+            return less + 1  # 踩坑：注意 这里是返回 less + 1
+
+        l, r = 0, len(arr) - 1
+        while l < r:
+            idx = partition(l, r)
+            if idx < k - 1:
+                l = idx + 1
+            else:r = idx
+        return arr[:k]
+
+# 甜甜的写法
 class Solution:
     def getLeastNumbers(self, arr: List[int], k: int) -> List[int]:
         def partition(l, r):
@@ -3702,8 +3799,6 @@ class Solution:
                 l = idx + 1
             else:r = idx 
         return arr[:k]
-        res.sort()   #最后再排序一下
-        return res
 ```
 
 
@@ -3834,7 +3929,18 @@ public:
 
 ```python
 # python3
-# dp, 比较特殊，只需要用一个变量来表示就可以 s: 表示的是以前一个数为结尾的子数组的和的最大值是多少
+#  f[i] 代表 i 之前的所有元素的连续子数组最大和
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        n = len(nums)
+        f = [float('-inf')] * (n + 1)
+        f[1] = nums[0]
+        for i in range(1, n + 1):
+            f[i] = max(f[i-1] + nums[i-1], nums[i-1])
+        return max(f)
+      
+      
+# 压缩空间的写法，只需要用一个变量来表示就可以 s: 【表示的是以前一个数为结尾的子数组的和的最大值是多少】
 class Solution(object):
     def maxSubArray(self, nums):
         # 更新：1. s > 0，以当前数为结尾的子数组的和为：s + x； 2. s <= 0, 那以当前数为结尾的子数组的和为： x
@@ -4076,18 +4182,22 @@ public:
 
 ```python
 # python3
+# 【类比爬楼梯，f[n] = f[n-1] + f[n-2], f[n]代表走到最后一个字符，能有多少多少中翻译方法】
+# 对于访问到当前的字符 f[n]，能有多少中翻译？
+# （1）当前字符翻译为【1个字符】这是一种方法，f[n] = dp[n-1]; (2) 当前字符呵前一个字符共同翻译为一种方法 f[n] += f[n-2]，此时的条件为【前后两个字符可以翻译为同一个字符】。还有 04,05,06，这种只能翻译为1中，其组合不能作为一种翻译。
+
 class Solution:
     def translateNum(self, num: int) -> int:
-        s=str(num)
-        n=len(s)
-        dp=[1 for _ in range(n+1)]
-        for i in range(2,n+1):
-            dp[i]=dp[i-1]
-            if s[i-2]=='1':
-                dp[i]+=dp[i-2]
-            elif s[i-2]=='2' and s[i-1]<'6':
-                dp[i]+=dp[i-2]
-        return dp[n]
+        s = str(num)
+        n = len(s)
+        f = [1] * (n + 1)
+        for i in range(2, n + 1):
+            f[i] = f[i-1]
+            if s[i-2] == '1':
+                f[i] += f[i-2]
+            elif s[i-2] == '2' and s[i-1] < '6':
+                f[i] += f[i-2]
+        return f[n]
       
  # python3    
 class Solution:
@@ -4144,26 +4254,31 @@ public:
 ```python
 # python3
 # 当已知n, m 都大于0       
-class Solution(object):
-    def getMaxValue(self, grid):
-        if not grid:return 0
+class Solution:
+    def maxValue(self, grid: List[List[int]]) -> int:
         n, m = len(grid), len(grid[0])
         f = [[0] * (m + 1) for _ in range(n + 1)]
-        for i in range(n):
-            for j in range(m):
-                f[i][j] = max(f[i-1][j],f[i][j-1]) + grid[i][j]
-        return f[n-1][m-1]
+        # for i in range(1, n + 1):
+        #     f[i][0] = f[i-1][0] + grid[i-1][0]
+        # for i in range(1, m + 1):
+        #     f[0][i] = f[0][i-1] + grid[0][i-1]
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                f[i][j] = max(f[i-1][j], f[i][j-1]) + grid[i-1][j-1]
+        return f[n][m]
+      
+# 空间优化，由于f[i][j]的状态只依赖
+# 我们发现当前值只和左边和上边的值有关，和其他的无关，比如我们在计算第5行的时候，那么很明显第1，2，3行的对我们来说都是无用的，所以我们这里可以把二维dp改成一维的，其中dp[i][j-1]可以用dp[j-1]来表示，就是当前元素前面的，dp[i-1][j]可以用dp[j]来表示，就是上边的元素。
 
-# n,m 可能一方为0的情况
 class Solution:
-    def maxValue(self,grid:List[List[int]])->int:
-        for i in range(len(grid)):
-            for j in range(len(grid[0])):
-                if i == 0 and j == 0:continue
-                if i == 0:grid[i][j] += grid[i][j-1]
-                elif j == 0:grid[i][j] += grid[i-1][j]
-                else:grid[i][j]+=max(grid[i][j-1],grid[i-1][j])
-        return grid[-1][-1]
+    def maxValue(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        f = [0] * (m + 1)
+        for i in range(1, n + 1):
+            for j in range(1, m + 1):
+                f[j] = max(f[j], f[j-1]) + grid[i-1][j-1]
+        return f[m]
+
 ```
 
 
@@ -4211,20 +4326,20 @@ public:
 
 ```python
 # python3
-###双指针法
+
+# 滑动窗口--双指针
 class Solution:
-    def longestSubstringWithoutDuplication(self, s):
-        if len(s) <= 1:return len(s)
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        my_dict = collections.defaultdict(int)
         n = len(s)
+        l = 0
         res = 0
-        l, r = 0, 0
-        while r < n - 1:
-            r += 1
-            if s[r] not in s[l:r]:
-                res = max(r - l +1, res)
-            else:
-                while s[r] in s[l:r]:
-                    l += 1
+        for r in range(n):
+            my_dict[s[r]] += 1
+            while l < r and my_dict[s[r]] > 1:
+                my_dict[s[l]] -= 1
+                l += 1
+            res = max(res,r - l + 1)
         return res
 
 
@@ -4232,10 +4347,10 @@ class Solution:
 #双指针+hash表优化，hash表记录每一个字符出现的位置的后面一个位置
 class Solution:
     def longestSubstringWithoutDuplication(self, s):
-        n = len(s)-1
+        n = len(s)
         dic = {}
-        l, r, res=0, 0, 0
-        for r in range(n + 1):
+        l, res=0, 0, 0
+        for r in range(n):
             if s[r] in dic:
                 l = max(my_dic[s[r]], l)
             dic[s[r]] = r + 1
@@ -4296,9 +4411,9 @@ public:
 # python3
 
 # 法一：dp
-# f[i]: 从小到大排列的第i个丑数值
-# 如何转移过来呢？用k个指针指向dp中的元素，最小的丑数只可能出现在如dp[l2]的2倍、dp[l7]的7倍、dp[l13]的13倍和dp[l19]的19倍四者中间。通过移动k个指针，就能保证生成的丑数是有序的。通过求到最小值来保证丑数数组有序排列。
-# 初始条件：题目给定条件为1 是任何给定 primes 的超级丑数。所以dp[0] = 1
+# f[i]: 从小到大排列的第 i 个丑数值
+# 如何转移过来呢？用k个指针指向dp中的元素，最小的丑数只可能出现在如dp[l2]的2倍、dp[l7]的7倍、dp[l13]的13倍和dp[l19]的19倍四者中间。通过移动 k 个指针，就能保证生成的丑数是有序的。通过求到最小值来保证丑数数组有序排列。
+# 初始条件：题目给定条件为 1 是任何给定primes的超级丑数。所以dp[0] = 1
 
 class Solution:
     def nthUglyNumber(self, n: int) -> int:
@@ -4373,8 +4488,8 @@ class Solution:
 # 法2: 迭代
 class Solution:
     def isUgly(self, n: int) -> bool:
-        if n == 0:return False 
-        for p in 2,3,5:
+        if n == 0: return False 
+        for p in 2, 3, 5:
             while n and n % p == 0:
                 n //= p 
         return n == 1
@@ -4442,20 +4557,27 @@ public:
 
 ```python
 # python3
-# 用collections模块里的defaultdict，方法里填入类型，比如int,表示当为空的时候，默认初始化为0
-
+# 用 colletions 模块里的Counter
 class Solution:
-    def firstNotRepeatingChar(self, s):
-        import collections
-        if not s:return '#'
+    def firstUniqChar(self, s: str) -> str:
+        my_dict = collections.Counter(s)
+        for x in s:
+            if my_dict[x] == 1:
+                return x
+        return ' '
+
+
+# 用collections模块里的defaultdict，方法里填入类型，比如int,表示当为空的时候，默认初始化为0
+class Solution:
+    def firstUniqChar(self, s: str) -> str:
+        if not s:return ' '
         my_dic = collections.defaultdict(int)
         for x in s:
             my_dic[x] += 1
         for x in s:
             if my_dic[x] == 1:
                 return x
-                break
-        return '#'
+        return ' '
 ```
 
 #### Plus: 字符流中第一个只出现一次的字符
@@ -4587,39 +4709,40 @@ public:
 
 
 ```python
-class Solution(object):
-    def inversePairs(self, nums):
+# python3
+
+class Solution:
+    def reversePairs(self, nums: List[int]) -> int:
+        n = len(nums)
+        self.res = 0
         def mergeSort(l, r):
-            nonlocal res   # 踩坑1. 注意res需要在递归中变化 所以要用nonlocal才能改变全局变量的值
-            if l >= r:return  # 注意 l == r的时候 也需要return. 不需要继续递归了
-            m = l + (r - l)//2
-            mergeSort(l, m)
-            mergeSort(m + 1, r)
-            
-            p1, p2 = l, m + 1
-            tmp = []
-            while p1 <= m and p2 <= r:
-                if nums[p1] > nums[p2]:
-                    res += m - p1 + 1
-                    tmp.append(nums[p2])
-                    p2 += 1
-                else:
+            if l < r:
+                m = l + (r - l) // 2
+                mergeSort(l, m)
+                mergeSort(m+1, r)
+                
+                p1, p2, tmp = l, m + 1, []
+                while p1 <= m and p2 <= r:
+                    if nums[p1] > nums[p2]:
+                        self.res += (m - p1 + 1)
+                        tmp.append(nums[p2])
+                        p2 += 1
+                    else:
+                        tmp.append(nums[p1])
+                        p1 += 1
+                while p1 <= m:
                     tmp.append(nums[p1])
                     p1 += 1
-            while p1 <= m:
-                tmp.append(nums[p1])
-                p1 += 1
-            while p2 <= r:
-                tmp.append(nums[p2])
-                p2 += 1
-            for i in range(len(tmp)):
-                nums[l + i] = tmp[i]
-        
-        n = len(nums)
-        if n <=1 :return 0
-        res = 0
-        mergeSort(0, n - 1)
-        return res
+                while p2 <= r:
+                    tmp.append(nums[p2])
+                    p2 += 1
+                for i in range(len(tmp)):
+                    nums[l+i] = tmp[i]
+
+
+        l, r = 0, n - 1
+        mergeSort(l, r)
+        return self.res
 ```
 
 
@@ -4679,19 +4802,12 @@ public:
 # 1. 两个指针分别指向两个链表头，当p1走到第一条链表的尾部时，就让他指向第二条链表的表头；，当p2走到第一条链表的尾部时，就让他指向第一条链表的表头
 # 2. 当两个指针指向同一个节点的时候输出答案即可：要么相遇走到了同一节点，要么就是同时走到了链表尾部null
 
-class Solution(object):
-    def findFirstCommonNode(self, headA, headB):
-        if not headB or not headA:return None
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
         p1, p2 = headA, headB
-        while p1 != p2:
-            if p1:
-                p1 = p1.next 
-            else:
-                p1 = headB
-            if p2:
-                p2 = p2.next
-            else:
-                p2 = headA 
+        while p1 != p2:   # 踩坑：这里是 判断 p1 和 p2 是否相等！不能写p1.next作为判断，因为当不存公共节点时，他俩就都是空。
+            p1 = p1.next if p1 else headB
+            p2 = p2.next if p2 else headA
         return p1
 ```
 
@@ -5517,7 +5633,7 @@ class Solution:
         return ''.join(res)
 
 
-#string 字符串不可以改拜年，但是可以进行拼接
+#string 字符串不可以改变，但是可以进行拼接 生成一个新的字符串
 class Solution:
     def reverseLeftWords(self, s: str, n: int) -> str:
         res = ""
