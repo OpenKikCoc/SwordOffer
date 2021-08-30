@@ -4,7 +4,34 @@
 
 [toc]
 
+>   03 / 20 / 24 / 33 / 40 / 44 / 54 / 56 / 57
+
 #### [03.数组中重复的数字](https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/) [EASY]
+
+引申：
+
+-   [LC-41 缺失的第一个正数](https://github.com/OpenKikCoc/LeetCode/blob/master/0001-0100/0041/README.md)
+-   [LC-442 数组中重复的数据](https://github.com/OpenKikCoc/LeetCode/blob/master/0401-0500/0442/README.md)
+-   [LC-448 找到所有数组中消失的数字](https://github.com/OpenKikCoc/LeetCode/blob/master/0401-0500/0448/README.md)
+
+```c++
+// 最标准写法
+class Solution {
+public:
+    int findRepeatNumber(vector<int>& nums) {
+        int n = nums.size();
+        for (int i = 0; i < n; ++ i )
+            // 本题数据范围都在 [0, n - 1]
+            // while (nums[i] >= 0 && nums[i] < n && nums[nums[i]] != nums[i])
+            while (nums[nums[i]] != nums[i])
+                swap(nums[i], nums[nums[i]]);
+        for (int i = 0; i < n; ++ i )
+            if (nums[i] != i)
+                return nums[i];
+        return -1;
+    }
+};
+```
 
 ```c++
 class Solution {
@@ -1576,6 +1603,48 @@ class Solution:
 #### [20. 表示数值的字符串](https://leetcode-cn.com/problems/biao-shi-shu-zhi-de-zi-fu-chuan-lcof/) [MID]
 
 ```c++
+// 标准写法
+class Solution {
+public:
+    int n;
+
+    bool scanUnsignedInt(string & s, int & i) {
+        int p = i;
+        while (i < n && isdigit(s[i]))
+            i ++ ;
+        return i > p;
+    }
+
+    bool scanInt(string & s, int & i) {
+        if (i < n && (s[i] == '+' || s[i] == '-'))
+            i ++ ;
+        return scanUnsignedInt(s, i);
+    }
+
+    bool isNumber(string s) {
+        this->n = s.size();
+        int i = 0;
+
+        while (i < n && s[i] == ' ')
+            i ++ ;
+        
+        bool flag = scanInt(s, i);
+        if (i < n && s[i] == '.')
+            flag = scanUnsignedInt(s, ++ i ) || flag;
+        if (i < n && (s[i] == 'e' || s[i] == 'E'))
+            flag = scanInt(s, ++ i ) && flag;
+        
+        while (i < n && s[i] == ' ')
+            i ++ ;
+
+        return flag && i == n;
+    }
+};
+```
+
+
+
+```c++
 class Solution {
 public:
     bool isNumber(string s) {
@@ -1825,23 +1894,28 @@ class Solution(object):
 #### [24. 反转链表](https://leetcode-cn.com/problems/fan-zhuan-lian-biao-lcof/) [EASY]
 
 ```c++
-/**
- * Definition for singly-linked list.
- * struct ListNode {
- *     int val;
- *     ListNode *next;
- *     ListNode(int x) : val(x), next(NULL) {}
- * };
- */
+// 递归
 class Solution {
 public:
     ListNode* reverseList(ListNode* head) {
-        ListNode *cur = head, *pre = nullptr, *next;
-        while (cur) {
-            next = cur->next;
-            cur->next = pre;
-            pre = cur;
-            cur = next;
+        if (!head || !head->next)
+            return head;
+        auto t = reverseList(head->next);
+        head->next->next = head;
+        head->next = nullptr;
+        return t;
+    }
+};
+
+// 迭代
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+        ListNode * pre = nullptr;
+        while (head) {
+            auto next = head->next;
+            head->next = pre;
+            pre = head, head = next;
         }
         return pre;
     }
@@ -1914,34 +1988,17 @@ class Solution:
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        ListNode* dummy = new ListNode(-1);
-        ListNode* pre = dummy;
-        while (l1 != nullptr && l2 != nullptr) {
-            if (l1->val <= l2->val) {
-                pre->next = l1;
-                pre = l1;
-                l1 = l1->next;
-            } else {
-                pre->next = l2;
-                pre = l2;
-                l2 = l2->next;
-            }
+        ListNode * dummy = new ListNode(-1);
+        auto pre = dummy;
+        while (l1 && l2) {
+            if (l1->val <= l2->val)
+                pre->next = l1, l1 = l1->next;
+            else
+                pre->next = l2, l2 = l2->next;
+            pre = pre->next;
         }
-        if (l1 == nullptr) pre->next = l2;
-        else pre->next = l1;
+        pre->next = l1 ? l1 : l2;
         return dummy->next;
-    }
-  
-    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
-        if (l1 == nullptr) return l2;
-        else if (l2 == nullptr) return l1;
-        else if (l1->val < l2->val) {
-            l1->next = mergeTwoLists(l1->next, l2);
-            return l1;
-        } else {
-            l2->next = mergeTwoLists(l1, l2->next);
-            return l2;
-        }
     }
 };
 ```
@@ -3646,6 +3703,42 @@ class Solution:
 #### [40. 最小的k个数](https://leetcode-cn.com/problems/zui-xiao-de-kge-shu-lcof/) [EASY]
 
 ```c++
+// 标准写法
+class Solution {
+public:
+    int partition(vector<int> & nums, int l, int r) {
+        if (l >= r)
+            return l;
+        int i = l - 1, j = r + 1, x = nums[l + r >> 1];
+        while (i < j) {
+            do i ++ ; while (nums[i] < x);
+            do j -- ; while (nums[j] > x);
+            if (i < j)
+                swap(nums[i], nums[j]);
+        }
+        return j;
+    }
+
+    vector<int> getLeastNumbers(vector<int>& arr, int k) {
+        int l = 0, r = arr.size() - 1;
+        while (l < r) {
+            int m = partition(arr, l, r);
+            if (m == k - 1)
+                break;
+            else if (m < k - 1)
+                l = m + 1;
+            else
+                r = m;
+        }
+        vector<int> res;
+        for (int i = 0; i < k; ++ i )
+            res.push_back(arr[i]);
+        return res;
+    }
+};
+```
+
+```c++
 class Solution {
 public:
     int partition(vector<int>& nums, int l, int r) {
@@ -3902,7 +3995,7 @@ public:
         int res = INT_MIN, sum = 0;
         for (int i = 0; i < n; ++ i ) {
             sum = max(nums[i], nums[i] + sum);
-            res = max(res, pre);
+            res = max(res, sum);
         }
         return res;
     }
@@ -4026,6 +4119,23 @@ public:
 
 
 #### [44. 数字序列中某一位的数字](https://leetcode-cn.com/problems/shu-zi-xu-lie-zhong-mou-yi-wei-de-shu-zi-lcof/) [MID]
+
+```c++
+// 非常 trick 的补 0 写法
+class Solution {
+public:
+    using LL = long long;
+    int findNthDigit(int n) {
+        LL k = n;
+        for (int i = 1; ; ++ i )
+            if (k < (LL)i * pow(10, i))
+                return to_string(k / i)[k % i] - '0';
+            else
+                k += pow(10, i);
+        return 0;
+    }
+};
+```
 
 ```c++
 class Solution {
@@ -4980,6 +5090,8 @@ class Solution(object):
 
 #### [54. 二叉搜索树的第k大节点](https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-di-kda-jie-dian-lcof/) [EASY]
 
+迭代重复做
+
 ```c++
 /**
  * Definition for a binary tree node.
@@ -5369,15 +5481,16 @@ public:
         int n = nums.size();
         vector<int> res;
         if (!n) return res;
-        int l = 0, r = n-1;
+        int l = 0, r = n - 1;
         while (l <= r) {
             if (nums[l] + nums[r] == target) {
                 res.push_back(nums[l]);
                 res.push_back(nums[r]);
                 return res;
-            } else if (nums[l] + nums[r] < target) {
+            } else if (nums[l] + nums[r] < target)
                 ++ l ;
-            } else -- r ;
+            else
+                -- r ;
         }
         return res;
     }
