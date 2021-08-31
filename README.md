@@ -4992,30 +4992,31 @@ public:
 
 ```python
 # python3
-class Solution(object):
-    def getNumberOfK(self, nums, k):
-        #找到等于target的目标值的位置;
-        p1,p2 = -1, -1
-        l,r = 0, len(nums)
-        while l < r:
+
+ # 1. 先找到 target 第一次出现的位置
+ # 2. 找比 target 大的数出现的位置
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        n = len(nums)
+        p = 0
+        l, r = 0, n
+        while l < r:   
             m = l + (r - l) // 2
-            if nums[m] < k:
+            if nums[m] < target:
                 l = m + 1
             else:r = m
-        if 0 <= l < len(nums) and nums[l] == k:
-            p1 = l
+        if 0 <= l < n and nums[l] == target:
+            p = l
         else:return 0
 
-        #找到第一个比target大的整数
-        l, r = 0, len(nums)
+        l, r = 0, n
         while l < r:
             m = l + (r - l) // 2
-            if nums[m] <= k:
+            if nums[m] <= target:
                 l = m + 1
-            else:r = m
-        #不用再做判断了，因为如果不存在target，第一步已经返回了【-1，-1】
-        p2 = l - 1
-        return (p2 - p1 + 1)
+            else:r = m 
+         #不用再做判断了，因为如果不存在target，第一步已经返回了0
+        return l - p
 ```
 
 
@@ -5068,21 +5069,15 @@ public:
 
 
 ```python
-# python3
-class Solution(object):
-    def getMissingNumber(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if not nums:return 0
-        l, r = 0, len(nums)
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        n = len(nums)
+        l, r = 0, n
         while l < r:
             m = l + (r - l) // 2
             if nums[m] == m:
                 l = m + 1
-            else:
-                r = m 
+            else:r = m
         return l
 ```
 
@@ -5164,39 +5159,32 @@ public:
 # python3
 
 # 二叉搜索树的第k小的节点，就是正常的中序遍历
-class Solution(object):
-    def kthNode(self, root, k):
-        
-        def dfs(p):
-            nonlocal res, k
-            if not p:
-                return 
-            dfs(p.left)
-            k -= 1
-            if k == 0:
-                res = p
-            if k > 0:
-                dfs(p.right)
-
-        res = None 
-        dfs(root)
-        return res
-      
-# 二叉搜索树的第k大的节点，中序遍历的逆序      
 class Solution:
     def kthLargest(self, root: TreeNode, k: int) -> int:
-        self.res,self.k=None,k
+        if not root:return
+        res = []
+
+        def dfs(p):
+            if not p:return 
+            dfs(p.left)
+            res.append(p.val)
+            dfs(p.right)
+        
+        dfs(root)
+        return res[-k]
+      
+# 优化，在中序遍历的逆序过程中进行记录。那就是 右 - 中 - 左。可以简化空间复杂度到S(1)
+class Solution:
+    def kthLargest(self, root: TreeNode, k: int) -> int:
+        self.k = k
 
         def dfs(root):
-            if not root:
-                return
-            else:
-                dfs(root.right)
-                self.k -= 1
-                if self.k==0:
-                    self.res=root.val
-                elif self.k>0:
-                    dfs(root.left)
+            if not root: return
+            dfs(root.right)
+            if self.k == 0: return
+            self.k -= 1
+            if self.k == 0: self.res = root.val
+            dfs(root.left)
 
         dfs(root)
         return self.res
@@ -5273,6 +5261,19 @@ class Solution:
     def treeDepth(self, root):
         if not root:return 0
         return max(self.treeDepth(root.left), self.treeDepth(root.right)) + 1
+      
+# 普通的 dfs 
+class Solution:
+    def maxDepth(self, root: TreeNode) -> int:
+        self.res = 0
+        def dfs(p, d):
+            if not p:return
+            self.res = max(self.res, d)
+            dfs(p.left, d + 1)
+            dfs(p.right, d + 1)
+
+        dfs(root, 1)
+        return self.res
 ```
 
 
@@ -5339,20 +5340,79 @@ public:
 
 
 ```python
-# python3
-class Solution(object):
-    def isBalanced(self, root):
+# 从底至顶，返回每个节点root为根节点的子树最大高度【max(left, right) + 1】
+# 当有 左/右子树高度差 > 1时，代表已经不是平衡树了，返回-1【-1 代表了不合法的情况】
+# 当发现已经不是平衡树了，后面的高度计算都没有意义，因此一路返回-1，避免后续多余计算
+
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        if not root:return True
+
         def dfs(p):
-            nonlocal ans
             if not p:return 0
-            left, right = dfs(p.left), dfs(p.right)
-            if abs(left - right) >1:
-                ans = False
-            return max(left, right) + 1 #这是递归函数的return的值
-          
-        ans = True
+            left = dfs(p.left)
+            if left == -1:return -1
+            right = dfs(p.right)
+            if right == -1:return -1
+            return max(left, right) + 1 if abs(left - right) <=1 else -1
+        
+        return dfs(root) != -1
+      
+      
+# 用正常的dfs写
+class Solution:
+    def isBalanced(self, root: TreeNode) -> bool:
+        self.res = True
+        def dfs(root):
+            if not root:return 0
+            left = dfs(root.left)
+            right = dfs(root.right)
+            if abs(left - right) > 1:
+                self.res = False
+            return max(left, right) + 1
+            
         dfs(root)
-        return ans
+        return self.res     
+```
+
+
+
+#### [56 - I. 数组中数字出现的次数](https://leetcode-cn.com/problems/shu-zu-zhong-shu-zi-chu-xian-de-ci-shu-lcof/)
+
+```c++
+
+
+
+
+
+
+```
+
+
+
+```python
+# python3
+#56-I的解答：一个数组，只有两个数字只出现一次，其他的都出现了两次，找出这两个数
+
+# 1. 先把所有的数 异或一遍； 
+# 2. 异或的结果就是x^y的结果，并且一定不为0；
+# 3. 找到最低的那位 不为1 的位；
+# 4. 根据这一位 把集合划分为两个集合；相同的数肯定是属于统一集合
+#  次数两个集合内部 各自异或一遍 得到的结果 就是这两个不同的数。
+class Solution(object):
+    def findNumsAppearOnce(self, nums):
+        res, a, b = 0, 0, 0
+        for c in nums:
+            res ^= c 
+        k = 0 
+        while not res >> k & 1:
+            k += 1
+        for c in nums:
+            if c >> k & 1 == 0:
+                a ^= c
+            else:
+                b ^= c 
+        return [a,b]
 ```
 
 
@@ -5412,30 +5472,6 @@ public:
 
 ```python
 # python3
-#56-I的解答：一个数组，只有两个数字只出现一次，其他的都出现了两次，找出这两个数
-
-# 1. 先把所有的数 异或一遍； 
-# 2. 异或的结果就是x^y的结果，并且一定不为0；
-# 3. 找到最低的那位 不为1 的位；
-# 4. 根据这一位 把集合划分为两个集合；相同的数肯定是属于统一集合
-#  次数两个集合内部 各自异或一遍 得到的结果 就是这两个不同的数。
-class Solution(object):
-    def findNumsAppearOnce(self, nums):
-        res, a, b = 0, 0, 0
-        for c in nums:
-            res ^= c 
-        k = 0 
-        while not res >> k & 1:
-            k += 1
-        for c in nums:
-            if c >> k & 1 == 0:
-                a ^= c
-            else:
-                b ^= c 
-        return [a,b]
-
-
-#56-II的解答
 #Method1：dict{"key":"value"}
 class Solution:
     def singleNumber(self, nums: List[int]) -> int:
@@ -5523,6 +5559,7 @@ public:
 
 ```python
 # python3
+# 二分法
 class Solution(object):
     def findNumbersWithSum(self, nums, target):
         nums.sort()  # 如果给定的题意已经是排序，则无需再排序
@@ -5534,6 +5571,19 @@ class Solution(object):
                 l += 1
             else:
                 return [nums[l], nums[r]]
+              
+# 用 hash
+# 遍历字典的时候，是直接输出的key 
+# for k in my_dict:print(k)
+class Solution:
+    def twoSum(self, nums: List[int], target: int) -> List[int]:
+        n = len(nums)
+        my_dict = collections.defaultdict(int)
+        for i in range(n):
+            if target - nums[i] in my_dict:
+                return [(target - nums[i]), nums[i]]
+            else:
+                my_dict[nums[i]] = i
 ```
 
 
@@ -5593,7 +5643,7 @@ public:
 class Solution(object):
     def findContinuousSequence(self, num):
         if num <= 2:return []
-        s = num//2 + 1
+        s = num // 2 + 1
         l, r = 1, 2
         res = []
         while r <= s:
@@ -5604,7 +5654,6 @@ class Solution(object):
                 l += 1 
             else:
                 res.append(list(range(l, r + 1)))  # 相等就把指针形成的窗口添加进输出列表中
-          
                 r += 1    # 别忘了，这里还要继续扩大寻找下一个可能的窗口哦
         return res
 ```
@@ -5676,7 +5725,7 @@ public:
 
 ```python
 # python3
-# 双指针法：1. 首先去掉首尾的空格 2.两个指针都从尾部开始扫描遍历 
+# 双指针法：1. 首先去掉首尾的空格  2.两个指针都从尾部开始扫描遍历 
 
 class Solution(object):
     def reverseWords(self, s):
@@ -5809,20 +5858,35 @@ public:
 # python3
 # 单调队列的使用
 
-class Solution(object):
-    def maxInWindows(self, nums, k):
-        if not nums:return []
-        from collections import deque 
-        q = deque()
-        # l = 0
+#先想清楚暴力写法如何写：
+ class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         res = []
         for r in range(len(nums)):
-            if q and q[0] <= r - k:  # 踩坑 ：不需要l指针，直接用队列里的元素来表示；队列里存的就是当前数的下标
+          	maxv = float("-inf")
+            start = max(0, r - k + 1)
+            # start <= j <= i 可以取到 i
+            # 因为 nums[i] 本身也可以作为整个窗口的最大值
+            for l in range(start, r + 1):
+                maxv = max(maxv, nums[l])
+            if r >= k - 1:
+                res.append(maxv)
+        return res       
+        
+      
+#其实是在求区间范围内的最大值，就可以用单调队列进行优化，队列的队头里存的是当前窗口里的最大值      
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        res = []
+        q = collections.deque()  #队列里保存的是数组的下标，因为这样可以根据下标来维护滑动窗口大小
+        for r in range(len(nums)):
+            #先维护一个固定的滑动窗口大小，r往右走，队列的队首就需要被pop出去
+            if q and q[0] <= r - k:
                 q.popleft()
-            while q and nums[q[-1]] < nums[r]:
+            while q and nums[q[-1]] < nums[r]:  #r往前走，l的收缩
                 q.pop()
             q.append(r)
-            if r >= k - 1:
+            if r >= k-1:   #当i遍历到比窗口大小大的时候 才有窗口的最大值,统计答案
                 res.append(nums[q[0]])
         return res
 ```
