@@ -1,6 +1,4 @@
-
-
-### SwordOffer
+SwordOffer
 
 [toc]
 
@@ -107,13 +105,28 @@ public:
 
 
 
+Solution 1
+
+- **算法思路**：【一个萝卜一个坑】，把 *当前数* 放到 *该放到的位置* 上：比如数字值为 0，就放在下标为 0 的位置...数字值为 k, 就放在下标为 k 的位置
+
+  1）外层循环遍历整个数组，内层用 while 循环判断 *当前数* 是否在该在的位置上，如果不在，就一直交换位置，直到满足要求
+  2）跳出 while 循环时就可以进行判断 *当前数*和 *下标* 是否相等，如果不相等，说明重复了【因为当前数在 while 循环中已经被放到该放的位置了，已经出现过一次了】
+
+- **时间复杂度**：由于数组只被遍历了一次，所以是 *O(N)*
+
+
+
+Firstly, we put each element x in nums[x - 1]. Since x ranges from 1 to N, then x - 1 ranges from 0 to N - 1, it won't exceed the bound of the array.
+Secondly, we check through the array. If a number x doesn't present in nums[x - 1], then x is absent.
+
+
+
+- Algorithm method: 
+  1) Traveser the input list, and put the number where it should be put. For example, the value 0 should be in the 
+
 ```python
 # python3
-# 一个萝卜一个坑：主要思想是把每个数放到对应的位置上，即让 nums[i] = i。
-# O(N) + S(1)
-
-# 统一写法：
-# 算法的目的 就是把 当前数 放到 该放到的位置上：外层循环遍历整个数组，内层用 while 循环判断当前数 是否在该在的位置上，如果不再 就一直交换位置，直到满足要求。跳出 while 循环时就可以进行判断 当前数 和 下标 相等，如果不相等 说明重复了【因为当前数在while循环中已经被放到该放的位置了，已经出现过一次了】
+# 模拟题
 
 class Solution:
     def findRepeatNumber(self, nums: List[int]) -> int:
@@ -129,6 +142,19 @@ class Solution:
         for i in range(n):
             if nums[i] != i:
                 return nums[i]
+              
+            
+# 法2：用 defaultdict 哈希，直接统计每个数字出现的次数，当出现次数 > 1时，就说明是重复数字。（面试推荐用法1，那是面试官想要的解法）
+# 时间复杂度：O(N)
+
+
+class Solution:
+    def findRepeatNumber(self, nums: List[int]) -> int:
+        my_dict = collections.defaultdict(int)
+        for x in nums:
+            my_dict[x] += 1
+            if my_dict[x] > 1:
+                return x 
 
 
 # 遍历整个数组，把 nums[i] 交换到正确的位置，直到遇到 nums[i] 是在正确位置，但是另一个位置 j 的值 nums[j] 与 nums[i]相等，也就是两个不同位置上的数相同的时候。这种情况，nums[i]就是需要寻找的，重复的数字。              
@@ -152,17 +178,7 @@ class Solution:
             if c in my_set:
                 return c
             else:
-                my_set.add(c)
-
-            
-# 用defaultdict哈希            
-class Solution:
-    def findRepeatNumber(self, nums: List[int]) -> int:
-        my_dict = collections.defaultdict(int)
-        for x in nums:
-            my_dict[x] += 1
-            if my_dict[x] > 1:
-                return x             
+                my_set.add(c)         
 ```
 
 
@@ -248,9 +264,18 @@ public:
 
 
 
+Solution
+
+- **算法思路**：从右上角，坐标为 *(i,j)*开始查找，如果当前数比 target 大，使得 *i -= 1* ; 如果当前数更小，使得 *j += 1*
+  - 算法具体思路：核心在于【从右上角开始查找】根据题意，可以得出：右上角的数值 k, k 左边的数都小于等于 k，k 下边的数都大于等于 k。
+    1. 如果 k 小于 target，那 k 左边的数肯定更小于 target，就可以舍弃当前一整行的数，也就是把指针向下边移动（即 *i += 1*）
+    2. 如果 k 大于 target，那 k 下边的数肯定更大于 target，就可以舍弃当前一整列的数，也就是把指针向左边移动（即 *j -= 1*）
+    3. 如果 k 等于 target，那说明找到了，直接返回 *True* 即可(遍历完整个数组，还没有返回 *True* 的话，说明没有找到符合的数，返回 *False*)
+
+- **时间复杂度**：每一步会排除一行或者一列，所以整个算法流程最多会走 *n+m* 步，时间复杂度是 *O(n+m)*
+
 ```python
 # python3
-# 单调性扫描：从右上角开始查找，当前数比target大，就i -= 1; 当前数小，就j += 1
 
 class Solution:
     def findNumberIn2DArray(self, matrix: List[List[int]], target: int) -> bool:
@@ -304,10 +329,14 @@ public:
 
 
 
+Solution 1
+
+- **算法思路**：正序遍历，用一个列表记录，遇到了空格，就插入字符串；最后用join进行操作返回字符串即可
+  - 对比直接用字符串记录结果的，用列表记录效率更高。
+- **时间复杂度**：*O(N)*
+
 ```python
 # python3
-# 正序遍历，用一个列表记录，遇到了空格，就插入字符串；最后用join进行操作返回字符串即可
-# 对比直接用字符串记录结果的，用列表记录 效率更高。
 class Solution:
     def replaceSpace(self,s:str)->str:
         res = []
@@ -316,14 +345,23 @@ class Solution:
             else:res.append(c)
         return ''.join(res)
                     
-# ========= another solution, 用python的内置函数（在面试中不推荐使用）           
+        
+# another method, 用python的内置函数（在面试中不推荐使用）           
 class Solution:
     def replaceSpace(self, s: str) -> str:
         s = s.replace(' ','%20')
         return s
+```
 
-      
-#创建一个新的字符串，对字符串进行遍历；该方法不如法一用列表好，因为字符串为不可变类型，每加一个字符就会变成新的字符串，太消耗内存了。     
+
+
+Solution 2
+
+- **算法思路**：创建一个新的字符串，对字符串进行遍历；该方法不如法一用列表好，因为字符串为不可变类型，每加一个字符就会变成新的字符串，太消耗内存
+- **时间复杂度**：*O(N)*
+
+```python
+# python3  
 class Solution:
     def replaceSpace(self, s: str) -> str:
         res = ''
@@ -392,12 +430,45 @@ public:
 
 
 
+Solution 1
+
+- **算法思路**：从前往后遍历，然后反转输出即可
+  - 用指针 p 指向链表头部，遍历链表，把当前值加入到 *res* 列表中
+  - 每一次都把 p 指向后面的节点，即 *p = p.next*
+- **时间复杂度**：从头到尾遍历了一遍链表，所以时间复杂度是*O(N)*
+
 ```python
 # python3
-# 递归 / 迭代 都可以
-# 用一个指针记录，把值压入列表中，最后反转输出即可
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+"""
+1. Traverse the input LinkedList by using a point 'p',
+2. and use a list 'res' to store the value of every ListNode,
+3. finally, reverse the list 'res', and we can get the expected result.
+"""
 
-# 递归
+class Solution:
+    def reversePrint(self, head: ListNode) -> List[int]:
+        res = []
+        p = head
+        while head:
+            res.append(head.val)
+            p = p.next
+        return res[::-1]  # or:  reverse(res)
+```
+
+
+
+Solution 2
+
+- **算法思路**：递归
+- **时间复杂度**：*O(N)*
+
+```python
+# python3
 class Solution:
     def reversePrint(self, head: ListNode) -> List[int]:
         res = []
@@ -407,29 +478,6 @@ class Solution:
             res.append(p.val)
 
         dfs(head)
-        return res
-      
-# 迭代 --- 反转
-class Solution:
-    def reversePrint(self, head: ListNode) -> List[int]:
-        res = []
-        p = head
-        while head:
-            res.append(head.val)
-            p = p.next
-        return res[::-1]  # 或者 reverse(res)
-
-
-#堆栈法
-class Solution:
-    def reversePrint(self, head: ListNode) -> List[int]:
-        stack = []
-        while head: # push
-            stack.append(head.val)
-            head = head.next
-        res = []
-        while stack: # pop
-            res.append(stack.pop())
         return res
 ```
 
@@ -505,12 +553,49 @@ public:
 
 
 
+Solution
+
+- **算法思路**：递归，用 dfs 构建左右子树 (一定要在纸上模拟一遍，不要光想)
+
+  - 首先明确：前序遍历（根-左-右），中序遍历（左-根-右）
+
+  1）前序遍历找到根节点的值：前序遍历的第一个数就是根节点的值
+
+  2）中序遍历找到根结点的位置：首先要用一个字典 my_dict 来存储每个值对应的下标位置，根据前序遍历的值，就可以 *O(1)*时间找到中序遍历中根结点的位置（题意有 二叉树的值都不同，所以可以用字典进行唯一定位）
+
+  3）在中序遍历找到根结点的位置（下标） idx， 那 idx 的左边就是左子树的中序遍历， idx 的右边是右子树的中序遍历。现在来构建当前层左右子树的前序和中序遍历的数组范围。
+
+  - 注：pre_L, pre_R 表示 前序遍历的区间左右端点；ino_L, ino_R 表示 中序遍历的区间左右端点。
+
+  4）左子树的长度是： *idx-ino_L*；左子树前序遍历，它的起始下标是：*pre_L+1*, 终止下标为：*idx-ino_L+pre_L*；左子树的中序遍历，它的起始下标是: *ino_L*，终止下标为：*idx-1*
+
+  5）右子树前序遍历，它的起始下标是：左子树的终止下标+1即可，终止下标就是当前层的前序遍历的终止下标：*pre_R*；右子树的中序遍，它的起始下标是：*idx+1*, 终止下标：*ino_R*
+
+  6）有了左右子树的前序遍历和中序遍历，就可以递归创建出左右子树重建二叉树
+
+  7）递归结束条件：在本题中是通过划分左右子树在数组中的范围来一层层缩小范围，所以终止条件是：当不存在某个子树时，就可以return，返回上层，即*pre_L > pre_R* （当 pre_L == pre_R 时，此时是有一个节点的，这并不是终止条件）
+
+- **时间复杂度**：在初始化时，用字典（哈希表）建立映射关系，时间复杂度是*O(N)*，但在查找的时候是*O(1)*，总时间复杂度是*O(N)*
+
 ```python
-#算法流程：
-#1. 在前序遍历中找到根节点：前序遍历的第一个数 就是根节点的值
-#2. 在中序遍历中找到根节点对应的位置k，则 k的左边就是左子树的中序遍历，k的右边就是右子树的中序遍历 （这一步需要用一个字典来存储对应的位置）
-#3. 假设左子树的长度为l,那么在前序遍历里，根节点后l个数 是左子树的前序遍历，剩下的树就是右子树的前序遍历
-#4. 有了左右子树的前序遍历和中序遍历，我们可以先递归创建出左右子树，然后再创建根节点；
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+"""
+Recursive 
+use DFS(depth first search) to build the right and left subtrees
+1. Preorder traversing implies that pre[0] is the root node. 
+2. We use dict to store the mappint relationship of value and index, so that we can look up the vaule for idx in O(1).
+3. suppose we find the pre[0] in inorder, say it is idx-th,
+   and the left subtree will contain elements [ino_L, idx - 1], 
+   the right subtree contain elements [idx + 1, ino_R]
+4. Recursively doing this on subarrays, we can build a tree.
+"""
+
 class Solution:
     def buildTree(self, pre: List[int], ino: List[int]) -> TreeNode:
         my_dict = dict()
@@ -518,11 +603,15 @@ class Solution:
             my_dict[ino[i]] = i
 
         def dfs(pre_L, pre_R, ino_L, ino_R):
-            # 踩坑： 只能 大于 的时候 才能return! 进入 dfs 后，每次都记得先想一下终止条件！
+            # 踩坑： 只能【大于】的时候 才能return! 进入 dfs 后，每次都记得先想一下终止条件！
             if pre_L > pre_R:return   
             # 进入 dfs ，把每一层的 root 节点构造出来！
             root = TreeNode(pre[pre_L])   
             idx = my_dict[pre[pre_L]]
+            
+            # 在 python 里可以用 index 方法直接找到位置，不需要用 dict
+            # idx = ino.index(pre[0])
+            
             root.left = dfs(pre_L + 1, idx - ino_L + pre_L, ino_L, idx - 1)
             root.right = dfs(idx - ino_L + pre_L + 1, pre_R, idx + 1, ino_R)
             # 递归返回这一层对应的root , 也就是重建后的二叉树
@@ -629,12 +718,27 @@ public:
 
 
 
-```python
-# 算法流程：1. self.A 是用来压入数据的，self.B 用来弹出数据
-# 2. 在append 的时候，就直接压入 self.A 中
-# 3. 在delete 队头元素时，首先先判断 self.B 中是否有元素，有的话，直接弹出就可以。如果没有的话，再去看self.A 中是否有元素，如果 self.A 中也没有元素的话，说明当前模拟的队列已经是空了，直接return -1；
-# 4. 当self.A 还有元素时，把self.A 的元素全部 pop 到 self.B 中，返回 self.B 的top 元素即可
+Solution
 
+- **算法思路**：模拟，借助一个辅助栈来实现（记得画图，就很好理解了）
+
+  1）*self.A* 是用来压入数据的，*self.B* 用来弹出数据
+
+  2）在 *append* 的时候，就直接压入 *self.A* 中
+
+  3）在 *delete* 队头元素时，首先先判断 *self.B* 中是否有元素，如果有的话，直接弹出就可以；如果没有的话，再去check *self.A* 中是否有元素
+
+  4）如果 *self.A* 中也没有元素的话，说明当前模拟的队列已经是空了，直接*return -1*；如果 *self.A* 还有元素时，那就把 *self.A* 的元素全部 *pop* 到 *self.B* 中，返回 *self.B* 的top 元素即可。
+
+```python
+# python3
+"""
+1. simulate a queue using two stacks
+2. use python list as the underlying data structure for stack 
+3. when append, just append to the self.A, and when delete, just delete from self.B
+4. I move all elements from self.A to self.B when I need to delete but self.A is empty, and return the top element of self.B.
+5. in this way, can I reverse the order which means can pop act like a queue.
+"""
 class CQueue:
     def __init__(self):
         self.A = []
@@ -644,7 +748,7 @@ class CQueue:
         self.A.append(value)
 
     def deleteHead(self) -> int:
-        #先判断self.B是否有元素，有的话 直接弹出
+        #先判断self.B是否有元素，有的话，直接弹出
         if self.B:return self.B.pop() 
         # B中没有元素，那就看A是不是有新加入的元素，没有的话 返回-1.
         if not self.A:return -1 
@@ -653,8 +757,6 @@ class CQueue:
             self.B.append(self.A.pop())
         return self.B.pop()
 ```
-
-
 
 
 
@@ -724,26 +826,56 @@ public:
 
 
 
+Solution
+
+- **算法思路**：dp（动态规划）
+
+  1）状态定义：*f[i]* 表示第 *i* 项的值
+
+  2）状态转移：当 *i* > 1的时候，*f[i] = f[i-1] + f[i-2]* (根据题意写出状态转移方程)
+
+  3）初始值：根据题意，*f[0] = 0*。所以所有值都可以初始化为0
+
+- **时间复杂度**：需要计算 *n* 次：*O(n)*
+
 ```python
-# python3
+# python3 
 # 普通 dp 写法
+"""
+In dp, we will iterate from the base case and calculate out the answer finally.
+1. f[i] means the value of the i-th item.
+2. state transition equation can be got from the meaning of the title
+3. set the initial value, when i == 0, f[0] = 0, obviously.
+"""
+
 class Solution:
     def fib(self, n: int) -> int:
         # 特殊 case
         if n == 0:return 0   
-        f = [0] * (n+1)
+        f = [0] * (n + 1)
         f[1] = 1
         for i in range(2, n + 1):
-            f[i] = f[i-1] + f[i-2]
+            f[i] = f[i - 1] + f[i - 2]
         # return f[n] % (int(1e9+7))
         return f[n] % 1000000007 
+```
 
-# 空间压缩，当前数永远只依赖前两个数
+
+
+- **空间压缩写法**
+  - 由题意可得，当前项的数值永远只依赖前两项的值
+- **时间复杂度**：*O(N)*
+
+```python
+# python3
+"""
+we step through the loop and optimize the space by storing only two previous fibonacci variables
+"""
 class Solution:
     def fib(self, n: int) -> int:
         a, b = 0, 1
         for _ in range(n):
-            #踩坑：需要同步交换，不能写成2行 【写成两行的话，就需要 tmp】
+            # python 的同步交换，不需要中间变量 tmp，就可以实现两个值的交换
             a, b = b, a + b 
         return a % 1000000007
 ```
@@ -825,20 +957,48 @@ public:
 
 
 
+Solution
+
+- **算法思路**：二分法
+
+  - **二分法的思想的实质就是在每一次进行二分的时候，都舍弃一半一定不符合条件的数据**
+
+  1）一般来说，二分的范围是左闭右开 *[l, r) ==> [0, n)*；
+
+  2）这道题是旋转数组，我们将通过对比 *numbers[m]* 与 *numbers[r]*来排除不合法的区间。也正因此，二分的右边界将取到 *n-1*。 
+
+  - 请思考为什么不能和 *l* 做对比
+
+  3）如果 *numbers[m] > numbers[r]*，比如*（3，4，5，6，0，1，2）*，要找到最小值，就舍弃中间数的左边包括中间数的所有数，也就是左边界移到中间位置的下一个： *l = m + 1*
+
+  4）如果 *numbers[m] < numbers[r]*，比如*（5，6，0，1，2，3，4）*，要找到最小值，就舍弃中间数的右边的所有数（中间数可能是最小的数，所以保留），也就是把右边界移到中间的位置： *r = m*
+
+  5）对于 相等的情况，直接把右边界指针往左移动一个即可
+
 ```python
 # python3
-# 用二分法模板，每次二分 都抛弃一半的数据的思想。
+"""
+1. binary search 
+2. set left and right bounds, find the middle value between the left and right bounds(their average)
+3. compare numbers[m] with numbers[r], every check to converge the left or right bounds.
+4. if numbers[m] > numbers[r], we KNOW that the minimum value must have occurred somewhere to the right of the mid, so we can use 'm + 1' to be as left bound, which means discarding the left of the mid. 
+5. if numbers[m] < numbers[r], we KNOW the minimum value must be at mid or to the left of mid, so we just move the right bound to the mid.
+6. when they are equal, just let right bound minus by one, cause anyway we have the value equal to numbers[r]
+"""
 
 class Solution:
     def minArray(self,numbers:List[int])->int:
-        i, j = 0, len(numbers)-1
-        while i < j:
-            m = (i + j) // 2
-            if numbers[m] > numbers[j]:i = m + 1
-            elif numbers[m] < numbers[j]:j = m
+        l, r = 0, len(numbers) - 1
+        while l < r:
+            m = l + (r - l) // 2
+            if numbers[m] > numbers[r]:
+                l = m + 1
+            elif numbers[m] < numbers[r]:
+                r = m
             # 踩坑：当数字相同的时候，直接把右指针向左移动一个。如果当前数为最小数，删除掉右边的这个数 不会对结果产生影响
-            else:j -= 1   
-        return numbers[i]
+            else:
+              	r -= 1   
+        return numbers[l]
 ```
 
 
@@ -931,12 +1091,36 @@ public:
 
 
 
+Solution
+
+- **算法思路**：*DFS*（深度优先搜索）
+
+  - 经典搜索问题，对于 *DFS* 问题，最重要的是考虑顺序！
+
+  1）先枚举单词的起点，找到第一个符合起点的字母
+
+  - 如果当前字符是满足条件的，要把当前字符改成一个特殊字符，我就是给改成了 *'/'*
+  - 当然需要用一个 *tmp* 变量，记录当前字符，以便回溯用
+
+  2）进行 *DFS*，从四个方向进行扩展；这里用到了 *dx, dy = [1, -1, 0, 0], [0, 0, 1, -1]* 这样的方式来进行遍历【这个写法是跟我之前推荐过的 Acwing 的Y总学的，很推荐这种写法】
+
+  3）在进入递归的时候，首先要考虑【什么情况下就要返回】（满足条件/不满足条件）
+
+  - 当 *word* 长度为 *0* 时，说明字符里所有的字母都被遍历完了，此时是满足条件的，返回 *True*
+  - 如果当前字符是满足条件的，
+  - 在进行下一次搜索的时候，记得要恢复现场（这是一个回溯的过程）
+
+- **时间复杂度**：单词起点一共有 $n^2$ 个，单词的每个字母一共有上下左右四个方向可以选择，但由于不能走回头路，所以除了单词首字母外，仅有三种选择。所以总时间复杂度是 $O(n^2 * 3^k)$。
+
 ```python
-# DFS, 经典的搜索问题。最重要的是考虑顺序！
-# 在进入递归的时候，首先要考虑 什么情况下就要返回！（满足条件/不满足条件）
-# 我们首先枚举单词的起点，然后依次枚举单词的每个字母，在这过程中需要将已经用过的字母做标记，以避免重复使用字符。
-# 这道题需要记录 具体的路径，BFS不方便记录，所以DFS更适合。
-      
+# python3
+"""
+Find each word's fisrt matching letter on borad and recursion to check for the rest of word.
+1. use dfs() to check whether can find word, start at (x, y) position
+2. when all characters are checked, which means can return True
+3. when character 'x' found, let 'x' value to be '/', in order to mark as visited
+4. then check 'x' all neibours
+"""
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
         n, m = len(board), len(board[0])
@@ -961,6 +1145,7 @@ class Solution:
         for i in range(n):
             for j in range(m):
                 if board[i][j] == word[0]:
+                    # 如果首字母满足，就接着遍历判断除了首字母的剩余字符，在 python 里直接对字符串进行切片即可
                     if dfs(i, j, word[1:]):
                         return True
         return False
@@ -1052,11 +1237,28 @@ public:
 
 
 
-```python
-# 经典的BFS/DFS(也可以做)
-# 从起点开始往下走，并且需要一个函数来判断 当前格子能不能走（sumALL)
-# 如果当前格子走过 或者 当前格子数字之和太大，都需要Continue(直接跳过)
+Solution
 
+- **算法思路**：经典的 *BFS/DFS*
+
+  1）从起点 *(0, 0)* 开始往下走，并且需要一个函数来判断，当前格子能不能走，这里抽出来了一个判断的函数 ==> *sumALL()*
+
+  2）如果当前格子走过 或者 当前格子数字之和大于给出的 *k*，都需要 *continue* (直接跳过)
+
+  - 判断一个格子是否已经走过，用一个数组来标记 `st[x][y]`
+
+  3） DFS 就是通过递归实现；BFS 就是借助队列实现
+
+- **时间复杂度**：最坏情况会遍历方格里的所有点，时间复杂度是 *O(nm)*
+
+```python
+# Python3
+"""
+1. use a function sumAll() to check whether the position (x, y) can be covered
+2. use a array 'st' to mark whether the position have been visited
+3. start from (0, 0), and change the 'st' value, and check its neibours to find more points which can be visited.
+4. in DFS we use recursion and queue is used in BFS.
+"""
 class Solution(object):
     def movingCount(self, n, m, k):
         if not n or not m:return 0
@@ -1073,23 +1275,24 @@ class Solution(object):
             return res
         
         
-        # DFS遍历
+        # DFS 
         def dfs(x, y):
             # if st[x][y] or sumAll(x, y) > k:return  # 这一条是多余的，因为进入的时候已经做了判断
             # 踩坑：记得把遍历过的格子状态更新
             st[x][y] = True  
             self.res += 1
-            dx, dy = [0,0,1,-1], [1,-1,0,0]
+            dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
             for i in range(4):
                 nx, ny = x + dx[i], y + dy[i]
-                if 0 <= nx < n and 0 <= ny < m and allsumn(nx, ny) <= k and not st[nx][ny]:
+                # 提前判断，可以减少递归的次数
+                if 0 <= nx < n and 0 <= ny < m and sumAll(nx, ny) <= k and not st[nx][ny]:
                     dfs(nx, ny)
         self.res = 0 
         dfs(0, 0)
         return self.res
                 
         
-        #BFS 提前判断：（DFS也可以提前判断，可以少一些进入到队列或者递归的次数）
+        # BFS
         from collections import deque
         q = deque()
         res = 0
@@ -1098,9 +1301,10 @@ class Solution(object):
         while q:
             x, y = q.popleft()
             res += 1
-            dx, dy = [0,0,1,-1], [1,-1,0,0]
+            dx, dy = [0, 0, 1, -1], [1, -1, 0, 0]
             for i in range(4):
                 nx, ny = x + dx[i], y + dy[i]
+                # 提前判断：在进入队列的时候就进行判断，可以减少一些进队操作，提高效率
                 if 0 <= nx < n and 0 <= ny < m and not st[nx][ny] and sumAll(nx, ny) <= k:
                     st[nx][ny] = True
                     q.append([nx, ny])
@@ -1153,12 +1357,25 @@ public:
 
 
 
+Solution1
+
+- **算法思路**：dp
+
+  1）状态表示：f[i] : 表示长度为i时的乘积方案数；属性：Max
+
+  2）状态转移：找到不同的点
+
+  ​	假设第一刀剪在长度为j, 那区别在于：后面的（i-j)是否还要再剪：要剪：那就是j * f[i-j];不剪：j *(i-j)
+
+  ​	所以 f[i]的值就是在这两种情况里取一个 max， 也就是 f[i] = max(j * (i-j), j * f[i-j])
+
+  3）初始化，长度为1时，最大乘积为0（因为长度必须大于2才能剪短，所以长度为1，直接最大乘积值为0
+
+- **时间复杂度**： *O(N)*
+
 ```python
 # python3
 # dp
-# 状态表示：f[i] : 表示长度为i时的乘积方案数；属性：Max
-# 状态转移：第一刀剪在长度为j, 那区别在于：后面的（i-j)是否还要再剪：
-#          要剪：那就是j * f[i-j];不剪：j *(i-j)
 class Solution:
     def cuttingRope(self, n: int) -> int:
         # 长度为1时，为0；长度为2，最大乘积为1
@@ -1167,22 +1384,40 @@ class Solution:
             for j in range(1, i):
                 f[i] = max(f[i], j * (i-j), j * f[i-j])
         return f[n]
-      
- 
+```
 
-# 数学方法
-# 结论：把这个整数分成尽可能多的3，如果剩下两个2，就分成两个2 
-# 证明如下：
-# 1. 显然1 不会出现在最优解里
-# 2. 证明最优解没有 大于等于5的数。假设有一个数ni >= 5, 那么其实可以把ni 拆为 3 + （ni -3），很显然可以证明：3(ni-3) > ni；所以最优解里肯定不会有大于等于5的数字，那最大的只可能是4
-# 3. 证明最优解里不存在4，因为 4 拆出来 2 + 2，乘积不变，所以可以定最优解里没有4
-# 4. 证明最优解里最多只能有两个2，因为假设有3个2，那3 * 3 > 2 * 2 * 2, 替换成3 乘积更大，所以最优解不能有三个2.
 
-# 综上，选用尽量多的3，直到剩下2 或者 4，用2.
 
+Solution2
+
+- **算法思路**：数学方法
+
+  - 结论：把这个整数分成尽可能多的 *3*，如果剩下两个 *2*，就分成两个 *2*。证明如下：
+
+  1）显然数字 *1* 不会出现在最优解里
+
+  2）证明最优解没有<大于等于5的数字>。反证法：加入有一个数 *ni >= 5*, 那么实际上是可以把 *ni* 拆成 *3 +（ni -3）*，很显然可以证明：3 * (ni-3) > ni；所以在最优解里肯定不会有 <大于等于5的数>，那也就可以说明最优解中最大的数只能是 *4*
+
+  3）再来证明最优解里不存在4: 因为 4 拆出来 2 + 2，乘积不变，所以可以定最优解里没有4
+
+  4）接着证明最优解里最多只能有两个2。反证法：假设有 3 个 2 ，那3 * 3 > 2 * 2 * 2, 所以显然把 3 个 2替换成 3 和 3 的乘积更大，所以最优解不能有三个 2， 最多有两个 2.
+
+  综上所述，应该选尽量多的 3， 直到剩下 2 或者 4
+
+- **时间复杂度**：
+
+```python
+# python
+"""
+there is conclusion:
+1. there is no factor bigger than 4. Suppose factor 5, but we can replace 5 withe factor 2 and 3, obviously 2 * 3 > 5.
+2. if an optimal product contains a factor 4, then you can replace it with 2 and 2 without losing optimality
+   ==> If an optimal product contains a factor f >= 4, then you can replace it with factors 2 and f-2 without losing optimality, as 2*(f-2) = 2f-4 >= f. So you never need a factor greater than or equal to 4
+3. you'd never use 2 more than twice, cause 3 * 3 is better than 2 * 2 * 2
+"""
 class Solution:
     def cuttingRope(self, n: int) -> int:
-        if n <= 3:return 1 * (n - 1)
+        if n <= 3:ireturn 1 * (n - 1)
         # 踩坑：res 初始化位1 
        	res = 1
         # 处理 最优解 有两个2的情况
@@ -1289,14 +1524,46 @@ public:
 
 
 
+Solution
+
+- **算法思路**：位运算
+
+  1）总体思路就是从二进制的表示的末尾开始统计 1 的次数
+
+  2）每一次统计完成后，就将 *n* 右移一位，也就是将 *n* 二进制表示的数字的最后一位给删除，然后再继续进行判断末尾是否为1
+
+  3）重复上述两个步骤，直到 *n* 变为 0
+
+  4）还有个要注意的点，就是如何处理负数的情况:
+
+  - 在 python中，直接把负数和 *oxffffff*做一个 & 运算即可
+  - 这个具体原因可以goggle搜一下哈（ python 负数）
+
+  
+
+- **时间复杂度**：
+
 ```python
 # python3
-# 1. 需要考虑是负数的情况：如果是负数 需要做处理：把它与oxffffff做 & 运算
-# 2. 然后其他都是一样的处理逻辑：用lowbit函数的方法来确认有多少个1
-# 3. lowbit方法：x * (-x) : 可以得到x的最后一位的1
+# 当n为负数时，python 和 c++/java 语言的存储处理不一致。所以处理也不相同。
+"""
+
+"""
 
 def lowbit(x):
     return x & (-x)
+  
+  
+class Solution(object):
+    def NumberOf1(self,n):
+        res = 0
+        # 正数的32位2进制表示不变，但负数变为正数
+        n = n & ((1 << 32) - 1) 
+        while n:
+            res +=  1
+            n -= lowbit(n)
+        return res
+
     
 if __name__=='__main__':
     n = int(input())
@@ -1321,17 +1588,6 @@ class Solution:
         while n:
             res += n & 1
             n >>= 1
-        return res
-      
-# 当n为负数时，python 和 c++/java 语言的存储处理不一致。所以需要对数 先进行处理。
-class Solution(object):
-    def NumberOf1(self,n):
-        res = 0
-        # 正数的32位2进制表示不变，但负数变为正数
-        n = n & ((1 << 32) - 1) 
-        while n:
-            res +=  1
-            n -= (n & -n)
         return res
 ```
 
@@ -1387,11 +1643,20 @@ public:
 
 
 
+Solution
+
+- **算法思路**：快速幂
+
+  1）快速幂算法的原理是通过将 $a^b$ 的指数 *b* 拆分成几个因数相乘的形式，来简化幂运算。
+
+  2）利用位运算里的位移 '>>' 和 '&' 运算。在代码中 *b & 1* 实际上就是取 *b* 的二进制的最低位，通过 *b & 1* 判断最低位是 0 还是 1， 再根据值是 0 还是 1 决定是否相乘：如果值为 1， 就喝当前的 a 相乘，并且 b 要往后移动一位，也就是把当前的 1 一走，同时需要把底数 a *= a 
+
+  3）快速幂 是一个经典的数学算法，如果不能理解，建议 goggle 看一下别人的视频讲解举例，可能会更清晰。
+
+- **时间复杂度**：快速幂 求 pow(a, b) ===> *O(logb)*
+
 ```python
 # python3
-# 快速幂 求 pow(n, k) ===> O(logk)
-# 快速幂算法的原理是通过将指数 k 拆分成几个因数相乘的形式，来简化幂运算。
-# 原理就是利用位运算里的位移“>>”和按位与“&”运算，代码中 k & 1其实就是取 k 二进制的最低位，用来判断最低位是0还是1，再根据是0还是1决定乘不乘，如果是1，就和当前的 n 相乘，并且 k 要往后移动，把当前的 1 移走，同时 需要 x *= x；
 
 class Solution:
     def myPow(self, x: float, n: int) -> float:
@@ -1470,10 +1735,20 @@ public:
 
 
 
+Solution
+
+- **算法思路**：链表题，用一个虚拟头节点 dummy 
+
+  1）用一个虚拟头节点 dummy，可以避免当删除的节点是头节点的时候，一些代码逻辑的麻烦的处理问题
+
+  2）dummy 指向链表头节点，从头到尾扫描链表一遍，用到一个辅助节点 pre, cur, 然后画图就很好理解
+
+  3）当 当前节点 cur.val 与 题意给出的 val 相等时，就删除这个 cur, 用到的方法也是让 *pre.next = cur.next*
+
+- **时间复杂度**：*O(N)* 删除操作平均需循环 N/2次，最差 N 次
+
 ```python
 # python3
-# 需要一个辅助节点pre, cur, 然后画图就很好理解
-# 用一个虚拟头节点，可以避免当删除的节点是头节点的时候 一些代码逻辑的麻烦的处理问题。
 
 class Solution:
     def deleteNode(self, head: ListNode, val: int) -> ListNode:
@@ -1482,14 +1757,13 @@ class Solution:
         pre = dummy 
         cur = head 
         while cur and cur.val != val:
-            cur = cur.next 
-            pre = pre.next 
+            pre, cur = cur, cur.next
         pre.next = cur.next 
         return dummy.next
 
-      
+# 不用 dummy 时需要多做一步逻辑的处理    
 class Solution:
-    def deleteNode(self,head:ListNode,val:int)->ListNode:
+    def deleteNode(self,head:ListNode, val:int)->ListNode:
         if head.val == val:
             return head.next
         pre, cur = head, head.next
@@ -1630,18 +1904,38 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：dp
+
+  1）状态表示：f[i, j] 表示 s[1 ～ i] 和 p[1 ～ j] 是否匹配；
+
+  2）状态转移：思考：当前p[j]字符是什么时，状态会发生变化？以p[j] 是否为 '*' 来区分
+
+  ​	  2.1）p[j] != '*'：那当且仅当s[i] == p[j] 或者 p[j] == '.'时，`f[i][j] = f[i-1][j-1]`；
+
+  ​	  2.2) p[j] == '*'：那就是枚举通配符`*` 可以匹配多少个 p[j-1]：
+
+  ​		 a. 如果 p[j-1] 能匹配 s 当前字符，也就是：`p[j-1] == s[i] or p[j-1] == '.'`，那这个时候可以选择匹配，也可以选择不匹配
+
+  ​			1> **不匹配**：表示丢弃这一次的 '*' 和它之前的那个字符 p[j-1]，那状态转移方程是：`f[i][j] = f[i][j-2]`；
+
+  ​			2> **匹配**：不管要匹配几个 p[j-1], 对于字符串 s 来说，s[i] 这个字符一定能匹配，相当于 s[i] 这个字符白送（题意是求true/false），
+
+  ​				 那结果就是看 s[i]前面字符的匹配情况` f[i][j] = f[i-1][j]；` 
+
+  ​			总体：` f[i][j] = f[i][j-2] or f[i-1][j] `
+
+  ​		 b. else: p[j-1] 不能匹配 s 当前字符，那就要舍弃到p[j-1]，那就是相当于 * 匹配 0 个 p[j-1]字符，相当于“不匹配”，`f[i][j] = f[i][j-2]`。
+
+  3）属性：true /false
+
+  4）初始值：s 和 p 都是空的时候，肯定是能匹配，所以 `f[0][0] = True `; 还有一种特殊case, 就是在 s 字符串为空，但是 p 字符串里面有 * 字符时（详细见代码）
+
+- **时间复杂度**：*O(N)* 删除操作平均需循环 N/2次，最差 N 次
+
 ```python
-# 状态表示：f[i,j]: 表示 s[1-i] 和 p[1-j] 是否匹配；
-# 状态转移：当前p[j]字符是什么？以p[j] 是否为 '*' 来区分
-# 1) p[j] != '*'：那当且仅当s[i] == p[j] 或者 p[j] == '.'时，f[i][j] = f[i-1][j-1]
-# 2）p[j] == '*'：那就是枚举通配符 '*' 可以匹配多少个p[j-1]
-# 2.1）如果匹配0个，表示丢弃这一次的 '*' 和它之前的那个字符:f[i][j] = f[i][j-2]（不管前一个字符的s和前一个字符的p是否能匹配，都有这个情况）
-# 2.2) 匹配一个，不丢弃前面那个字符，并且只保留一次字符，f[i][j] = f[i-1][j-2]
-# 2.3）匹配2个（及以上），那s[i]这个字符是一定能被匹配的，就看前面的字符了: f[i][j] = f[i-1][j]
-# 由于 f[i-1][j]是由f[i-1][j-2]转移过来的，所以前者包含了后者的情况。
-# 2.2 和 2.3 可以统一写成 当s[i]和p[j-1]匹配，并且*匹配>=1的情况下 : f[i][j] = f[i-1][j]
-
-
+# python3
 # 最好的写法，把特殊情况拎出来
 class Solution:
     def isMatch(self, s: str, p: str) -> bool:
@@ -1660,7 +1954,7 @@ class Solution:
                     f[i][j] = f[i-1][j-1]
                 elif p[j] == '*':
                     if p[j-1] == s[i] or p[j-1] == '.':
-                      	# 踩坑：这里就是 就算我能匹配，但是我也不用这个字符 f[i][j] = f[i][j-2]
+                      	# 踩坑：这里就是 就算能匹配，但是也不用这个字符，那就是：f[i][j] = f[i][j-2]
                         f[i][j] = f[i][j-2] or f[i-1][j] 
                     else:
                         f[i][j] = f[i][j-2]
@@ -1741,13 +2035,30 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：模拟题
+
+- 首先要考虑清楚:"有效的数字格式是什么样的", 由题意可得有效数字的定义：`A[.[B]][e|EC]`或者`.B[e|EC]`表示，其中 A 和 C 都是整数(可以有正负号也可以没有)，B是无符号整数
+
+- 那么我们可以用两个辅助函数来检查整数和无符号整数的情况，从头到尾扫一遍字符串然后分情况判断，注意这里要传数字的引用或者用全局变量。
+
+  1）指针 *i* 从头往后遍历，先去掉字符串的首部空格
+
+  2）判断接下来的字符，是不是整数：整数包含有 "+", "-", 所以在 *scanInt()* 方法里，会对正负符号做判断；
+
+  3）接着判断是否是"."(小数点)，指针后移一位后，再对后面的字符进行判断，此时这里的字符肯定只能是无符号字符，
+
+     在这里，抽出了一个函数 *scanUnsignedInt()* 进行判断。
+
+  4）小数点后面的数字判断完后，接着遍历判断是否含有 "e/E"。如果有的话，"e/E"，后面的字符需要进入 *scanInt()* 方法进行判断
+
+  5）最后去掉最后的空格后，return。（注意：这里也需要加上一个条件：指针 *i* 是否已经遍历到了末尾）
+
+- **时间复杂度**：模拟遍历字符串，时间复杂度： *O(n)*
+
 ```python
 # python3
-# (模拟) O(n)
-# 这道题边界情况很多，首先要考虑清楚的是有效的数字格式是什么，这里用A[.[B]][e|EC]或者.B[e|EC]表示，其中A和C都是整数(可以有正负号也可以没有)，B是无符号整数。
-
-# 那么我们可以用两个辅助函数来检查整数和无符号整数的情况，从头到尾扫一遍字符串然后分情况判断，注意这里要传数字的引用或者用全局变量。
-
 
 class Solution:
     def isNumber(self, s: str) -> bool:
@@ -1830,12 +2141,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：double point 双指针法
+
+​	1）l 指向开头， r 指向尾部，开始循环处理。
+
+​	2）当 l 指向的数为奇数时，l += 1；直到遇到一个偶数才跳出循环
+
+​	3）当 r 指向的数为偶数时，r -= 1；直到遇到一个奇数才跳出循环
+
+​	4）都跳出循环后，把当前的两个数交换，然后继续下一个循环。
+
+- **时间复杂度**：每个数字只会被遍历一次，时间复杂度是*O(N)*
+
 ```python
 # python3
-# 双指针法: l 指向开头， r 指向尾部。开始循环处理。
-# 当左边的数为奇数时， l+=1；直到遇到一个偶数
-# 当右边的数位偶数时，r-=1；直到遇到一个奇数
-# 把这两个数交换，然后继续下一个循环。
 
 class Solution(object):
     def reOrderArray(self, arr):
@@ -1913,8 +2234,24 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：快慢指针法
+
+​	1）让指针 fast 先走 k 步
+
+​	2）然后指针 fast 和 head 一起走 直到 fast 为空 输出 slow 即可l 指向开头， r 指向尾部，开始循环处理。
+
+- **时间复杂度**：链表遍历一次，时间复杂度是*O(N)*
+
 ```python
-# 双指针法：1. 让指针 fast 先走 k 步， 2. 然后指针 fast 和 head 一起走 直到 fast 为空 输出 slow 即可
+# python3
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
 
 class Solution:
     def getKthFromEnd(self, head: ListNode, k: int) -> ListNode:
@@ -1958,12 +2295,27 @@ public:
 };
 ```
 
-​	
+
+
+**Solution**
+
+- **算法思路**：快慢指针法
+
+​	1）快慢指针：快指针一次走两步，慢指针一次走一步；
+
+​	2）如果两个指针相遇了，说明有环；
+
+​	3）如果有环的话，再让快指针指向head，然后 和慢指针同时走。快慢指针此时每次都只走一步，当两者再次相遇时，就是环入口。
+
+- **时间复杂度**：链表遍历一次，时间复杂度是*O(N)*
 
 ```python
-# 1. 快慢指针：快指针一次走两步，慢指针一次走一步；
-# 2. 如果两个指针相遇了，说明有环；
-# 3. 如果有环的话，再让快指针指向head，然后 和慢指针同时走。快慢指针此时每次都只走一步，当两者再次相遇时，就是环入口。
+# python3
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
 
 class Solution(object):
     def entryNodeOfLoop(self, head):
@@ -2033,19 +2385,26 @@ public:
 
 
 
+**Solution 1**
+
+- **算法思路**：迭代
+  - 翻转：即将所有节点的 next 指针都指向前驱节点；由于是单链表，在迭代时无法找到前驱节点的位置，所以需要一个额外的指针保存前驱节点，也就是 pre 指针
+
+​	1）用一个 cur 指针指向 head 头节点，pre 指针指向 None， tmp 指针用于保存 cur.next 节点
+
+​	2）循环遍历 cur， 当 cur 指针存在时，首先先把 cur.next 节点暂存在 tmp 指针中，然后把 cur.next 指向 pre。 pre 指针移到 cur 指针的位置；最后把 cur 指向之前暂存的 tmp 指针。
+
+​	3）最后当 cur 空时，跳出循环，此时 pre 指向的是 原链表的尾节点。所以返回 pre即可。
+
+- **时间复杂度**：链表遍历一次，时间复杂度是*O(N)*
+
 ```python
 # python3
-#========= 迭代
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, x):
 #         self.val = x
 #         self.next = None
-
-# 迭代
-# 1. 用一个 cur 指针指向 head头节点，pre指针指向None， tmp指针用于保存 cur.next节点
-# 2. 循环遍历 cur， 当 cur 指针存在时，首先先把 cur.next节点暂存在 tmp 指针中，然后把 cur.next 指向 pre。 pre 指针 移到 cur 指针的位置；最后 把 cur 指向 之前暂存的 tmp指针。
-# 3. 最后当 cur 空时，跳出循环，此时 pre 指向的是 原链表的尾节点。所以返回 pre即可。
 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
@@ -2057,9 +2416,20 @@ class Solution:
             pre = cur 
             cur = p
         return pre
+```
 
 
-#========= 递归
+
+**Solution 2**
+
+- **算法思路**：递归
+  - reverseList() 是用于翻转链表，并返回新链表的头节点，其实也就是原链表的尾节点。所以可以递归处理该函数。
+
+- **时间复杂度**：链表遍历一次，时间复杂度是*O(N)*
+
+```python
+# python
+# 递归
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
       	 # 踩坑！
@@ -2067,7 +2437,7 @@ class Solution:
             return head
         # 这里最终递归返回的是尾节点
         cur = self.reverseList(head.next) 
-        # 对于任意一个节点，将它的next指向他本身
+        # 对于任意一个节点，将【它的next节点】的 next 指向他本身
         head.next.next = head   
         # 最后将head.next置为None 
         head.next = None  
@@ -2136,6 +2506,20 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：双指针
+
+  1） 用一个伪头节点 dum 节点，cur 节点指向 dum; 然后两个指针指向 两条链表的头节点
+
+  2）两个指针都存在时，开始循环遍历，两个同时向后，把 cur.next 指向 val 更小的节点；并且更小指的链表的指针 和 cur 都要往后移动一位
+
+  3）当某条链表被遍历完后，循环结束。直接把剩下的节点接到cur.next即可
+
+  4）最后返回 dum.next
+
+- **时间复杂度**：两条链表遍历一次，时间复杂度是*O(N)*
+
 ```python
 # python3
 # Definition for singly-linked list.
@@ -2144,10 +2528,6 @@ public:
 #         self.val = x
 #         self.next = None
 
-# 1. 用一个伪头节点 dum 节点，cur 节点指向 dum; 然后两个指针指向 两条链表的头节点，
-# 2. 两个指针都存在时，开始循环遍历，两个同时向后，把 cur.next 指向 val 更小的节点；并且 那条链表 和 cur 都要 往后next一下
-# 3. 当某条链表被遍历完后，循环结束。直接把剩下的节点接到cur.next即可
-# 4. 最后返回 dum.next
 
 class Solution:
     def mergeTwoLists(self,l1:ListNode,l2:ListNode)->ListNode:
@@ -2225,11 +2605,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：递归
+
+  关注本层会发生的事情，递归的过程 就是其他层在重复本层的过程
+
+  1）遍历 A 的每个非空节点
+
+  2）判断 A 中以每个节点为根节点的子树是否包含树 B ，并且是从根节点开始匹配
+
+  3）考虑递归出口：当树 B 所有的节点都被遍历完时，就说明完全匹配
+
+- **时间复杂度**：考虑最坏情况，A 中所有节点都要被扫一遍，B 所有节点每次也都会被遍历一遍，那就是 *O(nm)*，n 和 m 分别是两个树的结点数。
+
 ```python
 # python3
-# DFS，关注本层会发生的事情，递归的过程 就是其他层在重复本层的过程
-# 1. 先序遍历 A 的每个节点
-# 2. 判断 A中 以每个节点为根节点的子树 是否包含 树B
       
 # Definition for a binary tree node.
 # class TreeNode:
@@ -2306,10 +2697,18 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：递归
+
+  - 二叉树镜像定义： 对于二叉树中任意节点 root ，设其左 / 右子节点分别为 left, right ；则在二叉树的镜像中的对应 root 节点，其左 / 右子节点分别为 right, left 。
+
+  - 根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 / 右子节点，即可生成二叉树的镜像。
+
+- **时间复杂度**：从上到下每个节点仅被遍历一遍，所以时间复杂度是 *O(N)*。
+
 ```python
 # python3
-# 二叉树镜像定义： 对于二叉树中任意节点 rootroot ，设其左 / 右子节点分别为 left, rightleft,right ；则在二叉树的镜像中的对应 rootroot 节点，其左 / 右子节点分别为 right, leftright,left 。
-# 根据二叉树镜像的定义，考虑递归遍历（dfs）二叉树，交换每个节点的左 / 右子节点，即可生成二叉树的镜像。
 
 # Definition for a binary tree node.
 # class TreeNode:
@@ -2395,16 +2794,26 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：递归
+
+  - 考虑从顶至底递归，判断每对节点是否对称，从而判断树是否为对称二叉树
+
+  - 递归中非常重要的两点：
+    1. 找到递归的出口（就是什么时候return 判断为True 或者加入到要求的结果中；）
+    2. 递归过程中找到类似于 [剪枝] 的部分。不然递归会无穷止境下去。也就是找到不符合条件和不需要往下递归去做的部分
+
+  - 在本题中：
+
+    1）递归的出口就是 递归到 L 和 R 都不存在了，也就是所有的元素都递归判断过了，如果中间有过程不满足，中间就会判断为False，所以在这里最后就是return True
+
+    2）不符合条件（要么就是有一颗子树已经遍历完了，要么就是两个值不相等），直接return False，
+
+- **时间复杂度**：从上到下每个节点仅被遍历一遍，所以时间复杂度是 *O(N)*。
+
 ```python
 # python3
-# 思路：考虑从顶至底递归，判断每对节点是否对称，从而判断树是否为对称二叉树
-# 递归中非常重要的两点：
-# 1. 找到递归的出口（就是什么时候return 判断为True 或者加入到要求的结果中；)
-# 2. 递归的类似于 剪枝 的部分。不然递归会无穷止境下去。也就是找到不符合条件 不需要往下递归去做的部分
-
-# 本题中：递归的出口就是 递归到 L 和 R 都不存在了，也就是所有的元素都递归判断过了，如果中间有过程不满足，中间就会判断为False，所以在这里最后就是return True
-# 不符合条件，直接return False，要么就是有一颗子树已经遍历完了，要么就是两个值不相等
-
 
 class Solution:
     def isSymmetric(self, root: TreeNode) -> bool:
@@ -2484,6 +2893,24 @@ public:
 ```
 
 
+
+**Solution**
+
+- **算法思路**：模拟
+
+  1）用L， R， T， B 代表左，右，顶部和底部四个方向的边界
+
+  2）从第一行第一列的开始打印，从左往右，第一行打印完之后，接着要从上到下打印，在此之前，记得更新顶部的边界，也就是 T += 1
+
+  3）从上到下打印完成后，更新右边边界，也就是 R -= 1，然后接着从右到左打印
+
+  4）从右到左打印完成后，更新底部边界，也就是 B -= 1，然后接着从下到上打印
+
+  5）从下到上打印完成后，更新左边边界，也就是 L += 1，然后就开始循环2）～5）
+
+  6）在上述过程中，如果有任何一个值超过了它本身的边界值，都直接 break，说明当前矩阵已经被遍历完。
+
+- **时间复杂度**：矩阵中每个格子被遍历一遍，时间复杂度是 *O($n^2$)*
 
 ```python
 # python3
@@ -2600,12 +3027,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：栈
+
+  - 需要借助一个辅助栈 min-B 专门存储最小元素，栈顶存储的就是当前栈的最小元素。
+
+  1）维护单调栈
+
+  2）压入栈的时候，需要判断 B 中的情况，如果 B 中不存在元素 或者 B 中栈顶元素大于当前元素，那么应该把当前元素压入维护的最小栈 B 中，否则就不压入到 B 中【这是由于栈具有先进后出性质，所以在当前元素被弹出之前，栈中一直存在一个数比该数小，所以当前元素一定不会被当作最小数输出】
+
+  3）在 pop 的时候， 需要判断栈 A pop 出去的栈顶元素是否等于 min-B 的栈顶元素，如果是的话，就需要把 B 的栈顶元素弹出。
+
+- **时间复杂度**：四种操作都只有常熟次入栈出栈操作，时间复杂度都是 *O(1)*
+
 ```python
 # python3
-# 借助一个辅助栈min-B 专门存储最小元素，栈顶存储的就是当前栈的最小元素。
-# 压入栈的时候，需要判断B中的情况，如果B不存在 or B中栈顶元素大于当前元素，那么应该把当前元素压入栈中，否则就不压入到B中【这是由于栈具有先进后出性质，所以在当前元素被弹出之前，栈中一直存在一个数比该数小，所以当前元素一定不会被当作最小数输出】
-# 在pop的时候， 需要判断A pop出去的元素是否等于min-B的栈顶元素，如果是的话，就需要把B 的栈顶元素弹出。
-
 class MinStack(object):
     def __init__(self):
         self.A,self.B = [], []
@@ -2678,18 +3115,31 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：栈
+
+  1）这道题相当于在比较，按照一定的规则，两个字符串是否匹配；但是对于 *压入序列A* 而言，当前字符不一定能和 *弹出序列B* 马上匹配使用，可能后续才会用到，所以需要用到栈的结构。（因为弹出序列很可能是 连续压入好几次，才弹出一次）
+
+  2）用一个辅助栈 s 模拟实时进出栈操作
+
+  3）用一个指针 k 指向 *出栈序列* 的第一个元素，并且将入栈序列一个个压入 s, 压入到 s 后，将 *栈顶元素* 和 *出栈序列* 指针 k 只想的的元素做比较，如果相同，就把用过的元素 pop 出去，（对于 s 是 pop 出去，对于 出栈序列 就是指针++1）
+
+  4）一直循环这个过程，直到 s 为空 或者 两者不相等
+
+  5）最后只需要判断指针 k 是否遍历完了整个出栈序列即可。也就是 k == m。
+
+- **时间复杂度**：*O(N)*
+
 ```python
 # python3 
-
-# 思路：相当于在比较两个字符串是否匹配；但是 对于A而言，当前字符不一定能和B马上匹配使用，可能后续才会用到，所以需要用到栈的结构
-# 用一个辅助栈s，将入栈序列压入s, 压入后 栈顶元素 和 出栈序列做对比，如果相同 就把用过的元素都pop出去（对于s 是pop出去，对于出栈序列 是指针++1）
 
 class Solution:
     def validateStackSequences(self, A: List[int], B: List[int]) -> bool:
         n, m = len(A), len(B)
-        # 踩坑：特殊case
+        # 踩坑：特殊case1
         if n != m:return False    
-        # 踩坑：特殊case
+        # 踩坑：特殊case2
         if not A and not B:return True   
         stack, k = [], 0
         for i in range(n):
@@ -2770,12 +3220,21 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：BFS (二叉树的层序遍历)
+
+  - 二叉树的层序遍历用到的是：BFS 模版，这个系列的题是经典的 BFS 应用
+
+  1）BFS 需要用到队列，然后按 【根 左 右】的顺利依次 append 进入到队列中，再一个个 popleft 出来即可
+
+  2）先扩展根节点，再依次遍历到根节点的左右儿子，也就是从左到右的第二层节点，接着就是第三层...依次类推
+
+- **时间复杂度**：BFS 遍历时每个节点只能遍历一次：*O(N)*
+
 ```python
 # python3
-# deque是双端队列，popleft的效率更高
-# BFS 需要用到队列，然后按根 左 右的顺利append进入到队列中，再一个个popleft出来即可
-
-
+# deque是双端队列，popleft 的效率更高
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2793,7 +3252,7 @@ class Solution:
         
         while q:
             t = q.popleft()
-            # 踩坑：需要append进去的是val值
+            # 踩坑：需要 append 进去的是 val 值
             res.append(t.val) 
             if t.left:
                 q.append(t.left)
@@ -2872,12 +3331,20 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+
+  - 和上一题不同的是，需要用一个临时数组来存储每一层的元素
+
+  1）用一个 for 循环来遍历每一层的元素，在这个 for 循环中 将本层数据 append 到一个临时数组 tmp 中
+
+  2）当退出本轮 for 循环时，就把 tmp 存储的数据 append 到 res 中
+
+- **时间复杂度**：BFS 遍历时每个节点只能遍历一次：*O(N)*
+
 ```python
 # python3
-# 和上一题不同的是，需要用一个临时数组来存储每一层的元素
-# 1. 用一个for循环来遍历每一层的元素，在这个for循环中 将本层数据append到tmp中
-# 2. 当退出当前for循环时，就把tmp存储的数据append到res中
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -2987,11 +3454,14 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+  - 和上一题不同的是：需要判断一下 当前res长度的奇偶性，来判别是正序push进去 还是需要逆序
+- **时间复杂度**：BFS 遍历时每个节点只能遍历一次：*O(N)*
+
 ```python
 # python3
-# 需要判断一下 当前res长度的奇偶性，来判别是正序push进去 还是需要逆序
-
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -3095,14 +3565,22 @@ public:
 
 
 
+**Solution1**
+
+- **算法思路**：利用二叉搜索树以及后续遍历的特性
+
+  1）二叉搜索树的结点数值的大小是：左 < 根 < 右；后续遍历顺序：左 右 根
+
+  2）所以就先从头到尾遍历数组，找到第一个比 【最后一个节点（也就是根节点）的值】 大的位置，那个位置就是右子树的起点 p。
+
+  3）然后从 p 继续往后遍历直到根节点，如果这过程中存在结点的数值**小于**根节点的数值，那就返回false（因为右子树的数字都是大于根节点的）；
+
+  ​	  						 如果没有的话，说明这一段是符合要求的，那么继续向下递归判断即可。
+
+- **时间复杂度**：dfs 中有一个 while 循环，最坏情况下会循环 *O(n)*次，一共会执行 *O(n)*次 dfs, 所以时间复杂度是 *O($n^2$)*
+
 ```python
 # python3
-# 普通做法：
-# 二叉搜索树是：左 < 根 < 右；后续遍历顺序：左 右 根
-# 1. 所以就先从头到尾遍历，找到第一个比 【最后一个节点（也就是根节点）的值】 大的位置，那个位置就是右子树的起点 p。
-# 2. 然后从 p 继续往后遍历直到根节点，如果这过程中 有数值小于 根节点的数值，那就返回false；如果没有的话，说明这一段是符合要求的，那么继续向下递归判断即可。
-
-
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, x):
@@ -3130,6 +3608,26 @@ class Solution:
 
         if n <= 1:return True
         return dfs(0, n - 1)
+```
+
+
+
+**Solution2**
+
+- **算法思路**：单调队列优化版
+
+  找到 根节点 的 左边 第一个比它 小 的数值的位置i, 该位置i + 1就是右子树的起点；
+
+- **时间复杂度**：dfs 中有一个 while 循环，最坏情况下会循环 *O(n)*次，一共会执行 *O(n)*次 dfs, 所以时间复杂度是 *O($n^2$)*
+
+```python
+# python3
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
        
 # 单调队列优化版
 # 找到 根节点 的 左边 第一个比它 小 的数值的位置i, 该位置i + 1就是右子树的起点；
@@ -3211,19 +3709,28 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：DFS
+
+  - 递归遍历左右两个子树有没有满足条件的。
+
+  1）递归出口：当 sum ==0 并且当前节点没有左右子树，就把路径给append到res中
+
+  2）剪枝：当 p 不存在，或 p 的值大于 sum 的值，这个应该是一进入dfs函数就要判断，因为第一层root也需要立刻判段。
+
+- **时间复杂度**：遍历一遍二叉树，*O(n)*
+
 ```python
 # python3
-# DFS, 递归遍历左右两个子树有没有满足条件的。
-# 递归出口：当sum ==0 并且当前节点没有左右子树，就把路径给append到res中
-# 剪枝：当p不存在，或p的值大于sum的值，这个应该是一进入dfs函数就要判断，因为第一层root也需要立刻判断
-# 
-
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
+"""
+ # Definition for a binary tree node.
+ class TreeNode:
+     def __init__(self, x):
+         self.val = x
+         self.left = None
+         self.right = None
+"""
 
 class Solution(object):
     def findPath(self, root, sum):
@@ -3336,15 +3843,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：模拟题。很经典的题
+
+  - 画图有助于理解
+
+  1）在每个节点的后面加上当前这个点的复制；
+
+  2）从前向后遍历所有点，对于有 random 指针的点，让 p.next.random = p.random.next 就OK;
+
+  3）把所有点拆出来
+
+- **时间复杂度**：遍历一遍链表，*O(n)*
+
 ```python
 # python3
-# 很经典的题。巧妙的方法：可以省掉一个哈希表的额外空间>
-# 思路方法：
-# 1. 在每个节点的后面加上这个点的复制；
-# 2. 从前向后遍历所有点，对于有random指针的点，让p.next.random = p.random.next就OK; 
-# 3.把所有点拆出来
-
-
 """
 # Definition for a Node.
 class Node:
@@ -3483,13 +3997,32 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：模拟题。
+
+  - 其实题意需要求的：排序的双向链表，就是二叉搜索树的中序遍历
+
+  1）主要是在中序遍历的基础稍作修改。（中序遍历的顺序就是有序的双向链表的建立顺利）
+
+  2）最后需要返回链表头节点，所以需要一个 head 记录 头节点信息。
+
+  3）因为要记录当前节点 前一个节点的位置，串起链表，需要一个 pre 节点
+
+  4）最后注意：头尾两个节点也需要串起来。
+
+- **时间复杂度**：遍历一遍链表，*O(n)*
+
 ```python
 # python3
-
-# 二叉搜索树的中序遍历 就是双向链表的顺序
-#  - 最后需要返回链表头节点，所以需要一个 head 记录 头节点信息。
-#  - 因为要记录当前节点 前一个节点的位置，串起链表，需要一个 pre 节点
-# 最后注意：头尾两个节点也需要串起来。
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+"""
 
 class Solution:
     def treeToDoublyList(self, root: 'Node') -> 'Node':
@@ -3500,7 +4033,9 @@ class Solution:
             nonlocal head, pre
             if not p:return
             dfs(p.left) 
+            
             # 访问本节点
+            # 先设定双向链表头节点（只需要设置一次，也就是一开始 head 为空的时候）
             if not head:
                 head = p
             else:
@@ -3693,15 +4228,21 @@ public:
 
 
 
+**Solution**
 
+- **算法思路**
+
+  - 【二叉树被序列化为一个【字符串】！ 并且这个【字符串】反序列化为原始的树结构】
+  - 题目要求的 *序列化* 和 *反序列化* 是 **可逆操作**。因此，序列化的字符串应携带 完整的二叉树信息。【通常使用的前序、中序、后序、层序遍历记录的二叉树的信息不完整，即唯一的输出序列可能对应着多种二叉树可能性。】
+
+  1）序列化：通过 层序遍历 实现
+
+  2）反序列化：根据序列化拿到的层序遍历的结果，按照 层 重构二叉树。借助一个指针 i 指向当前节点 root 的左、右结点，每构建一个 node 的左右节点，指针就向右移动 1 位（i += 1)
+
+- **时间复杂度**：序列化和反序列化都是*O(n)*
 
 ```python
 # python3
-# 【二叉树被序列化为一个【字符串】！ 并且讲这个【字符串】反序列化为原始的树结构】
-# 题目要求的 序列化 和 反序列化 是 可逆操作。因此，序列化的字符串应携带 完整的二叉树信息。【通常使用的前序、中序、后序、层序遍历记录的二叉树的信息不完整，即唯一的输出序列可能对应着多种二叉树可能性。】
-# 序列化：通过 层序遍历 实现
-# 反序列化：根据序列化拿到的层序遍历的结果，按照 层 重构二叉树。借助一个指针 i 指向当前节点 root 的左、右结点，每构建一个 node 的左右节点，指针就向右移动 1 位（i += 1)
-
 # Definition for a binary tree node.
 # class TreeNode(object):
 #     def __init__(self, x):
@@ -3748,6 +4289,24 @@ class Codec:
                 node.right = TreeNode(int(nums[i]))
                 q.append(node.right)
             i += 1
+        return root
+      
+# python 简易写法
+class Solution:
+
+    def serialize(self, root):
+        if not root:
+            return ['#']
+        return [str(root.val)] + self.serialize(root.left) + self.serialize(root.right)
+
+    def deserialize(self, data):
+        ch = data.pop(0)
+        if ch == '#':
+            return None
+        else:
+            root = TreeNode(int(ch))
+        root.left = self.deserialize(data)
+        root.right = self.deserialize(data)
         return root
 ```
 
@@ -3829,9 +4388,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**: 搜索 DFS + 回溯
+
+  1）需要把字符串排序：如果当前字符没有被用过并且和前一个数相同，并且前一个数也没有被用过，就直接跳过
+
+  3）从左到右依次枚举每个字符，开始摆放位置。这道题其实是把 *n* 个字符放到 *n* 个筐里，一共有多少种方法。我们需要判断当前字符是否已经被放到其他框了，所以需要一个数组 *used* 用来标记状态。
+
+  4）DFS 结束的条件：就是当前用于存储路径的 *path* 的长度已经等于原字符串长度了，说明所有的字符都已经被放到这个 *path* 中了，就可以加入到 *res* 中，并且 *return* 到上一层。
+
+  5）*return* 到上一层后，需要把 当前字符的状态还原，这样它才能有资格被加入到下一轮的 *path* 中
+
+- **时间复杂度**：*O(n!)*
+
 ```python
 # python3
-# 搜索DFS：1. 需要一个状态记录当前字符有没有被用过；2. 需要把字符串排序，判断当前字符和前面一个字符是否相同，如果当前字符没有被用过 并且和前一个数相同，并且前一个数也没有被用过，就直接跳过。
 
 class Solution:
     def permutation(self, s: str) -> List[str]:
@@ -3846,15 +4418,40 @@ class Solution:
             for i in range(n):
                 # 踩坑1: 首先就必须判断当前数 有没有被用过，没有被用过 才能进入到后续的判断中
                 if not used[i]:  
-                    # 踩坑2: 判断条件写漏了not used[i-1]
-                    # 踩坑3: i>0 (不是i > =0)!!!!【i== 的话，i-1就会有溢出的问题】
+                    # 踩坑2: 判断条件写漏not used[i-1]
+                    # 踩坑3: i>0 (不是i > =0)!!!!【i == 0 的话，i-1就会有数组下标溢出的问题】
                     if i > 0 and s[i] == s[i-1] and not used[i-1]:continue 
                     # 踩坑4: 只能先进行上述判断后，才能把当前数的状态改为true
                     used[i] = True   
-                    dfs(path+s[i])
+                    dfs(path + s[i])
                     used[i] = False
 
         dfs('')
+        return res
+      
+# 用 list
+class Solution:
+    def permutation(self, s: str) -> List[str]:
+        res = []
+        s = sorted(s)
+        n = len(s)
+        used = [False] * n 
+
+        def dfs(path):
+            if len(path) == n:
+                res.append(''.join(path[:]))
+                return 
+            for i in range(n):
+                if not used[i]:
+                    if i > 0 and s[i] == s[i-1] and not used[i-1]:continue
+                    used[i] = True
+                    path.append(s[i])
+
+                    dfs(path)
+                    path.pop()
+                    used[i] = False 
+        
+        dfs([])
         return res
 
 
@@ -3863,7 +4460,7 @@ class Solution:
 # 2.需要排序判断当前数和前面一个数是否相同，如果当前数没有被用过，并且和前一个数相同，并且前一个数也没被用过，那么就跳过。
 
 class Solution:
-    def permutation(self, nums):
+    def permutation(self, list: nums):
         if not nums:return None
         n = len(nums)
         nums.sort()
@@ -3934,9 +4531,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**: 投票计数法
+
+  1）用 *val* 记录重现出现的数，并且用 *votes*记录 *val* 重复出现的次数
+
+  2）遍历整个数组，当 *votes*为0时，那就从当前数 *x* 重新开始计数
+
+  3）如果 *x == val* 时，那就 次数+1；否则 次数-1/
+
+  4）遍历完成后，*val* 就是众数
+
+- **时间复杂度**：数组被遍历一遍，时间复杂度是 *O(n)*
+
 ```python
 # python3
-# #投票计数法
 
 class Solution:
     def majorityElement(self, nums: List[int]) -> int:
@@ -4086,6 +4696,12 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**: 快排的思想
+  - 最经典的排序，快速排序。写法有不同种，我个人最喜欢的是<荷兰国旗>的快排写法
+- **时间复杂度**：*O(logn)*
+
 ```python
 # python3
 # 快排的思想
@@ -4207,18 +4823,25 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**: 思路比较精巧：利用大小堆求解一个不断更新的数组的中位数
+
+  - 将数分为两个部分，用大根堆存储较小的那部分数；用小根堆存储较大的那部分数；大根堆/小根堆的顶部就是我们需要的数字。【规定，如果总数是奇数个，那大根堆的数目 比 小根堆 多一个】
+  - 我们必须维护好两个堆中元素的个数关系，元素的大小关系，即大根堆的所有元素理应比小根堆的所有元素要小，如果违反了此规则，就需要进行元素的对换。 【如果当前数的个数是奇数，那么就返回大根堆的堆顶；如果当前数的个数是偶数，那么就返回 大根堆和小根堆的堆顶的平均值。】
+
+  1）数据流过来一个数，就直接加入到大根堆中，做了调整后（维护成了一个大根堆后）然后再判断
+
+  2）如果大根堆的堆顶元素 > 小根堆的堆顶元素，那么就交换两个堆顶元素（在交换2个堆的元素的时候，一定要 先判断上面的小根堆中有没有元素。 上面的小根堆中 没有元素是不能交换的）【每次交换一次就可以，因为每次加入进来的也就一个数】
+
+  3）当大根堆的元素总数 > 小根堆的元素总数 + 1( 也就是多2个的时候，就需要把大根堆的堆顶放到小根堆中去)【每次也需要转移一个，因为多2 就发生了转移】
+
+  4）注意：【python默认结构为小根堆】所以对大根堆插入和弹出元素都要取相反数
+
+- **时间复杂度**：查找中位数：直接获取堆顶元素即可，*O(1)*；添加数字：堆的插入和弹出操作使用 *O(logN)*；
+
 ```python
 # python3
-
-# 思路比较精巧：利用大小堆求解一个不断更新的数组的中位数
-# 将数分为两个部分，用大根堆存储较小的那部分数；用小根堆存储较大的那部分数；大根堆/小根堆的顶部就是我们需要的数字。【规定，如果总数是奇数个，那大根堆的数目 比 小根堆 多一个】
-# 我们必须维护好两个堆中元素的个数关系，元素的大小关系，即大根堆的所有元素理应比小根堆的所有元素要小，如果违反了此规则，就需要进行元素的对换。 【如果当前数的个数是奇数，那么就返回大根堆的堆顶；如果当前数的个数是偶数，那么就返回 大根堆和小根堆的堆顶的平均值。】
-
-# 算法流程：
-# 1. 数据流过来一个数，就直接加入到大根堆中，做了调整后（维护成了一个大根堆后）然后再判断：
-# 2. 如果大根堆的堆顶元素 > 小根堆的堆顶元素，那么就交换两个堆顶元素（在交换2个堆的元素的时候，一定要 先判断上面的小根堆中有没有元素。 上面的小根堆中 没有元素是不能交换的）【每次交换一次就可以，因为每次加入进来的也就一个数】
-# 3. 当大根堆的元素总数 > 小根堆的元素总数 + 1( 也就是多2个的时候，就需要把大根堆的堆顶放到小根堆中去)【每次也需要转移一个，因为多2 就发生了转移】
-# 4. 注意：【python默认结构为小根堆】所以对大根堆插入和弹出元素都要取相反数
 
 import heapq
 
@@ -4283,6 +4906,16 @@ public:
 ```
 
 
+
+**Solution**
+
+- **算法思路**: 动态规划问题
+
+  1）状态表示：f[i] 代表 i 之前的所有元素的连续子数组最大和
+
+  2）状态转移：第 i 项的最大值，根据是否要把前 i-1 项加进去：*f[i] = max(f[i-1] + nums[i-1], nums[i-1])* 
+
+- **时间复杂度**：*O(N)*
 
 ```python
 # python3
@@ -4378,17 +5011,29 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**
+
+  - 暴力做法：循环一遍，统计每个数中 *1* 的个数。
+  - 优化做法：统计十进制位，每一位，当它为为 *1* 时，小于 n 的数的个数有多少个。
+
+  1）对于当前位【十进制】来说，可以根据它的高位的数值来进行划分
+
+  2.1) 如果高位的数值，比如高位为 【521】，如果高位的数值 小于521，那 对于当前位的低位来说，0-9都可以取。所以这里要记录一下地位的数值，以及位数。如果整个数是 521【2】234，【2】是当前位，那当 高位为520时，【2】这一位上为 *1* 的个数有：`（520 + 1） * （10*10*10）`
+
+  2.2) 如果高位取到了最大值，也就是【521】，那就要按照当前位的大小来做区分
+
+  3.1) 如果当前位 大于 *1*， 那低位怎么取都可以，也就是 `（10*10*10）`
+
+  3.2) 如果当前位 等于 *1*， 那低位只能取到 0 - 234，也就是 （234 + 1）
+
+  3.3) 如果当前位 小于 *1*，并且前提是高位已经取到最大，那就不存在满足条件的数了.
+
+- **时间复杂度**：遍历一遍数字：*O(N)*
+
 ```python
 # python3
-# 暴力做法：循环一遍，统计每个数中‘1’的个数。
-# 优化做法：统计十进制位，每一位，当它为为‘1’时，小于 n 的数的个数有多少个。
-# 1. 对于当前位【十进制】来说，可以根据它的高位的数值来进行划分
-# 2.1 如果高位的数值，比如高位为 【521】，如果高位的数值 小于521，那 对于当前位的低位来说，0-9都可以取。所以这里要记录一下地位的数值，以及位数。如果整个数是 521【2】234，【2】是当前位，那当 高位为520时，【2】这一位上为‘1’的个数有：（520 + 1） * （10*10*10）
-# 2.2 如果高位取到了最大值，也就是【521】，那就要按照当前位的大小来做区分
-# 3.1 如果当前位 大于 ‘1’， 那低位怎么取都可以，也就是 （10*10*10）
-# 3.2 如果当前位 等于 ‘1’， 那低位只能取到 0 - 234，也就是 （234 + 1）
-# 3.3 如果当前位 小于 ‘1’，并且前提是高位已经取到最大，那就不存在满足条件的数了。
-
 
 class Solution:
     def countDigitOne(self, n: int) -> int:
@@ -4491,7 +5136,6 @@ public:
 ```python
 # python3
 
-# 
 class Solution:
     def findNthDigit(self, n: int) -> int:
         # i 表示位宽
@@ -4546,21 +5190,89 @@ public:
 
 
 
+**Solution1**
+
+- **算法思路**：类似于插入排序的思想
+
+  1） 先把 nums 中的所有数字转化为字符串，形成字符串数组 snums
+
+  2） 比较两个字符串 x,y 的拼接结果 x+y 和 y+x 哪个更大，从而确定 x 和 y 谁排在前面；
+
+  3） 把整个数组排序的结果拼接成一个字符串，并且返回
+
+- **时间复杂度**：*O($n^2$)*
+
 ```python
 # python3
 
-# 思路不好想，需要反复思考记忆一下,类似于插入排序的思想
 class Solution(object):
-    def printMinNumber(self, nums):
+    def minNumber(self, nums: List[int]) -> str:
         n = len(nums)
         if n == 0:return ''
-        snums = list(map(str, nums))
+        snums = list(map(str, nums))  # 把 nums 转换为字符串
         
         for i in range(n):
             for j in range(i + 1, n):
                 if snums[i] + snums[j] > snums[j] + snums[i]:
                     snums[i], snums[j] = snums[j], snums[i]
         return ''.join(snums)
+```
+
+
+
+**Solution2**
+
+- **算法思路**：
+
+  把插入排序换成快排，可以降低时间复杂度
+
+- **时间复杂度**：*O(NlogN)*
+
+```python
+# python3
+
+class Solution(object):
+    def minNumber(self, nums: List[int]) -> str:
+        def quickSort(l, r):
+            if l >= r:return
+            i, j = l, r
+            while i < j:
+                while snums[j] + snums[l] >= snums[l] + snums[j] and i < j: j -= 1
+                while snums[i] + snums[l] <= snums[l] + snums[i] and i < j: i += 1
+                snums[i], snums[j] = snums[j], snums[i]
+            snums[i], snums[l] = snums[l], snums[i]
+            quickSort(l, i - 1)
+            quickSort(i + 1, r)
+
+        n = len(nums)
+        if n == 0:return ''
+        snums = list(map(str, nums))  # 把 nums 转换为字符串
+        quickSort(0, n - 1)
+        return ''.join(snums)
+```
+
+
+
+**Solution3**
+
+- **算法思路**：
+
+  自定义排序规则
+
+- **时间复杂度**：
+
+```python
+# python3
+
+import functools
+
+class Solution(object):
+    def minNumber(self, nums: List[int]) -> str:
+        nums_str = list(map(str,nums))
+        compare = lambda x, y: 1 if x + y > y + x else -1
+        nums_str.sort(key = functools.cmp_to_key(compare))
+        res = ''.join(nums_str)
+        return res
 ```
 
 
@@ -4609,11 +5321,22 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+
+  - 【类比爬楼梯，f[n] = f[n-1] + f[n-2], f[n]代表走到最后一个字符，能有多少多少中翻译方法】
+
+  1）当前字符翻译为【1个字符】这是一种方法，f[n] = dp[n-1];
+
+  2）当前字符呵前一个字符共同翻译为一种方法 f[n] += f[n-2]，此时的条件为【前后两个字符可以翻译为同一个字符】
+
+  3）还有 04,05,06，这种只能翻译为1中，其组合不能作为一种翻译
+
+
+
 ```python
 # python3
-# 【类比爬楼梯，f[n] = f[n-1] + f[n-2], f[n]代表走到最后一个字符，能有多少多少中翻译方法】
-# 对于访问到当前的字符 f[n]，能有多少中翻译？
-# （1）当前字符翻译为【1个字符】这是一种方法，f[n] = dp[n-1]; (2) 当前字符呵前一个字符共同翻译为一种方法 f[n] += f[n-2]，此时的条件为【前后两个字符可以翻译为同一个字符】。还有 04,05,06，这种只能翻译为1中，其组合不能作为一种翻译。
 
 class Solution:
     def translateNum(self, num: int) -> int:
@@ -4627,8 +5350,8 @@ class Solution:
             elif s[i-2] == '2' and s[i-1] < '6':
                 f[i] += f[i-2]
         return f[n]
-      
- # python3    
+
+# pythoic 
 class Solution:
     def translateNum(self, num: int) -> int:
         s = str(num)
@@ -4696,8 +5419,8 @@ class Solution:
                 f[i][j] = max(f[i-1][j], f[i][j-1]) + grid[i-1][j-1]
         return f[n][m]
       
-# 空间优化，由于f[i][j]的状态只依赖
-# 我们发现当前值只和左边和上边的值有关，和其他的无关，比如我们在计算第5行的时候，那么很明显第1，2，3行的对我们来说都是无用的，所以我们这里可以把二维dp改成一维的，其中dp[i][j-1]可以用dp[j-1]来表示，就是当前元素前面的，dp[i-1][j]可以用dp[j]来表示，就是上边的元素。
+# 空间优化
+# 我们发现当前值f[i][j]只和左边和上边的值有关，和其他的无关，比如我们在计算第5行的时候，那么很明显第1，2，3行的对我们来说都是无用的，所以我们这里可以把二维dp改成一维的，其中dp[i][j-1]可以用dp[j-1]来表示，就是当前元素前面的，dp[i-1][j]可以用dp[j]来表示，就是上边的元素。
 
 class Solution:
     def maxValue(self, grid: List[List[int]]) -> int:
@@ -4707,7 +5430,6 @@ class Solution:
             for j in range(1, m + 1):
                 f[j] = max(f[j], f[j-1]) + grid[i-1][j-1]
         return f[m]
-
 ```
 
 
@@ -4863,7 +5585,7 @@ class Solution:
         p = [0] * m
         f = [1] * n 
         for i in range(1, n):
-            f[i] = min(x * f[y] for x, y in zip(nums, p))  # zip用得非常秒啊
+            f[i] = min(x * f[y] for x, y in zip(nums, p))   # zip 用得妙
             for j in range(m):
                 if f[i] == nums[j] * f[p[j]]:
                     p[j] += 1 
@@ -5137,6 +5859,12 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：归并排序
+  - 对半划分完成后，在归并排序中的后半段的合并过程中，统计逆序对的个数
+- **时间复杂度**：*O(nLogn)*
+
 ```python
 # python3
 
@@ -5226,11 +5954,20 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**
+
+  - 思路比较精巧
+
+  1）两个指针分别指向两个链表头，当p1走到第一条链表的尾部时，就让他指向第二条链表的表头；，当p2走到第一条链表的尾部时，就让他指向第一条链表的表头
+
+  2）当两个指针指向同一个节点的时候输出答案即可：要么相遇走到了同一节点，要么就是同时走到了链表尾部null
+
+- **时间复杂度**
+
 ```python
 # python3
-# 比较精巧的一道题，方法如下：
-# 1. 两个指针分别指向两个链表头，当p1走到第一条链表的尾部时，就让他指向第二条链表的表头；，当p2走到第一条链表的尾部时，就让他指向第一条链表的表头
-# 2. 当两个指针指向同一个节点的时候输出答案即可：要么相遇走到了同一节点，要么就是同时走到了链表尾部null
 
 class Solution:
     def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> ListNode:
@@ -5310,11 +6047,19 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：经典二分
+
+  1）先找到 target 第一次出现的位置
+
+  2）找比 target 大的数出现的位置
+
+- **时间复杂度**：二分法的时间复杂度 *O(Logn)*
+
 ```python
 # python3
 
- # 1. 先找到 target 第一次出现的位置
- # 2. 找比 target 大的数出现的位置
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         n = len(nums)
@@ -5771,14 +6516,26 @@ class Solution:
 
 
 
+**Solution**
+
+- **算法思路**
+
+  - 0 与 任何数 的异或 都是 任何数 本身。任何数 异或 它自己 结果都是0.
+
+  1）先把所有的数 **异或** 一遍；（相同的数字异或后结果都是0）
+
+  2）异或的结果就是 x^y 的结果，由于有两个数字只出现了一次，所以最后的结果一定不为0；
+
+  3）在 res 中 找到最低的那位 为 1 的位；
+
+  4）根据这一位 把集合划分为两个集合；【第 k 位 为 1 的集合 以及 第 k 位 不为 1 的集合】相同的数肯定是属于统一集合，a， b一定在不同的集合里。因为 k 为 1 的位，就是因为 a，b 不同导致的异或结果为1
+
+  5）最后在这两组组里分别异或的结果就是要找的那两个数
+
+- **时间复杂度**：时间复杂度 *O(N)*，空间复杂度 *O(1)*
+
 ```python
 # python3
-# 题意：一个数组，只有两个数字只出现一次，其他的都出现了两次，找出这两个数a, b
-# 1. 先把所有的数 异或一遍； 
-# 2. 异或的结果就是x^y的结果，由于有两个数字只出现了一次，所以最后的结果一定不为0；
-# 3. 在res中 找到最低的那位 为 1 的位；
-# 4. 根据这一位 把集合划分为两个集合；【第 k 位 为 1 的集合 以及 第 k 位 不为 1 的集合】相同的数肯定是属于统一集合，a， b一定在不同的集合里。因为 k 为 1 的位，就是因为 a b 不同导致的 异或结果为1
-# 5. 接着在这两组组里分别异或的结果就是要找的数
 
 class Solution(object):
     def findNumsAppearOnce(self, nums):
@@ -5851,17 +6608,25 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**
+
+  - 方法比较跳跃性，需要多思考回顾
+
+  1）建立一个长度为 32 的数组 counts ，记录所有数字的各二进制位的 1 的出现次数。
+
+  2）其余数字都出现 3 次：将 counts 各元素对 3 求余，则结果为 “只出现一次的数字” 的各二进制位。
+
+  3）利用 左移操作 和 或运算 ，可将 counts 数组中各二进位的值恢复到数字 res 上，最后返回 res
+
+  - 【实际上，只需要修改求余数值 m ，即可实现解决 除了一个数字以外，其余数字都出现 m 次 的通用问题】
+
+- **时间复杂度**：时间复杂度 *O($32^N$)*，空间复杂度 *O(1)*
+
 ```python
 # python3
-           
-# Method1: bit operation
-# 方法比较跳跃性，需要多思考回顾
-# 1. 建立一个长度为 32 的数组counts ，记录所有数字的各二进制位的 1 的出现次数。
-# 2. 将 counts各元素对 33 求余，则结果为 “只出现一次的数字” 的各二进制位。
-# 3. 利用 左移操作 和 或运算 ，可将 counts数组中各二进位的值恢复到数字 res 上，最后返回 res
-# 时间复杂度O(32n), O(1)
 
-# 【实际上，只需要修改求余数值 m ，即可实现解决 除了一个数字以外，其余数字都出现 m 次 的通用问题】
 class Solution(object):
     def findNumberAppearingOnce(self, nums):
         counts = [0] * 32
@@ -5875,10 +6640,6 @@ class Solution(object):
             res |= counts[31 - i] % m
         return res if counts[31] % m == 0 else ~(res ^ 0xffffffff) # 对负数的处理 
       
-# Method2:
-
-
-
       
 #Method3：dict{"key":"value"}
 class Solution:
@@ -5945,9 +6706,17 @@ public:
 
 
 
+
+
+**Solution**
+
+- **算法思路**
+  - 双指针，题目中给出是单调递增的，说明具有单调性
+- **时间复杂度**：时间复杂度 *O(N)*
+
 ```python
 # python3
-# 双指针，题目中给出是单调递增的，说明具有单调性
+
 class Solution(object):
     def findNumbersWithSum(self, nums, target):
         nums.sort()  # 如果给定的题意已经是排序，则无需再排序
@@ -5959,7 +6728,12 @@ class Solution(object):
                 l += 1
             else:
                 return [nums[l], nums[r]]
-              
+```
+
+
+
+```python
+# python3
 # 用 hash
 # 遍历字典的时候，是直接输出的key 
 # for k in my_dict:print(k)
@@ -6111,9 +6885,16 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：双指针法
+
+  先去掉首尾的空格，然后用两个指针都从尾部开始扫描遍历 
+
+- **时间复杂度**：*O(N)*
+
 ```python
 # python3
-# 双指针法：1. 首先去掉首尾的空格  2.两个指针都从尾部开始扫描遍历 
 
 class Solution:
     def reverseWords(self, s: str) -> str:
@@ -6125,7 +6906,7 @@ class Solution:
         while p1 >= 0:
             while p1 >= 0 and s[p1] != ' ':
                 p1 -= 1
-            res.append(s[p1+1:p2+1])
+            res.append(s[p1 + 1:p2 + 1])
             # 踩坑： 防止有多个连续的空格符号
             while i >= 0 and s[i] == ' ':
                 p1 -= 1
@@ -6164,7 +6945,10 @@ public:
 
 
 
+**Solution**
 
+- **算法思路**：模拟
+- **时间复杂度**：*O(N)*
 
 ```python
 # python3
@@ -6193,7 +6977,6 @@ class Solution:
         for i in range(n):
             res += s[i]
         return res
-
 ```
 
 
@@ -6243,11 +7026,16 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：滑动窗口 / 经典单调队列题型
+  - 先想清楚暴力写法如何写（这道题实际上在求区间范围内的最值，可以用单调队列优化）
+- **时间复杂度**：单调队列通过*O(N)*维护窗口队列（每个元素进队出队只有一次），*O(1)*直接获取窗口最值。所以总的时间复杂度是*O(N)*
+
 ```python
 # python3
-# 单调队列的使用
 
-#先想清楚暴力写法如何写：
+# 暴力算法
  class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         res = []
@@ -6263,19 +7051,19 @@ public:
         return res       
         
       
-#其实是在求区间范围内的最大值，就可以用单调队列进行优化，队列的队头里存的是当前窗口里的最大值      
+# 其实是在求区间范围内的最大值，就可以用单调队列进行优化，队列的队头里存的是当前窗口里的最大值      
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         res = []
-        q = collections.deque()  #队列里保存的是数组的下标，因为这样可以根据下标来维护滑动窗口大小
+        q = collections.deque()  # 队列里保存的是数组的下标，因为这样可以根据下标来维护滑动窗口大小
         for r in range(len(nums)):
-            #先维护一个固定的滑动窗口大小，r往右走一步，队列的队首就需要被pop出去一次
+            # 先维护一个固定的滑动窗口大小，r 往右走一步，队列的队首就需要被 pop 出去一次
             if q and q[0] <= r - k:
                 q.popleft()
-            while q and nums[q[-1]] < nums[r]:  #r往前走
+            while q and nums[q[-1]] < nums[r]:  # r 往前走
                 q.pop()
             q.append(r)
-            if r >= k-1:   #当i遍历到比窗口大小大的时候 才有窗口的最大值,统计答案
+            if r >= k-1:   #当 i 遍历到比窗口大小大的时候，才有窗口的最大值,统计答案
                 res.append(nums[q[0]])
         return res
 ```
@@ -6315,19 +7103,26 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+
+  1）用两个队列来实现 【最大队列】，一个队列主要用于压入数据，另一个队列就用于返回当前队列里的最大数
+
+  2）对于 *压入队列A* ，就只需要直接压入；
+
+  3）对于 *最大队列B* 来说，当 B 中有数据的时候，如果新来的数 <= B 队尾的元素，就要压入队列 B 中【因为如果 *最大队列B* 里前面大的数被弹出了，那当前数就可能是队列里剩余的最大的数】；当新来的数 更大 时，就需要把队列 B 从队尾依次 pop 出去比新来的数 val 小的数，然后再把当前数 val 压入队列中。
+
+  4）注意：在返回最大数时，判断 B 是否为空；在取队头元素时，也需要判断 A 是否为空。
+
 ```python
 # python3
-# 1. 用两个队列来实现 【最大队列】，一个队列主要用于压入数据，另一个队列就用于返回当前队列里的最大数
-# 2. 首先先看压入队列的接口：对于队列 A ，就只需要直接压入；对于 队列 B 来说，当 B 中有数据的时候，如果新来的这个数 <= B 队尾的元要的话，就要压入队列【因为 如果 队列里前面大的数被弹出了，那当前数就可能是队列里剩余的最大的数】；当新来的数 更大 时，就需要把队列 B 中从队尾开始 比val 小的数都 pop出去，然后再把当前数 val 压入队列中。
-# 3. 返回最大数时，判断一个 B是否为空
-# 4. 取队头元素时，也需要判断 A 是否为空
-
-
 # Your MaxQueue object will be instantiated and called as such:
 # obj = MaxQueue()
 # param_1 = obj.max_value()
 # obj.push_back(value)
 # param_3 = obj.pop_front()
+
 class MaxQueue:
 
     def __init__(self):
@@ -6350,8 +7145,8 @@ class MaxQueue:
 
     def pop_front(self) -> int:
         if not self.A:return -1
-        if self.B[0] == self.A[0]:  # 踩坑：这里是0！！popfront是取出队首元素
-            self.B.popleft()
+        if self.B[0] == self.A[0]:  # 踩坑：这里是0！！队首元素
+            self.B.popleft()  # 取出队头元素
         return self.A.popleft()
 ```
 
@@ -6401,11 +7196,20 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：dp 分组背包问题
+
+  - 分组背包问题： 有n次取物品的机会，每组物品的价值在[1,6]范围内，每组物品只能选一个，凑出总和在 n～6n 的方案数
+
+  1）状态表示：f[i,j]: 前i次投骰子，总和为j的方案数；属性：Max
+
+  2）状态转移：按照最后一次划分为6个集合，1点，2点，3点，...，6点；当最后一次点数是k时，对应的方案数：`f[i-1][j-k]`
+
+- **时间复杂度**：骰子数量为 n, 骰子取值范围 m, 总的时间复杂度 *O(nm)*
+
 ```python
 # python3
-# 分组背包问题： 有n次取物品的机会，每组物品的价值在[1,6]范围内，每组物品只能选一个，凑出总和在 n～6n 的方案数
-# 状态表示：f[i,j]: 前i次投骰子，总和为j的方案数；属性：Max
-# 状态转移：按照最后一次划分为6个集合，1点，2点，3点，...，6点；当最后一次点数是k时，对应的方案数：f[i-1][j-k]
 
 class Solution(object):
     def numberOfDice(self, n):
@@ -6470,14 +7274,25 @@ public:
 
 
 
+
+
+**Solution1**
+
+- **算法思路**：模拟题（集合 + 遍历）
+
+  - 首先构成顺子的条件是：1）除了大小王外，所有牌不能重复 2）最大牌maxv 最小牌minx 需要满足 差值 小于 5
+
+  1）遍历所有牌，当遇到 大/小王 时就直接跳过
+
+  2）判断重复：这里直接用 set 来判重，set 查找方法的时间复杂度是O(1)
+
+  3）遍历过程中去获得最大/小牌的值
+
+- **时间复杂度**： *O(n)*
+
 ```python
 # python3
-# 首先构成顺子的条件是：1）除了大小王外，所有牌不能重复 2）最大牌maxv 最小牌minx 需要满足 差值 小于 5
-
 # 集合 + 遍历
-# 1. 遍历所有牌，当遇到 大/小王 时就直接跳过
-# 2. 判断重复：这里直接用 set 来判重，set 查找方法的时间复杂度是O(1)
-# 3. 遍历过程中去获得最大/小牌的值
 
 class Solution(object):
     def isContinuous(self, nums):
@@ -6494,10 +7309,25 @@ class Solution(object):
                 return False
             my_set.add(x)
         return maxv - minv <= 4
-      
+```
+
+
+
+**Solution2**
+
+- **算法思路**：模拟题（排序 + 遍历）
+
+  - 首先构成顺子的条件是：1）除了大小王外，所有牌不能重复 2）最大牌maxv 最小牌minx 需要满足 差值 小于 5
+
+  1）先排序，就可以直接获得最大最小牌【最小牌 是大小王后的那张牌】
+
+  2）判重：排序数组中的相同元素位置相邻，因此通过遍历数组，判断 nums[i] = nums[i + 1]是否成立来判重
+
+- **时间复杂度**： *O(n)*
+
+```python
+# python3
 # 排序 + 遍历
-# 1. 先排序，就可以直接获得最大最小牌【最小牌 是大小王后的那张牌】
-# 2. 判重：排序数组中的相同元素位置相邻，因此通过遍历数组，判断 nums[i] = nums[i + 1]是否成立来判重。
 
 class Solution:
     def isStraight(self, nums: List[int]) -> bool:
@@ -6548,11 +7378,20 @@ public:
 
 
 
+
+
+**Solution**
+
+- **算法思路**：数学问题
+
+  - 约瑟夫问题 【给定一个长度为 n 的序列，每次向后数 m 个元素并删除，那么最终留下的是第几个元素？】
+
+  - 模拟整个删除过程最直观，即构建一个长度为 n 的链表，各节点值为对应的顺序索引；每轮删除第 m 个节点，直至链表长度为 1 时结束，返回最后剩余节点的值即可。
+
+- **时间复杂度**： *O(n)*
+
 ```python
 # python3
-# 很经典的数学问题---约瑟夫问题 【给定一个长度为 n 的序列，每次向后数 m 个元素并删除，那么最终留下的是第几个元素？】
-# 模拟整个删除过程最直观，即构建一个长度为 nn 的链表，各节点值为对应的顺序索引；每轮删除第 mm 个节点，直至链表长度为 1 时结束，返回最后剩余节点的值即可。
-
 
 class Solution(object):
     def lastRemaining(self, n, m):
@@ -6597,13 +7436,25 @@ public:
 
 
 
+
+
+**Solution**
+
+- **算法思路**：dp
+
+  1）状态定义：f[i]: 第 i 天卖出时的最大利润
+
+  2）状态转移：1.第 i 天卖出，利润更高：那么第 i 天的利润就等于当天卖出的价格 减去 最低买入价格：minv 表示股票买入的最低价格，遍历时记录更新。f[i] = prices[i-1] - minv
+
+  ​		   2.第 i 天卖出的可能亏损或者不亏不赚，那第 i 天的最大利润就是前一天的最大利润 f[i] = f[i-1]
+
+  3）初始状态：minv = prices[0]; f[0] = 0
+
+- **时间复杂度**： *O(n)*
+
 ```python
 # python3
 # 普通 dp 的写法
-# 状态定义：f[i]: 第 i 天卖出时的最大利润
-# 状态转移：1) 第 i 天卖出，利润更高：那么第 i 天的利润就等于当天卖出的价格 减去 最低买入价格：minv 表示股票买入的最低价格，遍历时记录更新。f[i] = prices[i-1] - minv
-#         2） 第 i 天卖出的可能亏损或者不亏不赚，那第 i 天的最大利润就是前一天的最大利润 f[i]=f[i-1]
-# 初始状态：minv = prices[0]; f[0] = 0
 
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
@@ -6708,11 +7559,18 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+
+  - Python 中会自动把超过 int 类型的最大值转换成 long 类型，所以代码实现上要做一定处理。
+
+  思路：先计算不进位的和，再计算进位
+
+- **时间复杂度**： 常数复杂度，和位数相关
+
 ```python
 # python3
-
-# Python 中会自动把超过 int 类型的最大值转换成 long 类型，所以代码实现上要做一定处理。
-# 思路：先计算不进位的和，再计算进位
 
 class Solution(object):
     def add(self, num1, num2):
@@ -6796,23 +7654,38 @@ public:
 
 
 
+**Solution**
+
+- **算法思路**：
+
+  - 只能使用常数O(1)的空间，只能开一个数组;
+
+  1）B[i] = 左半边 * 右半边 （这样就可以不用除法了）
+
+  2） 先把每个位置的前缀积算出来；然后 在这个基础上，再乘每个数的后缀积
+
+- **时间复杂度**： *O(n)*
+
 ```python
 #python3
-#  只能使用常数O(1)的空间，只能开一个数组;
-#  B[i] = 左半边 * 右半边 （这样就可以不用除法了）
-#  先把每个位置的前缀积算出来；然后 在这个基础上，再乘每个数的后缀积
 
+# first create a new list with products of all elements to the left of each element
+# Then multiply each element in that list to the product of all the elements to the right of the list by traversing it in reverse
 
 class Solution(object):
     def multiply(self, A):
         if not A : return []
         n = len(A)
         B = [0] * n
+        
+        # get product start from left
         p = 1  # 初始化一个变量p为1，表示第一个数的前缀积为1
         for i in range(n):
             B[i] = p
             p *= A[i]
         # B[i] = [1, 1, 2, 6, 24] #下标i之前所有数字乘积
+        
+        # get product starting from right
         p = 1  # 初始化一个变量p为1，表示最后一个数的后缀积为1
         for i in range(n-1, -1, -1):
             B[i] *= p  # 细节：这里需要和之前算出来保存的前缀积 做乘法运算，是最终每个位置的结果 
@@ -6883,13 +7756,26 @@ public:
 
 
 
+
+
+**Solution**
+
+- **算法思路**：模拟题
+
+  - 用一个 sign 来表示 这是一个 正数 【sign = 1】还是 负数 【sign = -1】 
+
+  1）先去掉前面的空格
+
+  2）再判断 空格 后的第一个字符是不是‘+‘ / ’-‘ ，如果是负数的话，要把 sign = -1
+
+  3）开始循环，只有当 s[i] 在【0，9】之间才会加入到结果中。用num=0【非法情况 也是返回0，所以可以初始化位0】
+
+  4）计算完成后要根据 sign 判断当前数 是 正数 还是 负数；最后再判断是否超出范围。返回结果即可。
+
+- **时间复杂度**： *O(n)*
+
 ```python
 # python3
-# 用一个 sign 来表示 这是一个 正数 【sign = 1】还是 负数 【sign = -1】 
-# 1. 先去掉前面的空格
-# 2. 再判断 空格 后的第一个字符是不是‘+‘ / ’-‘ ，如果是负数的话，要把 sign = -1
-# 3. 开始循环，只有当 s[i] 在【0，9】之间才会加入到结果中。用num=0【非法情况 也是返回0，所以可以初始化位0】
-# 4. 计算完成后要根据 sign 判断当前数 是 正数 还是 负数；最后再判断是否超出范围。返回结果即可。
 
 class Solution:
     def strToInt(self, s: str) -> int:
